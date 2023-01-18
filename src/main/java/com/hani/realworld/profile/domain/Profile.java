@@ -55,8 +55,8 @@ public class Profile {
 	/**
 	 * check whether user follow this profile
 	 */
-	public void isFollowing(User user) {
-		this.followees.isFollow(user);
+	public boolean isFollowing(User user) {
+		return this.followees.isFollow(user);
 	}
 
 	@Value

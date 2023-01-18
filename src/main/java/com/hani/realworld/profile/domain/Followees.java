@@ -50,7 +50,7 @@ public class Followees {
 	public void unfollow(User user) {
 		checkState(isFollow(user), "팔로우하지 않은 프로필입니다.");
 
-		this.users.remove(user);
+		this.users.remove(user.getId());
 	}
 
 	/**
