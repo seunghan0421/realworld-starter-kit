@@ -1,4 +1,4 @@
-package com.hani.realworld.user.domain;
+package com.hani.realworld.profile.domain;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -63,8 +63,11 @@ public class User {
 		this.password.encode(passwordEncoder);
 	}
 
-	/* 비밀번호 검증 */
-	public void verifyPassword(final Predicate<Password> passwordVerifier) {
+	/**
+	 * Logic for verifying passwords
+	 * @throws UnAuthorizationException if password is not validated
+	 */
+	public void verifyPassword(Predicate<Password> passwordVerifier) {
 		if (passwordVerifier.negate().test(this.password)) {
 			throw new UnAuthorizationException("비밀번호가 틀립니다.");
 		}
