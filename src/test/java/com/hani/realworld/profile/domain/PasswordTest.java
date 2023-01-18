@@ -1,4 +1,4 @@
-package com.hani.realworld.user.domain;
+package com.hani.realworld.profile.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
