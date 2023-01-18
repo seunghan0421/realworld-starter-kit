@@ -1,5 +1,6 @@
 package com.hani.realworld.profile.domain;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -71,6 +72,34 @@ public class User {
 		if (passwordVerifier.negate().test(this.password)) {
 			throw new UnAuthorizationException("비밀번호가 틀립니다.");
 		}
+	}
+
+	/**
+	 * TODO: 조금 수정할 가치가 있어 보임
+	 * Creates an {@link User} entity with an ID. Use to update the persisted entity.
+	 */
+	public User update(
+		String email,
+		String username,
+		String password,
+		String image,
+		String bio,
+		Function<String, String> passwordEncoder) {
+		String updatedEmail = Optional.ofNullable(email).isPresent() ? email : this.email;
+		String updatedUsername = Optional.ofNullable(username).isPresent() ? username : this.username;
+		String updatedImage = Optional.ofNullable(image).isPresent() ? image : this.image;
+		String updatedBio = Optional.ofNullable(bio).isPresent() ? bio : this.bio;
+
+		Password updatedPassword = Optional.ofNullable(password)
+			.map(pass -> {
+				Password newPassword = new Password(pass);
+				newPassword.encode(passwordEncoder);
+				return newPassword;
+			})
+			.orElseGet(() -> this.password);
+
+		return withId(this.id, updatedUsername, updatedEmail, updatedPassword, updatedBio, updatedImage);
+
 	}
 
 	@Value

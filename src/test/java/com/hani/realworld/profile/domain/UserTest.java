@@ -61,4 +61,30 @@ class UserTest {
 				password,
 				encodedPassword.getValue()));
 	}
+
+	@Test
+	void update_Succeeds() {
+		// given
+		User user = defaultUser()
+			.withBio("defaultBio")
+			.withImage("defaultImage").build();
+
+		// when
+		User updatedUser = user.update(
+			"newUser@naver.com",
+			"newUsername",
+			"newPassword",
+			null,
+			null,
+			passwordEncoder::encode);
+
+		// then
+		assertThat(updatedUser.getEmail()).isEqualTo("newUser@naver.com");
+		assertThat(updatedUser.getUsername()).isEqualTo("newUsername");
+		assertThat(updatedUser.getBio()).isEqualTo("defaultBio");
+		assertThat(updatedUser.getImage()).isEqualTo("defaultImage");
+
+		assertDoesNotThrow(() ->
+			passwordEncoder.matches("newPassword", updatedUser.getPassword().getValue()));
+	}
 }
