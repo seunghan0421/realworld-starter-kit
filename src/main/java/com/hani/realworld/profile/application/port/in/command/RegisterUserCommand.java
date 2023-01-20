@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
-@EqualsAndHashCode
 public class RegisterUserCommand extends SelfValidating<RegisterUserCommand> {
 
 	@NotBlank(message = "username cannot be empty.")
