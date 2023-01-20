@@ -12,7 +12,6 @@ import com.hani.realworld.profile.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
-@UseCase
 @RequiredArgsConstructor
 public class GetUserService implements GetUserQuery {
 
