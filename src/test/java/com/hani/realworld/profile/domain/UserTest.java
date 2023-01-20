@@ -5,15 +5,16 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hani.realworld.common.exception.UnAuthorizationException;
+import com.hani.realworld.common.util.PasswordEncoderUtil;
 
 class UserTest {
 
 	private PasswordEncoder passwordEncoder =
-		PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		new BCryptPasswordEncoder();
 
 	@Test
 	void encodePassword_Succeeds() {
@@ -37,7 +38,8 @@ class UserTest {
 		User user = defaultUser()
 			.withPassword("password")
 			.build();
-		user.encodePassword(passwordEncoder::encode);
+		PasswordEncoderUtil.encode(user.getPassword());
+
 
 		// when, then
 		assertDoesNotThrow(() -> verifyPassword(user, "password"));
@@ -49,7 +51,7 @@ class UserTest {
 		User user = defaultUser()
 			.withPassword("password")
 			.build();
-		user.encodePassword(passwordEncoder::encode);
+		PasswordEncoderUtil.encode(user.getPassword());
 
 		// when, then
 		assertThrows(UnAuthorizationException.class, () -> verifyPassword(user, "wrongPassword"));
