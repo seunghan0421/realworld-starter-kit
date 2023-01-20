@@ -8,7 +8,10 @@ import com.hani.realworld.common.util.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
+
+
 @Value
+@EqualsAndHashCode(callSuper = true)
 public class UpdateUserCommand extends SelfValidating<UpdateUserCommand> {
 
 	@Email(message = "email address is not in a valid format.")
