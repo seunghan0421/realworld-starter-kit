@@ -4,3 +4,8 @@ spring:
     url: jdbc:h2:mem:testdb;MODE=MySQL;
     username: sa
     password:
+
+config:
+  jwt:
+    secretKey: testSecretKey
+    expiration: 100000000
