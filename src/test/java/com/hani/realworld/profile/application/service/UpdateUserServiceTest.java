@@ -2,27 +2,23 @@ package com.hani.realworld.profile.application.service;
 
 import static com.hani.realworld.profile.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hani.realworld.common.util.PasswordEncoderUtil;
 import com.hani.realworld.profile.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.profile.application.port.in.result.UserResult;
-import com.hani.realworld.profile.application.port.out.LoadUserPort;
+import com.hani.realworld.profile.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.profile.application.port.out.UpdateUserStatePort;
-import com.hani.realworld.profile.domain.Password;
 import com.hani.realworld.profile.domain.User;
 
 class UpdateUserServiceTest {
 
-	private final LoadUserPort loadUserPort =
-		Mockito.mock(LoadUserPort.class);
+	private final LoadUserWithIdPort loadUserWithIdPort =
+		Mockito.mock(LoadUserWithIdPort.class);
 
 	private final UpdateUserStatePort updateUserStatePort =
 		Mockito.mock(UpdateUserStatePort.class);
@@ -31,7 +27,7 @@ class UpdateUserServiceTest {
 		new BCryptPasswordEncoder();
 
 	private final UpdateUserService updateUserService =
-		new UpdateUserService(loadUserPort, updateUserStatePort, passwordEncoder);
+		new UpdateUserService(loadUserWithIdPort, updateUserStatePort, passwordEncoder);
 
 	@Test
 	void updateUserState_Succeeds() {
@@ -58,7 +54,7 @@ class UpdateUserServiceTest {
 		assertThat(result.getImage()).isEqualTo(updateImage);
 		assertThat(result.getBio()).isEqualTo(updateBio);
 
-		then(loadUserPort).should().loadUser(userId);
+		then(loadUserWithIdPort).should().loadUser(userId);
 		then(user).should().update(
 			eq(updateEmail),
 			eq(updateUsername),
@@ -73,7 +69,7 @@ class UpdateUserServiceTest {
 	private User givenLoadUserPortWillSucceeds(UserId userId, UpdateUserCommand command) {
 		User user = Mockito.mock(User.class);
 
-		given(loadUserPort.loadUser(eq(userId)))
+		given(loadUserWithIdPort.loadUser(eq(userId)))
 			.willReturn(user);
 
 		return user;

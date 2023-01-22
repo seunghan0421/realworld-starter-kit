@@ -3,11 +3,11 @@ package com.hani.realworld.profile.application.port.in.result;
 import com.hani.realworld.profile.domain.User;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserResult {
 	private final String email;
 	private final String username;

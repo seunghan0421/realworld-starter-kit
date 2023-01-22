@@ -4,21 +4,20 @@ import static com.hani.realworld.profile.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.hani.realworld.profile.application.port.in.result.UserResult;
-import com.hani.realworld.profile.application.port.out.LoadUserPort;
+import com.hani.realworld.profile.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.profile.domain.User;
 
 class GetUserServiceTest {
 
-	private final LoadUserPort loadUserPort =
-		Mockito.mock(LoadUserPort.class);
+	private final LoadUserWithIdPort loadUserWithIdPort =
+		Mockito.mock(LoadUserWithIdPort.class);
 
 	private final GetUserService getUserService =
-		new GetUserService(loadUserPort);
+		new GetUserService(loadUserWithIdPort);
 
 	@Test
 	void getUser_Succeeds() {
@@ -35,7 +34,7 @@ class GetUserServiceTest {
 		assertThat(result.getBio()).isEqualTo("bio");
 		assertThat(result.getImage()).isEqualTo("http://image.jpeg");
 
-		then(loadUserPort).should().loadUser(eq(userId));
+		then(loadUserWithIdPort).should().loadUser(eq(userId));
 		then(user).should().getEmail();
 	}
 
@@ -47,7 +46,7 @@ class GetUserServiceTest {
 		given(user.getBio()).willReturn("bio");
 		given(user.getImage()).willReturn("http://image.jpeg");
 
-		given(loadUserPort.loadUser(eq(userId)))
+		given(loadUserWithIdPort.loadUser(eq(userId)))
 			.willReturn(user);
 
 		return user;
