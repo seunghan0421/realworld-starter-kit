@@ -1,23 +1,30 @@
-# ![RealWorld Example App](logo.png)
+# ![RealWorld Example App](./docs/images/realworld-dual-mode.png)
 
-> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+> ### Spring Boot codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) API spec.
 
+# Getting Started
 
-### [Demo](https://demo.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+## DB
 
+```shell
+$ docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql
+```
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[YOUR_FRAMEWORK]** including CRUD operations, authentication, routing, pagination, and more.
+## Test
 
-We've gone to great lengths to adhere to the **[YOUR_FRAMEWORK]** community styleguides & best practices.
+```shell
+$ ./gradlew test
+```
 
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
+# Diagram
 
+![diagram](docs/images/diagram.png)
 
-# How it works
+# License
 
-> Describe the general architecture of your app here
+All of the codebases are **MIT licensed** unless otherwise specified.
 
-# Getting started
+<br />
 
-> npm install, npm start, etc.
+[![Brought to you by Thinkster](docs/images/end.png)](https://thinkster.io)
 
