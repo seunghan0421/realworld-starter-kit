@@ -58,8 +58,7 @@ class ProfileTest {
 		profile.unfollow(user);
 
 		// then
-		assertThat(profile.getFollowees().getFollowees())
-			.hasSize(0);
+		assertThat(profile.getFollowees().getFollowees()).hasSize(0);
 	}
 
 	@Test

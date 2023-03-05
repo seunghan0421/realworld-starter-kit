@@ -14,6 +14,7 @@ import com.hani.realworld.profile.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
+@UseCase
 @Transactional
 @RequiredArgsConstructor
 public class RegisterUserService implements RegisterUserUseCase {

@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.hani.realworld.common.annotation.UseCase;
 import com.hani.realworld.profile.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.profile.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.profile.application.port.in.result.UserResult;
@@ -15,6 +16,7 @@ import com.hani.realworld.profile.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
+@UseCase
 @Transactional
 @RequiredArgsConstructor
 public class UpdateUserService implements UpdateUserUseCase {
