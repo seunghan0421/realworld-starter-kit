@@ -27,7 +27,7 @@ public class UpdateUserService implements UpdateUserUseCase {
 
 	@Override
 	public UserResult updateUser(UserId userId, UpdateUserCommand command) {
-		User user = loadUserWithIdPort.loadUser(userId);
+		User user = loadUserWithIdPort.loadUserWithId(userId);
 
 		User updatedUser = user.update(
 			command.getEmail(),

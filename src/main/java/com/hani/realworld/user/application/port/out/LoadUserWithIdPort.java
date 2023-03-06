@@ -5,5 +5,5 @@ import static com.hani.realworld.user.domain.User.*;
 import com.hani.realworld.user.domain.User;
 
 public interface LoadUserWithIdPort {
-	User loadUser(UserId userId);
+	User loadUserWithId(UserId userId);
 }

@@ -47,7 +47,7 @@ class LoginUserServiceTest {
 		assertThat(result.getToken()).isNotBlank();
 		assertUserContent(result);
 
-		then(loadUserWithEmailPort).should().loadUser(eq("user@email.com"));
+		then(loadUserWithEmailPort).should().loadUserWithEmail(eq("user@email.com"));
 		then(jwtProvider).should().generate(eq("user@email.com"), eq("username"));
 	}
 
@@ -61,7 +61,7 @@ class LoginUserServiceTest {
 		given(user.getBio()).willReturn("bio");
 		given(user.getImage()).willReturn("https://image.jpeg");
 
-		given(loadUserWithEmailPort.loadUser(eq("user@email.com")))
+		given(loadUserWithEmailPort.loadUserWithEmail(eq("user@email.com")))
 			.willReturn(user);
 
 		return user;

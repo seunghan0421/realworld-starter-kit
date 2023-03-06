@@ -22,7 +22,7 @@ public class LoginUserService implements LoginUserUseCase {
 
 	@Override
 	public LoginUserResult login(LoginUserCommand command) {
-		User user = loadUserWithEmailPort.loadUser(command.getEmail());
+		User user = loadUserWithEmailPort.loadUserWithEmail(command.getEmail());
 
 		user.verifyPassword(
 			encodedPassword -> passwordEncoder.matches(command.getPassword(), encodedPassword.getValue()));

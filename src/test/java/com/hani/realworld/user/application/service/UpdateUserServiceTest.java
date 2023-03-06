@@ -54,7 +54,7 @@ class UpdateUserServiceTest {
 		assertThat(result.getImage()).isEqualTo(updateImage);
 		assertThat(result.getBio()).isEqualTo(updateBio);
 
-		then(loadUserWithIdPort).should().loadUser(userId);
+		then(loadUserWithIdPort).should().loadUserWithId(userId);
 		then(user).should().update(
 			eq(updateEmail),
 			eq(updateUsername),
@@ -69,7 +69,7 @@ class UpdateUserServiceTest {
 	private User givenLoadUserPortWillSucceeds(UserId userId, UpdateUserCommand command) {
 		User user = Mockito.mock(User.class);
 
-		given(loadUserWithIdPort.loadUser(eq(userId)))
+		given(loadUserWithIdPort.loadUserWithId(eq(userId)))
 			.willReturn(user);
 
 		return user;

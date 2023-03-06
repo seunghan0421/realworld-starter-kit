@@ -34,7 +34,7 @@ class GetUserServiceTest {
 		assertThat(result.getBio()).isEqualTo("bio");
 		assertThat(result.getImage()).isEqualTo("http://image.jpeg");
 
-		then(loadUserWithIdPort).should().loadUser(eq(userId));
+		then(loadUserWithIdPort).should().loadUserWithId(eq(userId));
 		then(user).should().getEmail();
 	}
 
@@ -46,7 +46,7 @@ class GetUserServiceTest {
 		given(user.getBio()).willReturn("bio");
 		given(user.getImage()).willReturn("http://image.jpeg");
 
-		given(loadUserWithIdPort.loadUser(eq(userId)))
+		given(loadUserWithIdPort.loadUserWithId(eq(userId)))
 			.willReturn(user);
 
 		return user;
