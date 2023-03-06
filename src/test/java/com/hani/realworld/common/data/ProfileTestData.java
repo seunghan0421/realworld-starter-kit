@@ -1,11 +1,11 @@
 package com.hani.realworld.common.data;
 
-import static com.hani.realworld.profile.domain.Profile.*;
-import static com.hani.realworld.profile.domain.User.*;
+import static com.hani.realworld.user.domain.Profile.*;
+import static com.hani.realworld.user.domain.User.*;
 
-import com.hani.realworld.profile.domain.Followees;
-import com.hani.realworld.profile.domain.Profile;
-import com.hani.realworld.profile.domain.User;
+import com.hani.realworld.user.domain.Followees;
+import com.hani.realworld.user.domain.Profile;
+import com.hani.realworld.user.domain.User;
 
 public class ProfileTestData {
 

@@ -1,9 +1,9 @@
 package com.hani.realworld.common.data;
 
-import static com.hani.realworld.profile.domain.User.*;
+import static com.hani.realworld.user.domain.User.*;
 
-import com.hani.realworld.profile.domain.Password;
-import com.hani.realworld.profile.domain.User;
+import com.hani.realworld.user.domain.Password;
+import com.hani.realworld.user.domain.User;
 
 public class UserTestData {
 

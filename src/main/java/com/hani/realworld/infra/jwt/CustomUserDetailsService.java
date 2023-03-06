@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.hani.realworld.profile.application.port.out.LoadUserWithEmailPort;
-import com.hani.realworld.profile.domain.User;
+import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
+import com.hani.realworld.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 

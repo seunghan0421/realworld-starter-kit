@@ -2,11 +2,8 @@ package com.hani.realworld.common.util;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.assertj.core.api.Assertions;
-
-import com.hani.realworld.profile.application.port.in.result.LoginUserResult;
-import com.hani.realworld.profile.application.port.in.result.UserResult;
-import com.hani.realworld.profile.domain.User;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
+import com.hani.realworld.user.application.port.in.result.UserResult;
 
 public final class AssertUserContentUtil {
 
