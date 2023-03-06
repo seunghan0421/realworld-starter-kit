@@ -25,12 +25,18 @@ public class UserPersistenceAdapter implements
 
 	@Override
 	public User loadUserWithEmail(String email) {
-		return null;
+		UserJpaEntity userJpaEntity = userRepository.findByEmail(email)
+			.orElseThrow(EntityNotFoundException::new);
+
+		return userMapper.mapToUserEntity(userJpaEntity);
 	}
 
 	@Override
 	public User loadUserWithId(User.UserId userId) {
-		return null;
+		UserJpaEntity userJpaEntity = userRepository.findById(userId.getValue())
+			.orElseThrow(EntityNotFoundException::new);
+
+		return userMapper.mapToUserEntity(userJpaEntity);
 	}
 
 	@Override
@@ -44,7 +50,7 @@ public class UserPersistenceAdapter implements
 	public void updateUserState(User user) {
 		UserJpaEntity userJpaEntity = userRepository.findById(user.getId().getValue())
 			.orElseThrow(EntityNotFoundException::new);
-		
+
 		userJpaEntity.update(
 			user.getUsername(),
 			user.getEmail(),

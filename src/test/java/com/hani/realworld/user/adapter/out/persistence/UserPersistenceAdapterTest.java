@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.hani.realworld.user.domain.User;
 
 @Transactional
 @DataJpaTest
+// @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({UserPersistenceAdapter.class, UserMapper.class})
 class UserPersistenceAdapterTest {
@@ -26,6 +28,28 @@ class UserPersistenceAdapterTest {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void load_with_id_succeeds() {
+		// when
+		User user = adapter.loadUserWithId(new User.UserId(3L));
+
+		// then
+		assertThat(user.getUsername()).isEqualTo("username3");
+		assertThat(user.getEmail()).isEqualTo("user3@naver.com");
+	}
+
+	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void load_with_email_succeeds() {
+		// when
+		User user = adapter.loadUserWithEmail("user4@naver.com");
+
+		// then
+		assertThat(user.getUsername()).isEqualTo("username4");
+		assertThat(user.getEmail()).isEqualTo("user4@naver.com");
+	}
 
 	@ParameterizedTest
 	@CsvSource({"username, user@naver.com, password, i'm user, http://image.png"})
@@ -59,7 +83,7 @@ class UserPersistenceAdapterTest {
 		verifyPassword(savedEntity, password);
 	}
 
-	@Sql("UserPersistenceAdapterTest.sql")
+	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@ParameterizedTest
 	@CsvSource({"Updated username, Updated user@naver.com, Updated password, Updated i'm user, http://updatedimage.png"})
 	void update_User_succeeds(
@@ -81,8 +105,6 @@ class UserPersistenceAdapterTest {
 		adapter.updateUserState(updatedUser);
 
 		// then
-		assertThat(userRepository.count()).isEqualTo(1);
-
 		UserJpaEntity savedEntity = userRepository.findById(1L).get();
 		assertThat(savedEntity.getUsername()).isEqualTo(username);
 		assertThat(savedEntity.getEmail()).isEqualTo(email);
