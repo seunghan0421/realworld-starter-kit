@@ -96,8 +96,7 @@ public class User {
 				Password newPassword = new Password(pass);
 				newPassword.encode(passwordEncoder);
 				return newPassword;
-			})
-			.orElseGet(() -> this.password);
+			}).orElseGet(() -> this.password);
 
 		return withId(this.id, updatedUsername, updatedEmail, updatedPassword, updatedBio, updatedImage);
 

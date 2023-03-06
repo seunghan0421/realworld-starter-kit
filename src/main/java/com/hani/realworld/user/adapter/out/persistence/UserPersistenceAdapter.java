@@ -1,5 +1,7 @@
 package com.hani.realworld.user.adapter.out.persistence;
 
+import javax.persistence.EntityNotFoundException;
+
 import com.hani.realworld.common.annotation.PersistenceAdapter;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
@@ -11,29 +13,43 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class ProfilePersistenceAdapter implements
+public class UserPersistenceAdapter implements
 	LoadUserWithEmailPort,
 	LoadUserWithIdPort,
 	RegisterUserStatePort,
 	UpdateUserStatePort {
 
+	private final UserRepository userRepository;
+	private final ProfileRepository profileRepository;
+	private final UserMapper userMapper;
+
 	@Override
-	public User loadUser(String email) {
+	public User loadUserWithEmail(String email) {
 		return null;
 	}
 
 	@Override
-	public User loadUser(User.UserId userId) {
+	public User loadUserWithId(User.UserId userId) {
 		return null;
 	}
 
 	@Override
 	public void registerUser(User user) {
+		UserJpaEntity userEntity = userMapper.mapToJpaEntity(user);
 
+		userRepository.save(userEntity);
 	}
 
 	@Override
 	public void updateUserState(User user) {
-
+		UserJpaEntity userJpaEntity = userRepository.findById(user.getId().getValue())
+			.orElseThrow(EntityNotFoundException::new);
+		
+		userJpaEntity.update(
+			user.getUsername(),
+			user.getEmail(),
+			user.getPassword().getValue(),
+			user.getBio(),
+			user.getImage());
 	}
 }

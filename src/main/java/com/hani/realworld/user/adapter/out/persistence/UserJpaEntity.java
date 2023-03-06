@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "profile")
+@Table(name = "my_user")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserJpaEntity {
@@ -36,4 +36,18 @@ public class UserJpaEntity {
 
 	@Column
 	private String image;
+
+	public void update(
+		String username,
+		String email,
+		String password,
+		String bio,
+		String image) {
+
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.bio = bio;
+		this.image = image;
+	}
 }
