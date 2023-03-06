@@ -2,10 +2,15 @@ package com.hani.realworld.common.data;
 
 import static com.hani.realworld.user.domain.User.*;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
 public class UserTestData {
+
+	private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	public static UserBuilder defaultUser() {
 		return new UserBuilder()
@@ -21,7 +26,7 @@ public class UserTestData {
 		private UserId userId;
 		private String username;
 		private String email;
-		private String password;
+		private Password password;
 		private String bio;
 		private String image;
 
@@ -42,7 +47,8 @@ public class UserTestData {
 
 		// TODO: 추후 Test 에서도 Encoding이 필요한지 판단하자
 		public UserBuilder withPassword(String password) {
-			this.password = password;
+			this.password = new Password(password);
+			this.password.encode(encoder::encode);
 			return this;
 		}
 
@@ -61,7 +67,7 @@ public class UserTestData {
 				this.userId,
 				this.username,
 				this.email,
-				new Password(this.password),
+				this.password,
 				this.bio,
 				this.image);
 		}

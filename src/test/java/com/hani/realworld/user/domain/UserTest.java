@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hani.realworld.common.exception.UnAuthorizationException;
-import com.hani.realworld.common.util.PasswordEncoderUtil;
 
 class UserTest {
 
@@ -23,9 +22,6 @@ class UserTest {
 			.withPassword("password")
 			.build();
 
-		// when
-		user.encodePassword(passwordEncoder::encode);
-
 		// then
 		assertThat(passwordEncoder.matches(
 			"password",
@@ -38,8 +34,6 @@ class UserTest {
 		User user = defaultUser()
 			.withPassword("password")
 			.build();
-		PasswordEncoderUtil.encode(user.getPassword());
-
 
 		// when, then
 		assertDoesNotThrow(() -> verifyPassword(user, "password"));
@@ -51,7 +45,6 @@ class UserTest {
 		User user = defaultUser()
 			.withPassword("password")
 			.build();
-		PasswordEncoderUtil.encode(user.getPassword());
 
 		// when, then
 		assertThrows(UnAuthorizationException.class, () -> verifyPassword(user, "wrongPassword"));
