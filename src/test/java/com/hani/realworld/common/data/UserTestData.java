@@ -5,6 +5,8 @@ import static com.hani.realworld.user.domain.User.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.hani.realworld.common.exception.UnAuthorizationException;
+import com.hani.realworld.user.adapter.out.persistence.UserJpaEntity;
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
@@ -78,5 +80,15 @@ public class UserTestData {
 			encoder.matches(
 				password,
 				encodedPassword.getValue()));
+	}
+
+	public static void verifyPassword(UserJpaEntity user, String password) {
+		if(!encoder.matches(password, user.getPassword())) {
+			throw new UnAuthorizationException("비밀번호가 틀립니다.");
+		}
+	}
+
+	public static void main(String[] args) {
+		System.out.println(encoder.encode("password"));
 	}
 }
