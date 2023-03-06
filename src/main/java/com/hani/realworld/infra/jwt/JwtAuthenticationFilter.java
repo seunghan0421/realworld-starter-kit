@@ -29,13 +29,16 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
 	private final UserDetailsService customUserDetailsService;
 	private final JwtProvider jwtProvider;
 
 	@Override
-	protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
-		final FilterChain filterChain)
-		throws IOException, ServletException {
+	protected void doFilterInternal(
+		final HttpServletRequest request,
+		final HttpServletResponse response,
+		final FilterChain filterChain) throws IOException, ServletException {
+
 		try {
 			final String token = Tokens.get(request);
 

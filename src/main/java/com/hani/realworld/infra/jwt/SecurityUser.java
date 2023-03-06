@@ -12,6 +12,7 @@ import lombok.Getter;
 
 @Getter
 public class SecurityUser extends User {
+
 	private final String username;
 	private final String email;
 	private final String password;
@@ -38,7 +39,8 @@ public class SecurityUser extends User {
 
 	public static <R> R defaultIfNull(
 		SecurityUser securityUser,
-		Function<SecurityUser, R> securityUserResolver, final R defaultValue) {
+		Function<SecurityUser, R> securityUserResolver,
+		final R defaultValue) {
 		return Optional.ofNullable(securityUser)
 			.map(securityUserResolver)
 			.orElse(defaultValue);

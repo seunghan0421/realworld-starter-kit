@@ -8,7 +8,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.hani.realworld.common.annotation.Token;
+import com.hani.realworld.infra.jwt.annotation.Token;
 import com.hani.realworld.common.util.Tokens;
 
 public class TokenArgumentResolver implements HandlerMethodArgumentResolver {

@@ -16,12 +16,12 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class JwtProvider {
 
 	// TODO Bean으로 주입해야함
-	private final JwtProperties jwtProperty = new JwtProperties("realworld", 600000);
+	private final JwtProperties jwtProperty;
 
 	public String generate(final String email, final String username) {
 		final Date now = new Date();

@@ -1,4 +1,4 @@
-package com.hani.realworld.common.annotation;
+package com.hani.realworld.infra.jwt.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
