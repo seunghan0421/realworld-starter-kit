@@ -16,6 +16,8 @@ import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.user.application.port.in.result.UserResult;
+import com.hani.realworld.user.domain.User;
+import com.hani.realworld.user.domain.User.UserId;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +43,7 @@ public class UserCrudController {
 
 	@GetMapping("/api/users")
 	UserResult getUser(@AuthenticationPrincipal SecurityUser user) {
-		return getUserQuery.getUser(user.getId());
+		return getUserQuery.getUser(new UserId(user.getId()));
 	}
 
 	@PutMapping("/api/users")
@@ -56,6 +58,6 @@ public class UserCrudController {
 			request.getImage(),
 			request.getBio());
 
-		return updateUserUseCase.updateUser(user.getId(), command);
+		return updateUserUseCase.updateUser(new UserId(user.getId()), command);
 	}
 }
