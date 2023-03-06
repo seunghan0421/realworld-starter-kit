@@ -16,20 +16,7 @@ class UserTest {
 		new BCryptPasswordEncoder();
 
 	@Test
-	void encodePassword_Succeeds() {
-		// given
-		User user = defaultUser()
-			.withPassword("password")
-			.build();
-
-		// then
-		assertThat(passwordEncoder.matches(
-			"password",
-			user.getPassword().getValue())).isTrue();
-	}
-
-	@Test
-	void verifyPassword_Succeeds() {
+	void encode_and_verify_Password_Succeeds() {
 		// given
 		User user = defaultUser()
 			.withPassword("password")
@@ -48,13 +35,6 @@ class UserTest {
 
 		// when, then
 		assertThrows(UnAuthorizationException.class, () -> verifyPassword(user, "wrongPassword"));
-	}
-
-	private void verifyPassword(User user, String password) {
-		user.verifyPassword(encodedPassword ->
-			passwordEncoder.matches(
-				password,
-				encodedPassword.getValue()));
 	}
 
 	@Test

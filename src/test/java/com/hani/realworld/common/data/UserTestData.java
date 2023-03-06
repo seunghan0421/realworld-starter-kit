@@ -72,4 +72,11 @@ public class UserTestData {
 				this.image);
 		}
 	}
+
+	public static void verifyPassword(User user, String password) {
+		user.verifyPassword(encodedPassword ->
+			encoder.matches(
+				password,
+				encodedPassword.getValue()));
+	}
 }
