@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return SecurityUser.of(
 			user.getId().getValue(),
 			user.getEmail(),
-			user.getPassword().getValue(),
+			user.getToken(),
 			ROLE.USER.name());
 	}
 

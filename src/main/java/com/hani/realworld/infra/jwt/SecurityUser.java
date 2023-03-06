@@ -14,31 +14,27 @@ import lombok.Getter;
 public class SecurityUser extends User {
 
 	private final Long id;
-	private final String username;
 	private final String email;
-	private final String password;
+	private final String token;
 
 	private SecurityUser(
 		Long id,
-		String username,
 		String email,
-		String password,
+		String token,
 		Collection<? extends GrantedAuthority> authorities) {
-		super(username, password, authorities);
+		super(email, token, authorities);
 
 		this.id = id;
-		this.username = username;
 		this.email = email;
-		this.password = password;
+		this.token = token;
 	}
 
 	public static SecurityUser of(
 		Long id,
-		String username,
 		String email,
-		String password,
+		String token,
 		String... authorities) {
-		return new SecurityUser(id, username, email, password, AuthorityUtils.createAuthorityList(authorities));
+		return new SecurityUser(id, email, token, AuthorityUtils.createAuthorityList(authorities));
 	}
 
 	public static <R> R defaultIfNull(

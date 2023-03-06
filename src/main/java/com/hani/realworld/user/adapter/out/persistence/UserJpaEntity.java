@@ -37,6 +37,9 @@ public class UserJpaEntity {
 	@Column
 	private String image;
 
+	@Column
+	private String token;
+
 	public void update(
 		String username,
 		String email,

@@ -34,22 +34,22 @@ class UserPersistenceAdapterTest {
 	@Test
 	void load_with_id_succeeds() {
 		// when
-		User user = adapter.loadUserWithId(new User.UserId(3L));
+		User user = adapter.loadUserWithId(new User.UserId(2L));
 
 		// then
-		assertThat(user.getUsername()).isEqualTo("username3");
-		assertThat(user.getEmail()).isEqualTo("user3@naver.com");
+		assertThat(user.getUsername()).isEqualTo("username2");
+		assertThat(user.getEmail()).isEqualTo("user2@naver.com");
 	}
 
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void load_with_email_succeeds() {
 		// when
-		User user = adapter.loadUserWithEmail("user4@naver.com");
+		User user = adapter.loadUserWithEmail("user2@naver.com");
 
 		// then
-		assertThat(user.getUsername()).isEqualTo("username4");
-		assertThat(user.getEmail()).isEqualTo("user4@naver.com");
+		assertThat(user.getUsername()).isEqualTo("username2");
+		assertThat(user.getEmail()).isEqualTo("user2@naver.com");
 	}
 
 	@ParameterizedTest
