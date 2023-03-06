@@ -6,16 +6,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.hani.realworld.common.data.ProfileTestData;
-import com.hani.realworld.common.data.UserTestData;
+import com.hani.realworld.common.fixture.ProfileFixture;
+import com.hani.realworld.common.fixture.UserFixture;
 
 class ProfileTest {
 
 	@Test
 	void follow_Succeeds() {
 		// given
-		Profile profile = ProfileTestData.defaultProfile().build();
-		User user = UserTestData.defaultUser()
+		Profile profile = ProfileFixture.defaultProfile().build();
+		User user = UserFixture.defaultUser()
 			.withUserId(new UserId(45L)).build();
 
 		// when
@@ -30,12 +30,12 @@ class ProfileTest {
 	@Test
 	void follow_Failure_alreadyFollowed() {
 		// given
-		Profile profile = ProfileTestData.defaultProfile()
+		Profile profile = ProfileFixture.defaultProfile()
 			.withFollowees(new Followees(
-				UserTestData.defaultUser()
+				UserFixture.defaultUser()
 				.withUserId(new UserId(33L)).build().getId()))
 			.build();
-		User alreadyFollowedUser = UserTestData.defaultUser()
+		User alreadyFollowedUser = UserFixture.defaultUser()
 			.withUserId(new UserId(33L)).build();
 
 		// when
@@ -45,12 +45,12 @@ class ProfileTest {
 	@Test
 	void unfollow_Succeeds() {
 		// given
-		Profile profile = ProfileTestData.defaultProfile()
+		Profile profile = ProfileFixture.defaultProfile()
 			.withFollowees(new Followees(
-				UserTestData.defaultUser()
+				UserFixture.defaultUser()
 					.withUserId(new UserId(33L)).build().getId()))
 			.build();
-		User user = UserTestData.defaultUser()
+		User user = UserFixture.defaultUser()
 			.withUserId(new UserId(33L)).build();
 
 		// when
@@ -63,8 +63,8 @@ class ProfileTest {
 	@Test
 	void unfollow_Failure_NotFollowedUser() {
 		// given
-		Profile profile = ProfileTestData.defaultProfile().build();
-		User notFollowedUser = UserTestData.defaultUser()
+		Profile profile = ProfileFixture.defaultProfile().build();
+		User notFollowedUser = UserFixture.defaultUser()
 			.withUserId(new UserId(133L)).build();
 
 		// when
@@ -74,12 +74,12 @@ class ProfileTest {
 	@Test
 	void isFollowing_Succeeds() {
 		// given
-		Profile profile = ProfileTestData.defaultProfile()
+		Profile profile = ProfileFixture.defaultProfile()
 			.withFollowees(new Followees(
-				UserTestData.defaultUser()
+				UserFixture.defaultUser()
 					.withUserId(new UserId(33L)).build().getId()))
 			.build();
-		User user = UserTestData.defaultUser()
+		User user = UserFixture.defaultUser()
 			.withUserId(new UserId(33L)).build();
 
 		// when

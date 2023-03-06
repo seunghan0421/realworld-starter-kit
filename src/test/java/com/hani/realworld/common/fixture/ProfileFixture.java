@@ -1,4 +1,4 @@
-package com.hani.realworld.common.data;
+package com.hani.realworld.common.fixture;
 
 import static com.hani.realworld.user.domain.Profile.*;
 import static com.hani.realworld.user.domain.User.*;
@@ -7,17 +7,17 @@ import com.hani.realworld.user.domain.Followees;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
-public class ProfileTestData {
+public class ProfileFixture {
 
 	public static ProfileBuilder defaultProfile() {
 		return new ProfileBuilder()
 			.withProfileId(new ProfileId(33L))
-			.withUser(UserTestData.defaultUser().build())
+			.withUser(UserFixture.defaultUser().build())
 			.withFollowees(new Followees(
-				UserTestData.defaultUser()
+				UserFixture.defaultUser()
 					.withUserId(new UserId(21L))
 					.withUsername("user21").build().getId(),
-				UserTestData.defaultUser()
+				UserFixture.defaultUser()
 					.withUserId(new UserId(22L))
 					.withUsername("user22").build().getId()));
 	}

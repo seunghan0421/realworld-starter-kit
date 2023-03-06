@@ -1,6 +1,6 @@
 package com.hani.realworld.user.domain;
 
-import static com.hani.realworld.common.data.UserTestData.*;
+import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 

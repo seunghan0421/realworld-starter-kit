@@ -1,4 +1,4 @@
-package com.hani.realworld.common.data;
+package com.hani.realworld.common.fixture;
 
 import static com.hani.realworld.user.domain.User.*;
 
@@ -10,7 +10,7 @@ import com.hani.realworld.user.adapter.out.persistence.UserJpaEntity;
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
-public class UserTestData {
+public class UserFixture {
 
 	private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
