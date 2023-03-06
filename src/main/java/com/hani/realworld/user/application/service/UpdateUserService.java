@@ -26,8 +26,8 @@ public class UpdateUserService implements UpdateUserUseCase {
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	public UserResult updateUser(UserId userId, UpdateUserCommand command) {
-		User user = loadUserWithIdPort.loadUserWithId(userId);
+	public UserResult updateUser(long userId, UpdateUserCommand command) {
+		User user = loadUserWithIdPort.loadUserWithId(new UserId(userId));
 
 		User updatedUser = user.update(
 			command.getEmail(),

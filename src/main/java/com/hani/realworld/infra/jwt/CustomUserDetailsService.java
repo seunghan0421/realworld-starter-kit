@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		User user = loadUserWithEmailPort.loadUserWithEmail(username);
 
 		return SecurityUser.of(
-			user.getUsername(),
+			user.getId().getValue(),
 			user.getEmail(),
 			user.getPassword().getValue(),
 			ROLE.USER.name());

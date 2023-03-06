@@ -8,16 +8,7 @@ import lombok.Getter;
 @Getter
 @JsonRootName("user")
 public class RegisterUserRequest {
-
 	private String username;
 	private String email;
 	private String password;
-
-	public RegisterUserCommand toCommand() {
-		return new RegisterUserCommand(
-			this.username,
-			this.email,
-			this.password);
-	}
-
 }

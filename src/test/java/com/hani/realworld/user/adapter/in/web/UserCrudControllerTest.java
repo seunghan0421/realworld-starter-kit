@@ -32,9 +32,7 @@ class UserCrudControllerTest {
 	})
 	void registerUser_Succeeds(String username, String email, String password) {
 		// given
-		// json으로 변경하는 거 좋은 방법 찾아서 적용해보기
-		// ObjectNode objectNode = new ObjectMapper().createObjectNode();
-		// objectNode.
+
 
 		// when
 
