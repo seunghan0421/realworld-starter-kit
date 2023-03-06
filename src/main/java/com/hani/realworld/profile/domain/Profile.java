@@ -9,13 +9,13 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Profile {
 
-	/* 프로필 식별번호 */
+	/* Profile Identification number */
 	private final ProfileId id;
 
-	/* 프로필 사용자*/
+	/* User who has this profile*/
 	private final User user;
 
-	/* 팔로위들, Users who followed the profile. */
+	/* Users who followed the profile. */
 	private final Followees followees;
 
 	/**

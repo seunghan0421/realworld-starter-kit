@@ -25,7 +25,7 @@ class RegisterUserServiceTest {
 	private final RegisterUserService registerUserService =
 		new RegisterUserService(registerUserStatePort, passwordEncoder);
 
-
+	// TODO mock static test 해결해야함
 	@Disabled("TODO mock static test 해결해야함")
 	@Test
 	void registerUser_Succeeds() {

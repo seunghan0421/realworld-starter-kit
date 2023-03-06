@@ -15,22 +15,22 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
-	/* 사용자 식별 번호 */
+	/* User Identification Number */
 	private final UserId id;
 
-	/* 닉네임 */
+	/* User's nickname */
 	private final String username;
 
-	/* 이메일 */
+	/* User's email */
 	private final String email;
 
-	/* 비밀 번호 */
+	/* User's password */
 	private final Password password;
 
-	/* 자기 소개 */
+	/* User's  self-introduction */
 	private final String bio;
 
-	/* 이미지 */
+	/* User's image url */
 	private final String image;
 
 	/**
@@ -66,6 +66,7 @@ public class User {
 
 	/**
 	 * Logic for verifying passwords
+	 *
 	 * @throws UnAuthorizationException if password is not validated
 	 */
 	public void verifyPassword(Predicate<Password> passwordVerifier) {
