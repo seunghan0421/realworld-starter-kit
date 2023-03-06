@@ -5,24 +5,24 @@ import static com.hani.realworld.user.domain.User.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hani.realworld.common.exception.UnAuthorizationException;
-import com.hani.realworld.user.adapter.out.persistence.UserJpaEntity;
+import com.hani.realworld.common.util.PasswordEncoderUtil;
+import com.hani.realworld.user.adapter.in.web.dto.LoginUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
 public class UserFixture {
-
-	// TODO: 테스트 방식 한가지로 통일 해야 할 필요성 있음
-	private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	public static UserBuilder defaultUser() {
 		return new UserBuilder()
 			.withUserId(new UserId(42L))
 			.withUsername("user42")
 			.withEmail("user42@google.com")
-			.withPassword("user42pass")
+			.withPassword("password")
 			.withBio("Hi! i', user42")
-			.withImage("https://image.jpeg");
+			.withImage("https://image.jpeg")
+			.withToken("$2a$10$PIsqHfKTrW2ZoAdeyt60quARUhBnSulspCiELzDchztvjQlIsuGBC");
 	}
 
 	public static class UserBuilder {
@@ -32,6 +32,7 @@ public class UserFixture {
 		private Password password;
 		private String bio;
 		private String image;
+		private String token;
 
 		public UserBuilder withUserId(UserId userId) {
 			this.userId = userId;
@@ -50,7 +51,7 @@ public class UserFixture {
 
 		public UserBuilder withPassword(String password) {
 			this.password = new Password(password);
-			this.password.encode(encoder::encode);
+			PasswordEncoderUtil.encode(this.password);
 			return this;
 		}
 
@@ -64,6 +65,11 @@ public class UserFixture {
 			return this;
 		}
 
+		public UserBuilder withToken(String token) {
+			this.token = token;
+			return this;
+		}
+
 		public User build() {
 			return User.withId(
 				this.userId,
@@ -71,8 +77,36 @@ public class UserFixture {
 				this.email,
 				this.password,
 				this.bio,
-				this.image);
+				this.image,
+				this.token);
 		}
 	}
+
+	public static final User USER1 = defaultUser()
+		.withUserId(new UserId(1L))
+		.withUsername("username1")
+		.withEmail("user1@naver.com")
+		.withBio("im user")
+		.withPassword("password1")
+		.withImage("http://image.png")
+		.build();
+
+	public static final User USER2 = defaultUser()
+		.withUserId(new UserId(2L))
+		.withUsername("username2")
+		.withEmail("user2@naver.com")
+		.withBio("im user2")
+		.withPassword("password2")
+		.withImage("http://image2.png")
+		.build();
+
+	public static final RegisterUserRequest REGISTER_USER_REQUEST =
+		new RegisterUserRequest(USER1.getUsername(), USER1.getEmail(), "password1");
+
+	public static final LoginUserRequest LOGIN_USER_REQUEST =
+		new LoginUserRequest(USER1.getEmail(), "password1");
+
+	public static final UpdateUserRequest UPDATE_USER_REQUEST =
+		new UpdateUserRequest(USER2.getEmail(), USER2.getUsername(), "password", USER2.getImage(), USER2.getBio());
 
 }
