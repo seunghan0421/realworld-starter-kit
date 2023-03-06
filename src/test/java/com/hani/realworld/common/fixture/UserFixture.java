@@ -12,6 +12,7 @@ import com.hani.realworld.user.domain.User;
 
 public class UserFixture {
 
+	// TODO: 테스트 방식 한가지로 통일 해야 할 필요성 있음
 	private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	public static UserBuilder defaultUser() {
@@ -47,7 +48,6 @@ public class UserFixture {
 			return this;
 		}
 
-		// TODO: 추후 Test 에서도 Encoding이 필요한지 판단하자
 		public UserBuilder withPassword(String password) {
 			this.password = new Password(password);
 			this.password.encode(encoder::encode);
@@ -75,20 +75,4 @@ public class UserFixture {
 		}
 	}
 
-	public static void verifyPassword(User user, String password) {
-		user.verifyPassword(encodedPassword ->
-			encoder.matches(
-				password,
-				encodedPassword.getValue()));
-	}
-
-	public static void verifyPassword(UserJpaEntity user, String password) {
-		if(!encoder.matches(password, user.getPassword())) {
-			throw new UnAuthorizationException("비밀번호가 틀립니다.");
-		}
-	}
-
-	public static void main(String[] args) {
-		System.out.println(encoder.encode("password"));
-	}
 }

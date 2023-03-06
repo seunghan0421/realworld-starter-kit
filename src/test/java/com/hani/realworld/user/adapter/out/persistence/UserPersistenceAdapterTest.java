@@ -1,6 +1,7 @@
 package com.hani.realworld.user.adapter.out.persistence;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
+import static com.hani.realworld.common.util.PasswordEncoderUtil.*;
 import static org.assertj.core.api.Assertions.*;
 
 import javax.transaction.Transactional;
