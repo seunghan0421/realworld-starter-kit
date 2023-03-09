@@ -57,6 +57,7 @@ jacocoTestReport {
                     "**/dto/*",
                     "**/command/*",
                     "**/jwt/*",
+                    "**/util/*",
                     "**/result/*"
             ])
         }))
