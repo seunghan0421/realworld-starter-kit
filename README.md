@@ -16,6 +16,12 @@ $ docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql
 $ ./gradlew test
 ```
 
+## SonarQube
+
+```shell
+$ ./gradlew sonarqube -Dsonar.host.url=[sonarqube_url] -Dsonar.login=[token]
+```
+
 # Diagram
 
 ![diagram](docs/images/diagram.png)
