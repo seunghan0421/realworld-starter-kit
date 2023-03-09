@@ -16,6 +16,14 @@ $ docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql
 $ ./gradlew test
 ```
 
+To locally run the provided Postman collection against your backend, execute:
+
+```shell
+$ ./docs/run-api-tests.sh
+```
+
+For more details, see [`run-api-tests.sh`](docs/run-api-tests.sh).
+
 ## SonarQube
 
 ```shell
