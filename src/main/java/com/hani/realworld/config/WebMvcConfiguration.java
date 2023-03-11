@@ -5,7 +5,6 @@ import static org.springframework.http.HttpMethod.*;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -13,15 +12,15 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.hani.realworld.infra.jwt.TokenArgumentResolver;
+import com.hani.realworld.infra.jwt.LoginUserMethodArgumentResolver;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Configuration
-public class WebMvcConfiguration  implements WebMvcConfigurer {
+public class WebMvcConfiguration implements WebMvcConfigurer {
 
-	@Bean
-	public HandlerMethodArgumentResolver tokenArgumentResolver() {
-		return new TokenArgumentResolver();
-	}
+	private final LoginUserMethodArgumentResolver loginUserMethodArgumentResolver;
 
 	@Override
 	public void configureContentNegotiation(final ContentNegotiationConfigurer configurer) {
@@ -29,16 +28,19 @@ public class WebMvcConfiguration  implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void addCorsMappings(final CorsRegistry registry) {
-		registry.addMapping("/api/**")
-			.allowedOrigins("*")
-			.allowedMethods(Stream.of(GET, POST, PUT, DELETE)
-				.map(Enum::name)
-				.toArray(String[]::new));
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(loginUserMethodArgumentResolver);
 	}
 
 	@Override
-	public void addArgumentResolvers(final List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(tokenArgumentResolver());
+	public void addCorsMappings(final CorsRegistry registry) {
+		registry.addMapping("/**")
+			.allowedOrigins("*")
+			.allowedMethods(Stream.of(GET, POST, PUT, PATCH, DELETE, OPTIONS)
+				.map(Enum::name)
+				.toArray(String[]::new))
+			.allowedHeaders("Content-Type", "X-Requested-With", "Authorization", "Cache-Control")
+			.maxAge(3600L);
 	}
+
 }
