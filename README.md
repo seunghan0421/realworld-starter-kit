@@ -30,6 +30,16 @@ For more details, see [`run-api-tests.sh`](docs/run-api-tests.sh).
 $ ./gradlew sonarqube -Dsonar.host.url=[sonarqube_url] -Dsonar.login=[token]
 ```
 
+## Documentation
+
+To generate REST API Documentation, execute:
+
+```shell
+$ ./gradlew bootJar
+```
+
+For more details, see [`RealWorld - Spring Rest Docs`](src/main/resources/static/docs/index.html).
+
 # Diagram
 
 ![diagram](docs/images/diagram.png)
@@ -41,4 +51,3 @@ All of the codebases are **MIT licensed** unless otherwise specified.
 <br />
 
 [![Brought to you by Thinkster](docs/images/end.png)](https://thinkster.io)
-
