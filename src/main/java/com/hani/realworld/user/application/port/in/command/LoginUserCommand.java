@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class LoginUserCommand extends SelfValidating<LoginUserCommand> {
 
 	@NotBlank(message = "email cannot be empty.")

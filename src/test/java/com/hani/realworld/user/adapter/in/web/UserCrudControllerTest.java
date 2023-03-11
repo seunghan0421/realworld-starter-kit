@@ -104,4 +104,27 @@ class UserCrudControllerTest extends ControllerTest {
 				USER2.getImage(),
 				USER2.getBio())));
 	}
+
+	@Test
+	void getUser_Succeeds() throws Exception {
+		UserResult response = UserResult.of(USER1);
+
+		given(getUserQuery.getUser(eq(USER1.getId()))).willReturn(response);
+
+		mockMvc.perform(
+				RestDocumentationRequestBuilders.get("/api/user")
+					.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andExpect(status().isOk())
+			.andDo(
+				restDocs.document(
+					responseFields(
+						fieldWithPath("user").type(JsonFieldType.OBJECT).description("유저 정보")
+					).andWithPrefix("user.", UserFieldDescriptor.user)
+				)
+			);
+
+		then(getUserQuery).should()
+			.getUser(eq(USER1.getId()));
+	}
 }

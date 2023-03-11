@@ -5,9 +5,11 @@ import javax.validation.constraints.NotBlank;
 
 import com.hani.realworld.common.util.SelfValidating;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
+@EqualsAndHashCode(callSuper = false)
 public class RegisterUserCommand extends SelfValidating<RegisterUserCommand> {
 
 	@NotBlank(message = "username cannot be empty.")

@@ -4,9 +4,11 @@ import javax.validation.constraints.Email;
 
 import com.hani.realworld.common.util.SelfValidating;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
+@EqualsAndHashCode(callSuper = false)
 public class UpdateUserCommand extends SelfValidating<UpdateUserCommand> {
 
 	@Email(message = "email address is not in a valid format.")

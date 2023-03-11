@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 
 // TODO: 뜯어 고쳐
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
 @RestController
 public class UserCrudController {
 
@@ -36,7 +35,7 @@ public class UserCrudController {
 
 	private final GetUserQuery getUserQuery;
 
-	@PostMapping
+	@PostMapping("/api/users")
 	ResponseEntity<UserResponse> registerUser(@RequestBody RegisterUserRequest request) {
 
 		RegisterUserCommand command = new RegisterUserCommand(
@@ -50,15 +49,15 @@ public class UserCrudController {
 			.body(UserResponse.of(userResult, null));
 	}
 
-	@GetMapping("/api/users")
-	UserResponse getUser(@LoginUser LoginToken loginToken) {
+	@GetMapping("/api/user")
+	ResponseEntity<UserResponse> getUser(@LoginUser LoginToken loginToken) {
 
 		UserResult userResult = getUserQuery.getUser(new UserId(loginToken.getId()));
 
-		return UserResponse.of(userResult, loginToken.getToken());
+		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
 	}
 
-	@PutMapping
+	@PutMapping("/api/users")
 	ResponseEntity<UserResponse> getUser(
 		@RequestBody UpdateUserRequest request,
 		@LoginUser LoginToken loginToken) {
