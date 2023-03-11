@@ -32,6 +32,7 @@ import com.hani.realworld.infra.jwt.JwtProperties;
 import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.infra.jwt.LoginUserMethodArgumentResolver;
 import com.hani.realworld.user.adapter.in.web.UserCrudController;
+import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 
 @Disabled
 @Import(RestDocsConfig.class)
@@ -43,6 +44,9 @@ public class ControllerTest {
 
 	@MockBean
 	protected LoginUserMethodArgumentResolver loginUserMethodArgumentResolver;
+
+	@MockBean
+	protected LoadUserWithEmailPort loadUserWithEmailPort;
 
 	protected ObjectMapper objectMapper;
 
@@ -69,8 +73,9 @@ public class ControllerTest {
 			.addFilters(new CharacterEncodingFilter("UTF-8", true)) // 한글 깨짐 방지
 			.build();
 
+		given(loadUserWithEmailPort.loadUserWithEmail(any())).willReturn(USER1);
 		given(loginUserMethodArgumentResolver.supportsParameter(any())).willReturn(true);
-		given(loginUserMethodArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(USER1);
+		given(loginUserMethodArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(LOGIN_TOKEN);
 	}
 
 	protected String createJson(Object dto) throws JsonProcessingException {

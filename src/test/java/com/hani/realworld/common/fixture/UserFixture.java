@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hani.realworld.common.util.PasswordEncoderUtil;
+import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.user.adapter.in.web.dto.LoginUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
@@ -111,7 +112,10 @@ public class UserFixture {
 		new LoginUserRequest(USER1.getEmail(), "password1");
 
 	public static final UpdateUserRequest UPDATE_USER_REQUEST =
-		new UpdateUserRequest(USER2.getEmail(), USER2.getUsername(), "password", USER2.getImage(), USER2.getBio());
+		new UpdateUserRequest(USER2.getEmail(), USER2.getUsername(), "password2", USER2.getImage(), USER2.getBio());
+
+	public static final LoginToken LOGIN_TOKEN =
+		new LoginToken(USER1.getId().getValue(), "user1 jwt token", USER1.getEmail());
 
 	public static UserResponse getResponseFromUser(User user, String token) {
 		return UserResponse.of(UserResult.of(user), token);

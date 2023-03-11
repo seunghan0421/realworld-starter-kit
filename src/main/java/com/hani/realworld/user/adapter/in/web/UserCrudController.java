@@ -37,7 +37,7 @@ public class UserCrudController {
 	private final GetUserQuery getUserQuery;
 
 	@PostMapping
-	public ResponseEntity<UserResponse> registerUser(@RequestBody RegisterUserRequest request) {
+	ResponseEntity<UserResponse> registerUser(@RequestBody RegisterUserRequest request) {
 
 		RegisterUserCommand command = new RegisterUserCommand(
 			request.getUsername(),
@@ -58,8 +58,8 @@ public class UserCrudController {
 		return UserResponse.of(userResult, loginToken.getToken());
 	}
 
-	@PutMapping("/api/users")
-	UserResponse getUser(
+	@PutMapping
+	ResponseEntity<UserResponse> getUser(
 		@RequestBody UpdateUserRequest request,
 		@LoginUser LoginToken loginToken) {
 
@@ -72,6 +72,6 @@ public class UserCrudController {
 
 		UserResult userResult = updateUserUseCase.updateUser(new UserId(loginToken.getId()), command);
 
-		return UserResponse.of(userResult, loginToken.getToken());
+		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
 	}
 }

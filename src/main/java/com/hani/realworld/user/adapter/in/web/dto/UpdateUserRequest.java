@@ -6,11 +6,17 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.*;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
-@JsonTypeName("user")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-@Value
+@JsonTypeName("user")
 public class UpdateUserRequest {
 
 	private String email;
