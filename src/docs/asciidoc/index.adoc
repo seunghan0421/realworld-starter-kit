@@ -1,4 +1,4 @@
-= REST Docs 문서 만들기
+= REST Docs 문서 만들기 - 진행중
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs // 문서에 표기되는 코드들의 하이라이팅을 highlightjs를 사용

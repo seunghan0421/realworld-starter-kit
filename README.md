@@ -38,7 +38,7 @@ To generate REST API Documentation, execute:
 $ ./gradlew bootJar
 ```
 
-For more details, see [`RealWorld - Spring Rest Docs`](src/main/resources/static/docs/index.html).
+For more details, see [`RealWorld - Spring Rest Docs`](docs/index.html).
 
 # Diagram
 
