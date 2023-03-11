@@ -16,4 +16,5 @@ public class RestDocsConfig {
 			Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
 			Preprocessors.preprocessResponse(Preprocessors.prettyPrint()));
 	}
+
 }
