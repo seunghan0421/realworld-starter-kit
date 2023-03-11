@@ -1,5 +1,8 @@
 package com.hani.realworld.common.restdocs;
 
+import static com.hani.realworld.common.fixture.UserFixture.*;
+import static org.mockito.BDDMockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,17 +34,6 @@ import com.hani.realworld.infra.jwt.LoginUserMethodArgumentResolver;
 import com.hani.realworld.user.adapter.in.web.UserCrudController;
 
 @Disabled
-// @WebMvcTest(controllers = {
-// 	UserCrudController.class,
-// 	CommonDocController.class
-// },
-// 	excludeFilters = {
-// 		@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfiguration.class),
-// 		@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = JwtAuthenticationFilter.class),
-// 		@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = LoginUserMethodArgumentResolver.class),
-// 		@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebMvcConfiguration.class)
-// 	}
-// )
 @Import(RestDocsConfig.class)
 @ExtendWith(RestDocumentationExtension.class)
 public class ControllerTest {
@@ -76,6 +68,9 @@ public class ControllerTest {
 			.alwaysDo(restDocs)
 			.addFilters(new CharacterEncodingFilter("UTF-8", true)) // 한글 깨짐 방지
 			.build();
+
+		given(loginUserMethodArgumentResolver.supportsParameter(any())).willReturn(true);
+		given(loginUserMethodArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(USER1);
 	}
 
 	protected String createJson(Object dto) throws JsonProcessingException {

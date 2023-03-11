@@ -59,10 +59,10 @@ class UserCrudControllerTest extends ControllerTest {
 				)
 			);
 
-		// then(registerUserUseCase).should()
-		// 	.register(eq(new RegisterUserCommand(
-		// 		REGISTER_USER_REQUEST.getUsername(),
-		// 		REGISTER_USER_REQUEST.getEmail(),
-		// 		REGISTER_USER_REQUEST.getPassword())));
+		then(registerUserUseCase).should()
+			.register(eq(new RegisterUserCommand(
+				REGISTER_USER_REQUEST.getUsername(),
+				REGISTER_USER_REQUEST.getEmail(),
+				REGISTER_USER_REQUEST.getPassword())));
 	}
 }
