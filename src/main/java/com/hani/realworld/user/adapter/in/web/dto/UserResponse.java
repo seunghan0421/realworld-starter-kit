@@ -4,6 +4,7 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 
 import lombok.AccessLevel;
@@ -23,13 +24,22 @@ public class UserResponse {
 	private String bio;
 	private String image;
 
-	public static UserResponse of(UserResult userResult, String token) {
+	public static UserResponse of(UserResult result, String token) {
 		return new UserResponse(
-			userResult.getEmail(),
+			result.getEmail(),
 			token,
-			userResult.getUsername(),
-			userResult.getBio(),
-			userResult.getImage());
+			result.getUsername(),
+			result.getBio(),
+			result.getImage());
+	}
+
+	public static UserResponse of(LoginUserResult result) {
+		return new UserResponse(
+			result.getEmail(),
+			result.getToken(),
+			result.getUsername(),
+			result.getBio(),
+			result.getImage());
 	}
 
 }

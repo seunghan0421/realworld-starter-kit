@@ -1,29 +1,52 @@
 [[overview]]
-== Overview
+= Overview
 
-[[overview-http-status-codes]]
-=== HTTP status codes
+[[overview-http-verbs]]
+== HTTP verbs
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP verbs.
 
 |===
-| 상태 코드 | 설명
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PATCH`
+| Used to update an existing resource, including partial updates
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP status codes.
+
+|===
+| Status code | Usage
 
 | `200 OK`
-| 성공
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully.
+The resource's URI is available from the response's
+`Location` header
 
 | `400 Bad Request`
-| 잘못된 요청
+| The request was malformed.
+The response body will include an error providing further information
 
-| `401 Unauthorized`
-| 비인증 상태
+| `401 Unauthorized Request`
+| The request is unauthorized, when a request requires authentication but it isn't provided
 
-| `403 Forbidden`
-| 권한 거부
+| `403 Forbidden Request`
+| The request may be valid, but the user doesn't have permissions to perform the action
 
 | `404 Not Found`
-| 존재하지 않는 요청 리소스
-
-| `500 Internal Server Error`
-| 서버 에러
+| The requested resource did not exist
 |===
 
 [[overview-error-response]]

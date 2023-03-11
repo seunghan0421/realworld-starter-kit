@@ -18,7 +18,6 @@ import lombok.Value;
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
 @JsonTypeName("user")
 public class UpdateUserRequest {
-
 	private String email;
 	private String username;
 	private String password;
