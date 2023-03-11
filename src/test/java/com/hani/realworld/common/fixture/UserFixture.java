@@ -21,8 +21,7 @@ public class UserFixture {
 			.withEmail("user42@google.com")
 			.withPassword("password")
 			.withBio("Hi! i', user42")
-			.withImage("https://image.jpeg")
-			.withToken("$2a$10$PIsqHfKTrW2ZoAdeyt60quARUhBnSulspCiELzDchztvjQlIsuGBC");
+			.withImage("https://image.jpeg");
 	}
 
 	public static class UserBuilder {
@@ -65,11 +64,6 @@ public class UserFixture {
 			return this;
 		}
 
-		public UserBuilder withToken(String token) {
-			this.token = token;
-			return this;
-		}
-
 		public User build() {
 			return User.withId(
 				this.userId,
@@ -77,8 +71,7 @@ public class UserFixture {
 				this.email,
 				this.password,
 				this.bio,
-				this.image,
-				this.token);
+				this.image);
 		}
 	}
 

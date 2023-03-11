@@ -1,13 +1,13 @@
 package com.hani.realworld.user.adapter.in.web;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hani.realworld.infra.jwt.SecurityUser;
+import com.hani.realworld.infra.jwt.LoginToken;
+import com.hani.realworld.infra.jwt.LoginUser;
 import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
 import com.hani.realworld.user.application.port.in.GetUserQuery;
@@ -16,11 +16,11 @@ import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.user.application.port.in.result.UserResult;
-import com.hani.realworld.user.domain.User;
 import com.hani.realworld.user.domain.User.UserId;
 
 import lombok.RequiredArgsConstructor;
 
+// TODO: 뜯어 고쳐
 @RestController
 @RequiredArgsConstructor
 public class UserCrudController {
@@ -42,14 +42,14 @@ public class UserCrudController {
 	}
 
 	@GetMapping("/api/users")
-	UserResult getUser(@AuthenticationPrincipal SecurityUser user) {
-		return getUserQuery.getUser(new UserId(user.getId()));
+	UserResult getUser(@LoginUser LoginToken loginToken) {
+		return getUserQuery.getUser(new UserId(loginToken.getId()));
 	}
 
 	@PutMapping("/api/users")
 	UserResult getUser(
-		@AuthenticationPrincipal SecurityUser user,
-		@RequestBody UpdateUserRequest request) {
+		@RequestBody UpdateUserRequest request,
+		@LoginUser LoginToken loginToken) {
 
 		UpdateUserCommand command = new UpdateUserCommand(
 			request.getEmail(),
@@ -58,6 +58,6 @@ public class UserCrudController {
 			request.getImage(),
 			request.getBio());
 
-		return updateUserUseCase.updateUser(new UserId(user.getId()), command);
+		return updateUserUseCase.updateUser(new UserId(loginToken.getId()), command);
 	}
 }

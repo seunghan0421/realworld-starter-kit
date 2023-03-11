@@ -17,8 +17,7 @@ public class UserMapper {
 			user.getEmail(),
 			user.getPassword().getValue(),
 			user.getBio(),
-			user.getImage(),
-			user.getToken());
+			user.getImage());
 	}
 
 	public User mapToUserEntity(UserJpaEntity userJpaEntity) {
@@ -28,7 +27,6 @@ public class UserMapper {
 			userJpaEntity.getEmail(),
 			new Password(userJpaEntity.getPassword()),
 			userJpaEntity.getBio(),
-			userJpaEntity.getImage(),
-			userJpaEntity.getToken());
+			userJpaEntity.getImage());
 	}
 }

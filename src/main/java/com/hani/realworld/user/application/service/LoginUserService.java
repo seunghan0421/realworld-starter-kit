@@ -27,7 +27,7 @@ public class LoginUserService implements LoginUserUseCase {
 		user.verifyPassword(
 			encodedPassword -> passwordEncoder.matches(command.getPassword(), encodedPassword.getValue()));
 
-		String token = jwtProvider.generate(user.getEmail(), user.getUsername());
+		String token = jwtProvider.generate(user.getEmail());
 		return LoginUserResult.of(user, token);
 	}
 }

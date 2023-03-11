@@ -48,7 +48,7 @@ class LoginUserServiceTest {
 		assertUserContent(result);
 
 		then(loadUserWithEmailPort).should().loadUserWithEmail(eq("user@email.com"));
-		then(jwtProvider).should().generate(eq("user@email.com"), eq("username"));
+		then(jwtProvider).should().generate(eq("user@email.com"));
 	}
 
 	private User givenLoadUserPortWillSucceeds() {
@@ -68,7 +68,7 @@ class LoginUserServiceTest {
 	}
 
 	private void givenJwtProviderMakeTokenWillSucceeds() {
-		given(jwtProvider.generate(eq("user@email.com"), eq("username")))
+		given(jwtProvider.generate(eq("user@email.com")))
 			.willReturn("validToken");
 	}
 

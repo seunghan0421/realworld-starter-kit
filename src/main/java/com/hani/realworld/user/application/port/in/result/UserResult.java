@@ -13,14 +13,12 @@ public class UserResult {
 	private final String username;
 	private final String bio;
 	private final String image;
-	private final String token;
 
 	public static UserResult of(User user) {
 		return new UserResult(
 			user.getEmail(),
 			user.getUsername(),
 			user.getBio(),
-			user.getImage(),
-			user.getToken());
+			user.getImage());
 	}
 }

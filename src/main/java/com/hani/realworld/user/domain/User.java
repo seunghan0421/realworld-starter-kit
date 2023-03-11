@@ -33,9 +33,6 @@ public class User {
 	/* User's image url */
 	private final String image;
 
-	/* token */
-	private final String token;
-
 	/**
 	 * Creates an {@link User} entity without an ID. Use to create a new entity that is not yet
 	 * persisted.
@@ -44,7 +41,7 @@ public class User {
 		String username,
 		String email,
 		Password password) {
-		return new User(null, username, email, password, null, null, null);
+		return new User(null, username, email, password, null, null);
 	}
 
 	/**
@@ -56,9 +53,8 @@ public class User {
 		String email,
 		Password password,
 		String bio,
-		String image,
-		String token) {
-		return new User(userId, username, email, password, bio, image, token);
+		String image) {
+		return new User(userId, username, email, password, bio, image);
 	}
 
 	/**
@@ -102,7 +98,7 @@ public class User {
 				return newPassword;
 			}).orElseGet(() -> this.password);
 
-		return withId(this.id, updatedUsername, updatedEmail, updatedPassword, updatedBio, updatedImage, this.token);
+		return withId(this.id, updatedUsername, updatedEmail, updatedPassword, updatedBio, updatedImage);
 
 	}
 
