@@ -5,10 +5,12 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
-public class CommonDocControllerTest extends RestDocsTestSupport{
+@WebMvcTest(CommonDocController.class)
+public class CommonDocControllerTest extends ControllerTest{
 
 	@Test
 	void errorSample() throws Exception {

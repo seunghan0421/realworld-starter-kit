@@ -9,6 +9,8 @@ import com.hani.realworld.common.util.PasswordEncoderUtil;
 import com.hani.realworld.user.adapter.in.web.dto.LoginUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.UserResponse;
+import com.hani.realworld.user.application.port.in.result.UserResult;
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
@@ -75,8 +77,17 @@ public class UserFixture {
 		}
 	}
 
+	public static final User REGISTER_USER = defaultUser()
+		.withUserId(new UserId(44L))
+		.withUsername("username1")
+		.withEmail("user1@naver.com")
+		.withBio(null)
+		.withPassword("password")
+		.withImage(null)
+		.build();
+
 	public static final User USER1 = defaultUser()
-		.withUserId(new UserId(1L))
+		.withUserId(new UserId(45L))
 		.withUsername("username1")
 		.withEmail("user1@naver.com")
 		.withBio("im user")
@@ -85,7 +96,7 @@ public class UserFixture {
 		.build();
 
 	public static final User USER2 = defaultUser()
-		.withUserId(new UserId(2L))
+		.withUserId(new UserId(46L))
 		.withUsername("username2")
 		.withEmail("user2@naver.com")
 		.withBio("im user2")
@@ -94,12 +105,20 @@ public class UserFixture {
 		.build();
 
 	public static final RegisterUserRequest REGISTER_USER_REQUEST =
-		new RegisterUserRequest(USER1.getUsername(), USER1.getEmail(), "password1");
+		new RegisterUserRequest(REGISTER_USER.getUsername(), REGISTER_USER.getEmail(), "password");
 
 	public static final LoginUserRequest LOGIN_USER_REQUEST =
 		new LoginUserRequest(USER1.getEmail(), "password1");
 
 	public static final UpdateUserRequest UPDATE_USER_REQUEST =
 		new UpdateUserRequest(USER2.getEmail(), USER2.getUsername(), "password", USER2.getImage(), USER2.getBio());
+
+	public static UserResponse getResponseFromUser(User user, String token) {
+		return UserResponse.of(UserResult.of(user), token);
+	}
+
+	public static UserResponse getResponseFromUser(User user) {
+		return getResponseFromUser(user, null);
+	}
 
 }

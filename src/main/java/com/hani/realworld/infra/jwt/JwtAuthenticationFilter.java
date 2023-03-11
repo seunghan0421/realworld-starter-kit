@@ -24,7 +24,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	public static final String AUTHORIZATION_HEADER = "Authorization";
 
-	private final LoadUserWithEmailPort loadUserWithEmailPort;
 	private final JwtProvider jwtProvider;
 
 	@Override

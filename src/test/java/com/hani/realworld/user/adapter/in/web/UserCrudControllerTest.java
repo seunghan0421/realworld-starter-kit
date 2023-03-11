@@ -1,41 +1,68 @@
 package com.hani.realworld.user.adapter.in.web;
 
-import static org.junit.jupiter.params.ParameterizedTest.*;
+import static com.hani.realworld.common.fixture.UserFixture.*;
+import static org.mockito.BDDMockito.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.JsonFieldType;
 
+import com.hani.realworld.common.descriptor.UserFieldDescriptor;
+import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.user.application.port.in.GetUserQuery;
 import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
+import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
+import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
+import com.hani.realworld.user.application.port.in.result.UserResult;
 
-@Disabled
-@WebMvcTest(controllers = UserCrudController.class)
-class UserCrudControllerTest {
-
-	@Autowired
-	private MockMvc mockMvc;
+@WebMvcTest(UserCrudController.class)
+class UserCrudControllerTest extends ControllerTest {
 
 	@MockBean
-	RegisterUserUseCase registerUserUseCase;
+	private RegisterUserUseCase registerUserUseCase;
 
-	private static final String DISPLAY_NAME = DISPLAY_NAME_PLACEHOLDER + ARGUMENTS_PLACEHOLDER;
+	@MockBean
+	private UpdateUserUseCase updateUserUseCase;
 
-	// TODO 직접적으로 PARAMETER들이 같은지 비교하지 않을 것이기 때문에 ParameterizedTest 할 필요 없을것 같긴한데 추후 변경
-	@ParameterizedTest(name = DISPLAY_NAME)
-	@CsvSource({
-		"하니","hani@naver.com","haniPasswrod",
-		"허니","honey@google.com","honeyPassword"
-	})
-	void registerUser_Succeeds(String username, String email, String password) {
-		// given
+	@MockBean
+	private GetUserQuery getUserQuery;
 
+	@Test
+	void registerUser_Succeeds() throws Exception {
+		String request = createJson(REGISTER_USER_REQUEST);
+		UserResult response = UserResult.of(REGISTER_USER);
 
-		// when
+		given(registerUserUseCase.register(any(RegisterUserCommand.class)))
+			.willReturn(response);
 
-		// then
+		mockMvc.perform(
+				RestDocumentationRequestBuilders.post("/api/users")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(request)
+			)
+			.andExpect(status().isCreated())
+			.andDo(
+				restDocs.document(
+					requestFields(
+						fieldWithPath("user.username").type(JsonFieldType.STRING).description("유저명"),
+						fieldWithPath("user.email").type(JsonFieldType.STRING).description("이메일"),
+						fieldWithPath("user.password").type(JsonFieldType.STRING).description("비밀번호")
+					),
+					responseFields(
+						fieldWithPath("user").type(JsonFieldType.OBJECT).description("유저 정보")
+					).andWithPrefix("user.", UserFieldDescriptor.registered_user)
+				)
+			);
+
+		// then(registerUserUseCase).should()
+		// 	.register(eq(new RegisterUserCommand(
+		// 		REGISTER_USER_REQUEST.getUsername(),
+		// 		REGISTER_USER_REQUEST.getEmail(),
+		// 		REGISTER_USER_REQUEST.getPassword())));
 	}
 }

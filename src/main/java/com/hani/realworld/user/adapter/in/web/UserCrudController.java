@@ -1,15 +1,20 @@
 package com.hani.realworld.user.adapter.in.web;
 
+import java.net.URI;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.infra.jwt.LoginUser;
 import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.UserResponse;
 import com.hani.realworld.user.application.port.in.GetUserQuery;
 import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
@@ -21,8 +26,9 @@ import com.hani.realworld.user.domain.User.UserId;
 import lombok.RequiredArgsConstructor;
 
 // TODO: 뜯어 고쳐
-@RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/users")
+@RestController
 public class UserCrudController {
 
 	private final RegisterUserUseCase registerUserUseCase;
@@ -30,24 +36,30 @@ public class UserCrudController {
 
 	private final GetUserQuery getUserQuery;
 
-	@PostMapping("/api/users")
-	UserResult registerUser(@RequestBody RegisterUserRequest request) {
+	@PostMapping
+	public ResponseEntity<UserResponse> registerUser(@RequestBody RegisterUserRequest request) {
 
 		RegisterUserCommand command = new RegisterUserCommand(
 			request.getUsername(),
 			request.getEmail(),
 			request.getPassword());
 
-		return registerUserUseCase.register(command);
+		UserResult userResult = registerUserUseCase.register(command);
+
+		return ResponseEntity.created(URI.create("/api/profiles/" + request.getUsername()))
+			.body(UserResponse.of(userResult, null));
 	}
 
 	@GetMapping("/api/users")
-	UserResult getUser(@LoginUser LoginToken loginToken) {
-		return getUserQuery.getUser(new UserId(loginToken.getId()));
+	UserResponse getUser(@LoginUser LoginToken loginToken) {
+
+		UserResult userResult = getUserQuery.getUser(new UserId(loginToken.getId()));
+
+		return UserResponse.of(userResult, loginToken.getToken());
 	}
 
 	@PutMapping("/api/users")
-	UserResult getUser(
+	UserResponse getUser(
 		@RequestBody UpdateUserRequest request,
 		@LoginUser LoginToken loginToken) {
 
@@ -58,6 +70,8 @@ public class UserCrudController {
 			request.getImage(),
 			request.getBio());
 
-		return updateUserUseCase.updateUser(new UserId(loginToken.getId()), command);
+		UserResult userResult = updateUserUseCase.updateUser(new UserId(loginToken.getId()), command);
+
+		return UserResponse.of(userResult, loginToken.getToken());
 	}
 }
