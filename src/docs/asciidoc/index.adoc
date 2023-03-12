@@ -8,3 +8,4 @@
 
 include::overview.adoc[]
 include::user.adoc[]
+include::profile.adoc[]
