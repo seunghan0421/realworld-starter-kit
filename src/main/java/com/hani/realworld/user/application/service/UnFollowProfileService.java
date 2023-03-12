@@ -5,6 +5,10 @@ import javax.transaction.Transactional;
 import com.hani.realworld.common.annotation.UseCase;
 import com.hani.realworld.user.application.port.in.UnFollowProfileUseCase;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.domain.Profile;
+import com.hani.realworld.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +17,16 @@ import lombok.RequiredArgsConstructor;
 @UseCase
 public class UnFollowProfileService implements UnFollowProfileUseCase {
 
+	private final LoadProfileWithUsername loadProfileWithUsername;
+	private final LoadProfileWithUserId loadProfileWithUserId;
+
 	@Override
 	public ProfileResult unfollowProfile(String username, Long userId) {
-		return null;
+		Profile target = loadProfileWithUsername.loadProfileWithUsername(username);
+		Profile base = loadProfileWithUserId.loadProfileWithUserId(new User.UserId(userId));
+
+		base.unfollow(target.getUser());
+
+		return ProfileResult.of(target, base.isFollowing(target.getUser()));
 	}
 }
