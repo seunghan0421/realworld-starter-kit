@@ -34,7 +34,6 @@ public class UserFixture {
 		private Password password;
 		private String bio;
 		private String image;
-		private String token;
 
 		public UserBuilder withUserId(UserId userId) {
 			this.userId = userId;
@@ -91,7 +90,7 @@ public class UserFixture {
 		.withUserId(new UserId(45L))
 		.withUsername("username1")
 		.withEmail("user1@naver.com")
-		.withBio("im user")
+		.withBio("im user1")
 		.withPassword("password1")
 		.withImage("http://image.png")
 		.build();
@@ -114,8 +113,11 @@ public class UserFixture {
 	public static final UpdateUserRequest UPDATE_USER_REQUEST =
 		new UpdateUserRequest(USER2.getEmail(), USER2.getUsername(), "password2", USER2.getImage(), USER2.getBio());
 
-	public static final LoginToken LOGIN_TOKEN =
+	public static final LoginToken USER1_LOGIN_TOKEN =
 		new LoginToken(USER1.getId().getValue(), "user1 jwt token", USER1.getEmail());
+
+	public static final LoginToken USER2_LOGIN_TOKEN =
+		new LoginToken(USER2.getId().getValue(), "user2 jwt token", USER2.getEmail());
 
 	public static UserResponse getResponseFromUser(User user, String token) {
 		return UserResponse.of(UserResult.of(user), token);

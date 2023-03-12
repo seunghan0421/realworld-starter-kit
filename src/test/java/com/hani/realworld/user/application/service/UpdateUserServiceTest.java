@@ -46,7 +46,7 @@ class UpdateUserServiceTest {
 		User updatedUser = givenUpdateUserPortWillSucceeds(userId, command, user);
 
 		// when
-		UserResult result = updateUserService.updateUser(userId, command);
+		UserResult result = updateUserService.updateUser(command, 42L);
 
 		// then
 		assertThat(result.getUsername()).isEqualTo(updateUsername);

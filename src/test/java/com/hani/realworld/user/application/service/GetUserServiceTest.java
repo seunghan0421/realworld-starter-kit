@@ -22,7 +22,7 @@ class GetUserServiceTest {
 	@Test
 	void getUser_Succeeds() {
 		// given
-		UserId userId = new UserId(42L);
+		Long userId = 42L;
 		User user = givenAnUserWithId(userId);
 
 		// when
@@ -34,11 +34,11 @@ class GetUserServiceTest {
 		assertThat(result.getBio()).isEqualTo("bio");
 		assertThat(result.getImage()).isEqualTo("http://image.jpeg");
 
-		then(loadUserWithIdPort).should().loadUserWithId(eq(userId));
+		then(loadUserWithIdPort).should().loadUserWithId(eq(new UserId(userId)));
 		then(user).should().getEmail();
 	}
 
-	private User givenAnUserWithId(UserId userId) {
+	private User givenAnUserWithId(Long userId) {
 		User user = Mockito.mock(User.class);
 
 		given(user.getUsername()).willReturn("username");
@@ -46,7 +46,7 @@ class GetUserServiceTest {
 		given(user.getBio()).willReturn("bio");
 		given(user.getImage()).willReturn("http://image.jpeg");
 
-		given(loadUserWithIdPort.loadUserWithId(eq(userId)))
+		given(loadUserWithIdPort.loadUserWithId(eq(new UserId(userId))))
 			.willReturn(user);
 
 		return user;

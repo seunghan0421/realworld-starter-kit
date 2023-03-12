@@ -16,7 +16,7 @@ public class GetUserService implements GetUserQuery {
 	private final LoadUserWithIdPort loadUserWithIdPort;
 
 	@Override
-	public UserResult getUser(UserId userId) {
-		return UserResult.of(loadUserWithIdPort.loadUserWithId(userId));
+	public UserResult getUser(Long userId) {
+		return UserResult.of(loadUserWithIdPort.loadUserWithId(new UserId(userId)));
 	}
 }

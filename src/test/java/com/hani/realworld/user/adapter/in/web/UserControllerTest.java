@@ -21,8 +21,8 @@ import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 
-@WebMvcTest(UserCrudController.class)
-class UserCrudControllerTest extends ControllerTest {
+@WebMvcTest(UserController.class)
+class UserControllerTest extends ControllerTest {
 
 	@MockBean
 	private RegisterUserUseCase registerUserUseCase;
@@ -72,7 +72,7 @@ class UserCrudControllerTest extends ControllerTest {
 		String request = createJson(UPDATE_USER_REQUEST);
 		UserResult response = UserResult.of(USER2);
 
-		given(updateUserUseCase.updateUser(eq(USER1.getId()), any(UpdateUserCommand.class)))
+		given(updateUserUseCase.updateUser(any(UpdateUserCommand.class), eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
@@ -97,19 +97,20 @@ class UserCrudControllerTest extends ControllerTest {
 			);
 
 		then(updateUserUseCase).should()
-			.updateUser(eq(USER1.getId()), eq(new UpdateUserCommand(
+			.updateUser(eq(new UpdateUserCommand(
 				USER2.getEmail(),
 				USER2.getUsername(),
 				"password2",
 				USER2.getImage(),
-				USER2.getBio())));
+				USER2.getBio())),
+				eq(USER1.getId().getValue()));
 	}
 
 	@Test
 	void getUser_Succeeds() throws Exception {
 		UserResult response = UserResult.of(USER1);
 
-		given(getUserQuery.getUser(eq(USER1.getId()))).willReturn(response);
+		given(getUserQuery.getUser(eq(USER1.getId().getValue()))).willReturn(response);
 
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.get("/api/user")
@@ -125,6 +126,6 @@ class UserCrudControllerTest extends ControllerTest {
 			);
 
 		then(getUserQuery).should()
-			.getUser(eq(USER1.getId()));
+			.getUser(eq(USER1.getId().getValue()));
 	}
 }

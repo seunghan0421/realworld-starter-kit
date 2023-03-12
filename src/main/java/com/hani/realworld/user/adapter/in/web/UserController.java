@@ -20,14 +20,13 @@ import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.user.application.port.in.result.UserResult;
-import com.hani.realworld.user.domain.User.UserId;
 
 import lombok.RequiredArgsConstructor;
 
 // TODO: 뜯어 고쳐
 @RequiredArgsConstructor
 @RestController
-public class UserCrudController {
+public class UserController {
 
 	private final RegisterUserUseCase registerUserUseCase;
 	private final UpdateUserUseCase updateUserUseCase;
@@ -51,7 +50,7 @@ public class UserCrudController {
 	@GetMapping("/api/user")
 	ResponseEntity<UserResponse> getUser(@LoginUser LoginToken loginToken) {
 
-		UserResult userResult = getUserQuery.getUser(new UserId(loginToken.getId()));
+		UserResult userResult = getUserQuery.getUser(loginToken.getId());
 
 		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
 	}
@@ -68,7 +67,7 @@ public class UserCrudController {
 			request.getImage(),
 			request.getBio());
 
-		UserResult userResult = updateUserUseCase.updateUser(new UserId(loginToken.getId()), command);
+		UserResult userResult = updateUserUseCase.updateUser(command, loginToken.getId());
 
 		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
 	}
