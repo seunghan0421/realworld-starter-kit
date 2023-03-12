@@ -1,9 +1,7 @@
 package com.hani.realworld.user.application.port.in;
 
-import static com.hani.realworld.user.domain.User.*;
-
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
 public interface UnFollowProfileUseCase {
-	ProfileResult unfollowProfile(String username, UserId userId);
+	ProfileResult unfollowProfile(String username, Long userId);
 }

@@ -3,10 +3,10 @@ package com.hani.realworld.user.domain;
 import static com.hani.realworld.common.util.PreConditions.*;
 import static com.hani.realworld.user.domain.User.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.NonNull;
 
@@ -15,18 +15,18 @@ public class Followees {
 	/**
 	 * Those who followed the profile.
 	 */
-	private List<UserId> users;
+	private Set<UserId> users;
 
-	public Followees(@NonNull List<UserId> followees) {
+	public Followees(@NonNull Set<UserId> followees) {
 		this.users = followees;
 	}
 
 	public Followees(@NonNull UserId... followees) {
-		this.users = new ArrayList<>(Arrays.asList(followees));
+		this.users = new HashSet<>(Arrays.asList(followees));
 	}
 
-	public List<UserId> getFollowees() {
-		return Collections.unmodifiableList(this.users);
+	public Set<UserId> getFollowees() {
+		return Collections.unmodifiableSet(this.users);
 	}
 
 	/**
