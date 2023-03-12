@@ -6,11 +6,7 @@ import static org.mockito.BDDMockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -25,13 +21,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hani.realworld.config.SecurityConfiguration;
-import com.hani.realworld.config.WebMvcConfiguration;
 import com.hani.realworld.infra.jwt.JwtAuthenticationFilter;
-import com.hani.realworld.infra.jwt.JwtProperties;
 import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.infra.jwt.LoginUserMethodArgumentResolver;
-import com.hani.realworld.user.adapter.in.web.UserCrudController;
+import com.hani.realworld.infra.jwt.OptionalUserMethodArgumentResolver;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 
 @Disabled
@@ -44,6 +37,9 @@ public class ControllerTest {
 
 	@MockBean
 	protected LoginUserMethodArgumentResolver loginUserMethodArgumentResolver;
+
+	@MockBean
+	protected OptionalUserMethodArgumentResolver optionalUserMethodArgumentResolver;
 
 	@MockBean
 	protected LoadUserWithEmailPort loadUserWithEmailPort;
@@ -75,7 +71,9 @@ public class ControllerTest {
 
 		given(loadUserWithEmailPort.loadUserWithEmail(any())).willReturn(USER1);
 		given(loginUserMethodArgumentResolver.supportsParameter(any())).willReturn(true);
-		given(loginUserMethodArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(LOGIN_TOKEN);
+		given(loginUserMethodArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(USER1_LOGIN_TOKEN);
+		given(optionalUserMethodArgumentResolver.supportsParameter(any())).willReturn(true);
+		given(optionalUserMethodArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(USER1_LOGIN_TOKEN);
 	}
 
 	protected String createJson(Object dto) throws JsonProcessingException {
