@@ -1,5 +1,6 @@
 package com.hani.realworld.common.fixture;
 
+import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.user.domain.Profile.*;
 import static com.hani.realworld.user.domain.User.*;
 
@@ -49,4 +50,24 @@ public class ProfileFixture {
 				this.followees);
 		}
 	}
+
+	public static final Profile PROFILE1 = defaultProfile()
+		.withProfileId(new ProfileId(1L))
+		.withUser(USER1)
+		.withFollowees(new Followees(USER2.getId()))
+		.build();
+
+	public static final Profile PROFILE2 = defaultProfile()
+		.withProfileId(new ProfileId(2L))
+		.withUser(USER2)
+		.withFollowees(null)
+		.build();
+
+	// public static ProfileResponse getResponseFromProfile(Profile profile) {
+	// 	return ProfileResponse.of(new ProfileResult(
+	// 		profile.getUser().getUsername(),
+	// 		profile.getUser().getBio(),
+	// 		profile.getUser().getImage(),
+	// 		true));
+	// }
 }
