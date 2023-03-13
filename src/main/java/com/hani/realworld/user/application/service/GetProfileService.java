@@ -23,13 +23,6 @@ public class GetProfileService implements GetProfileQuery {
 	@Override
 	public ProfileResult getProfile(String username, Optional<Long> userId) {
 		Profile target = loadProfileWithUsername.loadProfileWithUsername(username);
-		// boolean isFollowing = false;
-
-		// if (userId.isPresent()) {
-		// 	Profile base = loadProfileWithUserId.loadProfileWithUserId(new UserId(userId.get()));
-		//
-		// 	isFollowing = base.isFollowing(target.getUser());
-		// }
 
 		boolean isFollowing = userId.map(id -> {
 			Profile base = loadProfileWithUserId.loadProfileWithUserId(new UserId(id));
