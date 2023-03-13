@@ -43,6 +43,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'com.tngtech.archunit:archunit:0.16.0'
     testImplementation 'com.h2database:h2'
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '4.6.1'
 //    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '4.6.1'
 }
 

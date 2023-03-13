@@ -1,10 +1,12 @@
 package com.hani.realworld.user.application.service;
 
+import static com.hani.realworld.common.fixture.UserFixture.*;
+import static com.hani.realworld.common.fixture.UserServiceFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,48 +28,34 @@ class RegisterUserServiceTest {
 		new RegisterUserService(registerUserStatePort, passwordEncoder);
 
 	// TODO mock static test 해결해야함
-	@Disabled("TODO mock static test 해결해야함")
 	@Test
 	void registerUser_Succeeds() {
 		// given
-		final String username = "username";
-		final String email = "user@email.com";
-		final String password = "password";
-		RegisterUserCommand command = new RegisterUserCommand(
-			username, email, password);
+		User user = givenAnUserWithUser1();
 
-		User user = givenUserWithoutIdWillSucceed(command);
+		RegisterUserCommand command = new RegisterUserCommand(
+			USER1.getUsername(),
+			USER1.getEmail(),
+			"password1");
+
+		MockedStatic<User> mockUserClass = mockStatic(User.class);
+		mockUserClass.when(() -> User.withoutId(any(), any(), any()))
+			.thenReturn(user);
 
 		// when
 		UserResult result = registerUserService.register(command);
 
 		// then
-		assertThat(result.getUsername()).isEqualTo(username);
-		assertThat(result.getEmail()).isEqualTo(email);
-		assertThat(result.getBio()).isEqualTo(null);
-		assertThat(result.getImage()).isEqualTo(null);
+		assertThat(result.getUsername()).isEqualTo(USER1.getUsername());
+		assertThat(result.getEmail()).isEqualTo(USER1.getEmail());
+		assertThat(result.getBio()).isEqualTo(USER1.getBio());
+		assertThat(result.getImage()).isEqualTo(USER1.getImage());
 
-		then(registerUserStatePort).should().registerUser(user);
-		then(user).should().getEmail();
 
-	}
+		then(user).should().encodePassword(any());
+		then(registerUserStatePort).should().registerUser(any());
 
-	private User givenUserWithoutIdWillSucceed(RegisterUserCommand command) {
-		User user = Mockito.mock(User.class);
-
-		given(user.getUsername()).willReturn(command.getUsername());
-		given(user.getEmail()).willReturn(command.getEmail());
-		given(user.getBio()).willReturn(null);
-		given(user.getImage()).willReturn(null);
-
-		mockStatic(User.class);
-		given(User.withoutId(
-			eq(command.getUsername()),
-			eq(command.getEmail()),
-			any()
-		)).willReturn(user);
-
-		return user;
+		mockUserClass.close();
 	}
 
 }
