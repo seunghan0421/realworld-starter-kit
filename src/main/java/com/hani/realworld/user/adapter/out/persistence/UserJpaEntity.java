@@ -20,6 +20,7 @@ public class UserJpaEntity {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "user_id")
 	private Long id;
 
 	@Column

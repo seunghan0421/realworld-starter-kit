@@ -2,9 +2,6 @@ package com.hani.realworld.common.fixture;
 
 import static com.hani.realworld.user.domain.User.*;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.hani.realworld.common.util.PasswordEncoderUtil;
 import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.user.adapter.in.web.dto.LoginUserRequest;
@@ -87,16 +84,16 @@ public class UserFixture {
 		.build();
 
 	public static final User USER1 = defaultUser()
-		.withUserId(new UserId(45L))
+		.withUserId(new UserId(1L))
 		.withUsername("username1")
 		.withEmail("user1@naver.com")
 		.withBio("im user1")
 		.withPassword("password1")
-		.withImage("http://image.png")
+		.withImage("http://image1.png")
 		.build();
 
 	public static final User USER2 = defaultUser()
-		.withUserId(new UserId(46L))
+		.withUserId(new UserId(2L))
 		.withUsername("username2")
 		.withEmail("user2@naver.com")
 		.withBio("im user2")

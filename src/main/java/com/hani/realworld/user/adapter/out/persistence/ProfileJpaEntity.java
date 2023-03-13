@@ -31,13 +31,14 @@ import lombok.NoArgsConstructor;
 public class ProfileJpaEntity {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue
+	@Column(name = "profile_id")
 	private Long id;
 
 	@OneToOne(fetch = LAZY)
-	@JoinColumn
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private UserJpaEntity user;
 
-	@ElementCollection(fetch = LAZY)
+	@ElementCollection
 	private Set<Long> followees;
 }
