@@ -1,11 +1,13 @@
 package com.hani.realworld.user.adapter.out.persistence;
 
+import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.common.util.PasswordEncoderUtil.*;
 import static org.assertj.core.api.Assertions.*;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -15,9 +17,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.hani.realworld.user.domain.Followees;
+import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
-@Transactional
+// @Transactional
 @DataJpaTest
 // @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -29,12 +33,14 @@ class UserPersistenceAdapterTest {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ProfileRepository profileRepository;
 
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
-	void load_with_id_succeeds() {
+	void load_user_with_id_succeeds() {
 		// when
-		User user = adapter.loadUserWithId(new User.UserId(2L));
+		User user = adapter.loadUserWithId(USER2.getId());
 
 		// then
 		assertThat(user.getUsername()).isEqualTo("username2");
@@ -43,76 +49,114 @@ class UserPersistenceAdapterTest {
 
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
-	void load_with_email_succeeds() {
+	void load_user_with_email_succeeds() {
 		// when
-		User user = adapter.loadUserWithEmail("user2@naver.com");
+		User user = adapter.loadUserWithEmail(USER2.getEmail());
 
 		// then
 		assertThat(user.getUsername()).isEqualTo("username2");
 		assertThat(user.getEmail()).isEqualTo("user2@naver.com");
 	}
 
-	@ParameterizedTest
-	@CsvSource({"username, user@naver.com, password, i'm user, http://image.png"})
-	void register_User_succeeds(
-		String username,
-		String email,
-		String password,
-		String bio,
-		String image) {
-		// when
-		User user = defaultUser()
-			.withUserId(new User.UserId(1L))
-			.withUsername(username)
-			.withEmail(email)
-			.withPassword(password)
-			.withBio(bio)
-			.withImage(image)
-			.build();
+	@Test
+	void register_User_succeeds() {
+		// given
+		User user = defaultUser().withUserId(null).build();
 
-		adapter.registerUser(user);
+		// when
+		adapter.register(user);
 
 		// then
 		assertThat(userRepository.count()).isEqualTo(1);
 
-		UserJpaEntity savedEntity = userRepository.findById(1L).get();
-		assertThat(savedEntity.getUsername()).isEqualTo(username);
-		assertThat(savedEntity.getEmail()).isEqualTo(email);
-		assertThat(savedEntity.getBio()).isEqualTo(bio);
-		assertThat(savedEntity.getImage()).isEqualTo(image);
+		UserJpaEntity savedEntity = userRepository.findAll().get(0);
 
-		verifyPassword(savedEntity, password);
+		assertThat(savedEntity.getUsername()).isEqualTo(user.getUsername());
+		assertThat(savedEntity.getEmail()).isEqualTo(user.getEmail());
+		assertThat(savedEntity.getBio()).isEqualTo(user.getBio());
+		assertThat(savedEntity.getImage()).isEqualTo(user.getImage());
+
+		verifyPassword(savedEntity, "password");
 	}
 
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-	@ParameterizedTest
-	@CsvSource({"Updated username, Updated user@naver.com, Updated password, Updated i'm user, http://updatedimage.png"})
-	void update_User_succeeds(
-		String username,
-		String email,
-		String password,
-		String bio,
-		String image) {
-		// when
-		User updatedUser = defaultUser()
-			.withUserId(new User.UserId(1L))
-			.withUsername(username)
-			.withEmail(email)
-			.withPassword(password)
-			.withBio(bio)
-			.withImage(image)
+	@Test
+	void register_Profile_succeeds() {
+		// given
+		Profile profile = defaultProfile()
+			.withProfileId(null)
+			.withUser(USER1)
+			.withFollowees(new Followees())
 			.build();
 
+		// when
+		adapter.register(profile);
+
+		// then
+		assertThat(profileRepository.count()).isEqualTo(1);
+
+		ProfileJpaEntity savedEntity = profileRepository.findAll().get(0);
+		assertThat(savedEntity.getUser().getId()).isEqualTo(USER1.getId().getValue());
+	}
+
+	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void update_User_succeeds() {
+		// given
+		final String updatePassword = "updatePassword";
+
+		User updatedUser = defaultUser()
+			.withUserId(USER1.getId())
+			.withUsername(USER2.getUsername())
+			.withEmail(USER2.getEmail())
+			.withPassword(updatePassword)
+			.withBio(USER2.getBio())
+			.withImage(USER2.getImage())
+			.build();
+
+		// when
 		adapter.updateUserState(updatedUser);
 
 		// then
-		UserJpaEntity savedEntity = userRepository.findById(1L).get();
-		assertThat(savedEntity.getUsername()).isEqualTo(username);
-		assertThat(savedEntity.getEmail()).isEqualTo(email);
-		assertThat(savedEntity.getBio()).isEqualTo(bio);
-		assertThat(savedEntity.getImage()).isEqualTo(image);
+		UserJpaEntity savedEntity = userRepository.findById(USER1.getId().getValue()).get();
+		assertThat(savedEntity.getUsername()).isEqualTo(USER2.getUsername());
+		assertThat(savedEntity.getEmail()).isEqualTo(USER2.getEmail());
+		assertThat(savedEntity.getBio()).isEqualTo(USER2.getBio());
+		assertThat(savedEntity.getImage()).isEqualTo(USER2.getImage());
 
-		verifyPassword(savedEntity, password);
+		verifyPassword(savedEntity, updatePassword);
+	}
+
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void load_profile_with_userId_succeeds() {
+		// when
+		Profile profile = adapter.loadProfileWithUserId(USER1.getId());
+
+		// then
+		assertThat(profile.getId()).isEqualTo(PROFILE1.getId());
+		assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
+	}
+
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void load_profile_with_username_succeeds() {
+		// when
+		Profile profile = adapter.loadProfileWithUsername(USER1.getUsername());
+
+		// then
+		assertThat(profile.getId()).isEqualTo(PROFILE1.getId());
+		assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
 	}
 
 }

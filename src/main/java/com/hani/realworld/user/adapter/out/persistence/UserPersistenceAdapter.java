@@ -7,6 +7,7 @@ import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
+import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
 import com.hani.realworld.user.application.port.out.RegisterUserStatePort;
 import com.hani.realworld.user.application.port.out.UpdateUserStatePort;
 import com.hani.realworld.user.domain.Profile;
@@ -20,6 +21,7 @@ public class UserPersistenceAdapter implements
 	LoadUserWithEmailPort,
 	LoadUserWithIdPort,
 	RegisterUserStatePort,
+	RegisterProfileStatePort,
 	UpdateUserStatePort,
 	LoadProfileWithUsername,
 	LoadProfileWithUserId {
@@ -45,10 +47,17 @@ public class UserPersistenceAdapter implements
 	}
 
 	@Override
-	public void registerUser(User user) {
-		UserJpaEntity userEntity = userMapper.mapToJpaEntity(user);
+	public void register(User user) {
+		UserJpaEntity userEntity = userMapper.mapToUserJpaEntity(user);
 
 		userRepository.save(userEntity);
+	}
+
+	@Override
+	public void register(Profile profile) {
+		ProfileJpaEntity profileEntity = userMapper.mapToProfileJpaEntity(profile);
+
+		profileRepository.save(profileEntity);
 	}
 
 	@Override
@@ -66,11 +75,19 @@ public class UserPersistenceAdapter implements
 
 	@Override
 	public Profile loadProfileWithUserId(User.UserId userId) {
-		return null;
+		ProfileJpaEntity profileJpaEntity = profileRepository.getProfileJpaEntityByUser(userId.getValue())
+			.orElseThrow(EntityNotFoundException::new);
+
+		return userMapper.mapToProfileEntity(profileJpaEntity);
 	}
 
 	@Override
 	public Profile loadProfileWithUsername(String username) {
-		return null;
+		ProfileJpaEntity profileJpaEntity = profileRepository.getProfileJpaEntityByUsername(username)
+			.orElseThrow(EntityNotFoundException::new);
+
+		return userMapper.mapToProfileEntity(profileJpaEntity);
 	}
+
+
 }
