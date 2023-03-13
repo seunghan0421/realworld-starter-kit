@@ -9,6 +9,7 @@ import com.hani.realworld.user.application.port.in.FollowProfileUseCase;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
 import com.hani.realworld.user.domain.Profile;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class FollowProfileService implements FollowProfileUseCase {
 
 	private final LoadProfileWithUsername loadProfileWithUsername;
 	private final LoadProfileWithUserId loadProfileWithUserId;
+	private final UpdateProfileStatePort updateProfileStatePort;
 
 	@Override
 	public ProfileResult followProfile(String username, Long userId) {
@@ -27,6 +29,8 @@ public class FollowProfileService implements FollowProfileUseCase {
 		Profile base = loadProfileWithUserId.loadProfileWithUserId(new UserId(userId));
 
 		base.follow(target.getUser());
+
+		updateProfileStatePort.updateProfile(base);
 
 		return ProfileResult.of(target, base.isFollowing(target.getUser()));
 	}

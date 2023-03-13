@@ -9,6 +9,7 @@ import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
 import com.hani.realworld.user.application.port.out.RegisterUserStatePort;
+import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
 import com.hani.realworld.user.application.port.out.UpdateUserStatePort;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
@@ -23,6 +24,7 @@ public class UserPersistenceAdapter implements
 	RegisterUserStatePort,
 	RegisterProfileStatePort,
 	UpdateUserStatePort,
+	UpdateProfileStatePort,
 	LoadProfileWithUsername,
 	LoadProfileWithUserId {
 
@@ -74,6 +76,14 @@ public class UserPersistenceAdapter implements
 	}
 
 	@Override
+	public void updateProfile(Profile profile) {
+		ProfileJpaEntity profileJpaEntity = profileRepository.findById(profile.getId().getValue())
+			.orElseThrow(EntityNotFoundException::new);
+
+		profileJpaEntity.update(profile);
+	}
+
+	@Override
 	public Profile loadProfileWithUserId(User.UserId userId) {
 		ProfileJpaEntity profileJpaEntity = profileRepository.getProfileJpaEntityByUser(userId.getValue())
 			.orElseThrow(EntityNotFoundException::new);
@@ -88,6 +98,5 @@ public class UserPersistenceAdapter implements
 
 		return userMapper.mapToProfileEntity(profileJpaEntity);
 	}
-
 
 }

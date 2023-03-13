@@ -159,4 +159,25 @@ class UserPersistenceAdapterTest {
 		assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
 	}
 
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void update_followees_succeeds() {
+		// given
+		Profile profile = adapter.loadProfileWithUsername(USER1.getUsername());
+		profile.follow(USER2);
+
+		// when
+		adapter.updateProfile(profile);
+
+		// then
+		// assertThat(profile.getId()).isEqualTo(PROFILE1.getId());
+		// assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
+		assertThat(profile.getFollowees().isFollow(USER2)).isTrue();
+	}
+
 }

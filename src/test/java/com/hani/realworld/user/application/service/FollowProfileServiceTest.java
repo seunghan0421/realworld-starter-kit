@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
 import com.hani.realworld.user.domain.Profile;
 
 class FollowProfileServiceTest {
@@ -23,8 +24,11 @@ class FollowProfileServiceTest {
 	private final LoadProfileWithUserId loadProfileWithUserId =
 		Mockito.mock(LoadProfileWithUserId.class);
 
+	private final UpdateProfileStatePort updateProfileStatePort =
+		Mockito.mock(UpdateProfileStatePort.class);
+
 	private final FollowProfileService followProfileService =
-		new FollowProfileService(loadProfileWithUsername, loadProfileWithUserId);
+		new FollowProfileService(loadProfileWithUsername, loadProfileWithUserId, updateProfileStatePort);
 
 	// USER1가 USER2 follow - 성공
 	@Test
@@ -54,6 +58,7 @@ class FollowProfileServiceTest {
 
 		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
 		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(updateProfileStatePort).should().updateProfile(eq(base));
 		then(base).should().follow(eq(USER2));
 		then(base).should().isFollowing(eq(USER2));
 	}
