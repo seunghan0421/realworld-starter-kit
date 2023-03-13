@@ -1,6 +1,13 @@
 package com.hani.realworld.user.application.port.in.command;
 
+import static com.hani.realworld.common.util.PreConditions.*;
+
+import java.util.Optional;
+
 import javax.validation.constraints.Email;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 
 import com.hani.realworld.common.util.SelfValidating;
 
@@ -26,5 +33,7 @@ public class UpdateUserCommand extends SelfValidating<UpdateUserCommand> {
 		this.bio = bio;
 
 		this.validateSelf();
+		Optional.ofNullable(password)
+			.ifPresent(pass -> checkStringHasValidLength(1, 16, pass));
 	}
 }

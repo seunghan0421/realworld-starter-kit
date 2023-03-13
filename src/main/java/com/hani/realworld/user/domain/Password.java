@@ -18,7 +18,7 @@ public class Password {
 	private String value;
 
 	public Password(final String password) {
-		// checkStringHasValidLength(MIN_LENGTH, MAX_LENGTH, password);
+
 		this.value = password;
 	}
 

@@ -3,6 +3,8 @@ package com.hani.realworld.user.application.port.in.command;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.hani.realworld.common.util.SelfValidating;
 
 import lombok.EqualsAndHashCode;
@@ -20,6 +22,7 @@ public class RegisterUserCommand extends SelfValidating<RegisterUserCommand> {
 	private String email;
 
 	@NotBlank(message = "password cannot be empty.")
+	@Length(min = 1, max = 16, message = "password length must be between 1 and 16")
 	private String password;
 
 	public RegisterUserCommand(
