@@ -1,6 +1,7 @@
 package com.hani.realworld.user.application.service;
 
-import static com.hani.realworld.user.domain.User.*;
+import static com.hani.realworld.common.fixture.UserFixture.*;
+import static com.hani.realworld.common.fixture.UserServiceFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -22,33 +23,21 @@ class GetUserServiceTest {
 	@Test
 	void getUser_Succeeds() {
 		// given
-		Long userId = 42L;
-		User user = givenAnUserWithId(userId);
+		User user = givenAnUserWithUser1();
 
-		// when
-		UserResult result = getUserService.getUser(userId);
-
-		// then
-		assertThat(result.getUsername()).isEqualTo("username");
-		assertThat(result.getEmail()).isEqualTo("user@naver.com");
-		assertThat(result.getBio()).isEqualTo("bio");
-		assertThat(result.getImage()).isEqualTo("http://image.jpeg");
-
-		then(loadUserWithIdPort).should().loadUserWithId(eq(new UserId(userId)));
-		then(user).should().getEmail();
-	}
-
-	private User givenAnUserWithId(Long userId) {
-		User user = Mockito.mock(User.class);
-
-		given(user.getUsername()).willReturn("username");
-		given(user.getEmail()).willReturn("user@naver.com");
-		given(user.getBio()).willReturn("bio");
-		given(user.getImage()).willReturn("http://image.jpeg");
-
-		given(loadUserWithIdPort.loadUserWithId(eq(new UserId(userId))))
+		given(loadUserWithIdPort.loadUserWithId(eq(USER1.getId())))
 			.willReturn(user);
 
-		return user;
+		// when
+		UserResult result = getUserService.getUser(USER1.getId().getValue());
+
+		// then
+		assertThat(result.getUsername()).isEqualTo(USER1.getUsername());
+		assertThat(result.getEmail()).isEqualTo(USER1.getEmail());
+		assertThat(result.getBio()).isEqualTo(USER1.getBio());
+		assertThat(result.getImage()).isEqualTo(USER1.getImage());
+
+		then(loadUserWithIdPort).should().loadUserWithId(eq(USER1.getId()));
 	}
+
 }

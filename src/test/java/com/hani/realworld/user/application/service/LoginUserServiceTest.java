@@ -1,6 +1,7 @@
 package com.hani.realworld.user.application.service;
 
-import static com.hani.realworld.common.util.AssertUserContentUtil.*;
+import static com.hani.realworld.common.fixture.UserFixture.*;
+import static com.hani.realworld.common.fixture.UserServiceFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -13,7 +14,6 @@ import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.user.application.port.in.command.LoginUserCommand;
 import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
-import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
 class LoginUserServiceTest {
@@ -33,43 +33,31 @@ class LoginUserServiceTest {
 	@Test
 	void loginUser_Succeeds() {
 		// given
-		User user = givenLoadUserPortWillSucceeds();
-		givenJwtProviderMakeTokenWillSucceeds();
+		User user = givenAnUserWithUser1();
+		final String token = "user1 valid token";
 
 		LoginUserCommand command = new LoginUserCommand(
-			"user@email.com",
-			"validPassword");
+			USER1.getEmail(),
+			"password1");
+
+		given(loadUserWithEmailPort.loadUserWithEmail(eq(USER1.getEmail())))
+			.willReturn(user);
+		given(jwtProvider.generate(eq(USER1.getEmail())))
+			.willReturn(token);
 
 		// when
 		LoginUserResult result = loginUserService.login(command);
 
 		// then
-		assertThat(result.getToken()).isNotBlank();
-		assertUserContent(result);
+		assertThat(result.getToken()).isEqualTo(token);
+		assertThat(result.getEmail()).isEqualTo(USER1.getEmail());
+		assertThat(result.getUsername()).isEqualTo(USER1.getUsername());
+		assertThat(result.getBio()).isEqualTo(USER1.getBio());
+		assertThat(result.getImage()).isEqualTo(USER1.getImage());
 
-		then(loadUserWithEmailPort).should().loadUserWithEmail(eq("user@email.com"));
-		then(jwtProvider).should().generate(eq("user@email.com"));
-	}
-
-	private User givenLoadUserPortWillSucceeds() {
-		User user = Mockito.mock(User.class);
-		Password password = new Password("validPassword");
-		password.encode(passwordEncoder::encode);
-
-		given(user.getUsername()).willReturn("username");
-		given(user.getEmail()).willReturn("user@email.com");
-		given(user.getBio()).willReturn("bio");
-		given(user.getImage()).willReturn("https://image.jpeg");
-
-		given(loadUserWithEmailPort.loadUserWithEmail(eq("user@email.com")))
-			.willReturn(user);
-
-		return user;
-	}
-
-	private void givenJwtProviderMakeTokenWillSucceeds() {
-		given(jwtProvider.generate(eq("user@email.com")))
-			.willReturn("validToken");
+		then(loadUserWithEmailPort).should().loadUserWithEmail(eq(USER1.getEmail()));
+		then(user).should().verifyPassword(any());
+		then(jwtProvider).should().generate(eq(USER1.getEmail()));
 	}
 
 }
