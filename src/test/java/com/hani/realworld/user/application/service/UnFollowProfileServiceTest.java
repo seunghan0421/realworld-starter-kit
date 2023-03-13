@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
@@ -25,8 +26,11 @@ class UnFollowProfileServiceTest {
 	private final LoadProfileWithUserId loadProfileWithUserId =
 		Mockito.mock(LoadProfileWithUserId.class);
 
+	private final UpdateProfileStatePort updateProfileStatePort =
+		Mockito.mock(UpdateProfileStatePort.class);
+
 	private final UnFollowProfileService unFollowProfileService =
-		new UnFollowProfileService(loadProfileWithUsername, loadProfileWithUserId);
+		new UnFollowProfileService(loadProfileWithUsername, loadProfileWithUserId, updateProfileStatePort);
 
 	// USER1가 USER2 unfollow - 성공
 	@Test
@@ -56,6 +60,7 @@ class UnFollowProfileServiceTest {
 
 		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
 		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(updateProfileStatePort).should().updateProfile(eq(base));
 		then(base).should().unfollow(eq(USER2));
 		then(base).should().isFollowing(eq(USER2));
 	}
