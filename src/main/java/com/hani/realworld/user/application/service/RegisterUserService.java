@@ -8,8 +8,11 @@ import com.hani.realworld.common.annotation.UseCase;
 import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.result.UserResult;
+import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
+import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
 import com.hani.realworld.user.application.port.out.RegisterUserStatePort;
 import com.hani.realworld.user.domain.Password;
+import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class RegisterUserService implements RegisterUserUseCase {
 
 	private final RegisterUserStatePort registerUserStatePort;
+	private final RegisterProfileStatePort registerProfileStatePort;
+	private final LoadUserWithEmailPort loadUserWithEmailPort;
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
@@ -30,7 +35,10 @@ public class RegisterUserService implements RegisterUserUseCase {
 			new Password(command.getPassword()));
 		user.encodePassword(passwordEncoder::encode);
 
-		registerUserStatePort.registerUser(user);
+		registerUserStatePort.register(user);
+
+		Profile profile = Profile.withoutId(loadUserWithEmailPort.loadUserWithEmail(command.getEmail()));
+		registerProfileStatePort.register(profile);
 
 		return UserResult.of(user);
 	}

@@ -17,8 +17,12 @@ public class Followees {
 	 */
 	private Set<UserId> users;
 
+	public Followees() {
+		this.users = new HashSet<>();
+	}
+
 	public Followees(@NonNull Set<UserId> followees) {
-		this.users = followees;
+		this.users = new HashSet<>(followees);
 	}
 
 	public Followees(@NonNull UserId... followees) {

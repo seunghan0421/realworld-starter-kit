@@ -22,10 +22,8 @@ public class Profile {
 	 * Creates an {@link Profile} entity without an ID. Use to create a new entity that is not yet
 	 * persisted.
 	 */
-	public static Profile withoutId(
-		User user,
-		Followees followees) {
-		return new Profile(null, user, followees);
+	public static Profile withoutId(User user) {
+		return new Profile(null, user, new Followees());
 	}
 
 	/**
