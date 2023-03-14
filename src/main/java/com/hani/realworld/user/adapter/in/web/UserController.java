@@ -67,8 +67,8 @@ public class UserController {
 			request.getImage(),
 			request.getBio());
 
-		LoginUserResult userResult = updateUserUseCase.updateUser(command, loginToken.getId());
+		UserResult userResult = updateUserUseCase.updateUser(command, loginToken.getId());
 
-		return ResponseEntity.ok(UserResponse.of(userResult));
+		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
 	}
 }

@@ -71,7 +71,7 @@ class UserControllerTest extends ControllerTest {
 	@Test
 	void updateUser_Succeeds() throws Exception {
 		String request = createJson(UPDATE_USER_REQUEST);
-		LoginUserResult response = LoginUserResult.of(USER2, "user1 valid token");
+		UserResult response = UserResult.of(USER2);
 
 		given(updateUserUseCase.updateUser(any(UpdateUserCommand.class), eq(USER1.getId().getValue())))
 			.willReturn(response);

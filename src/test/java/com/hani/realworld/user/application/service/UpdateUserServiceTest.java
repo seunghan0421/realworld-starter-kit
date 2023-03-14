@@ -20,9 +20,6 @@ import com.hani.realworld.user.domain.User;
 
 class UpdateUserServiceTest {
 
-	private final JwtProvider jwtProvider =
-		Mockito.mock(JwtProvider.class);
-
 	private final LoadUserWithIdPort loadUserWithIdPort =
 		Mockito.mock(LoadUserWithIdPort.class);
 
@@ -34,7 +31,6 @@ class UpdateUserServiceTest {
 
 	private final UpdateUserService updateUserService =
 		new UpdateUserService(
-			jwtProvider,
 			loadUserWithIdPort,
 			updateUserStatePort,
 			passwordEncoder);
@@ -55,8 +51,6 @@ class UpdateUserServiceTest {
 
 		given(loadUserWithIdPort.loadUserWithId(eq(USER1.getId())))
 			.willReturn(user1);
-		given(jwtProvider.generate(eq(USER1.getEmail())))
-			.willReturn("user1 valid token");
 		given(user1.update(
 			eq(USER2.getEmail()),
 			eq(USER2.getUsername()),
@@ -66,7 +60,7 @@ class UpdateUserServiceTest {
 			.willReturn(user2);
 
 		// when
-		LoginUserResult result = updateUserService.updateUser(command, USER1.getId().getValue());
+		UserResult result = updateUserService.updateUser(command, USER1.getId().getValue());
 
 		// then
 		assertThat(result.getUsername()).isEqualTo(USER2.getUsername());
@@ -82,7 +76,6 @@ class UpdateUserServiceTest {
 			eq(USER2.getImage()),
 			eq(USER2.getBio()), any());
 		then(updateUserStatePort).should().updateUserState(any());
-		then(jwtProvider).should().generate(eq(user2.getEmail()));
 	}
 
 }
