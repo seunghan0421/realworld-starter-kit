@@ -34,7 +34,7 @@ public class UserPersistenceAdapter implements
 
 	@Override
 	public User loadUserWithEmail(String email) {
-		UserJpaEntity userJpaEntity = userRepository.findByEmail(email)
+		UserJpaEntity userJpaEntity = userRepository.findUserJpaEntityByEmail(email)
 			.orElseThrow(EntityNotFoundException::new);
 
 		return userMapper.mapToUserEntity(userJpaEntity);

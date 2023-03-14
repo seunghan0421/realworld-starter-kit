@@ -1,8 +1,8 @@
 package com.hani.realworld.user.application.port.in;
 
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
-import com.hani.realworld.user.application.port.in.result.UserResult;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 
 public interface RegisterUserUseCase {
-	UserResult register(RegisterUserCommand command);
+	LoginUserResult register(RegisterUserCommand command);
 }

@@ -19,11 +19,11 @@ import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 
 import lombok.RequiredArgsConstructor;
 
-// TODO: 뜯어 고쳐
 @RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -41,10 +41,10 @@ public class UserController {
 			request.getEmail(),
 			request.getPassword());
 
-		UserResult userResult = registerUserUseCase.register(command);
+		LoginUserResult userResult = registerUserUseCase.register(command);
 
 		return ResponseEntity.created(URI.create("/api/profiles/" + request.getUsername()))
-			.body(UserResponse.of(userResult, null));
+			.body(UserResponse.of(userResult));
 	}
 
 	@GetMapping("/api/user")
@@ -55,8 +55,8 @@ public class UserController {
 		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
 	}
 
-	@PutMapping("/api/users")
-	ResponseEntity<UserResponse> getUser(
+	@PutMapping("/api/user")
+	ResponseEntity<UserResponse> updateUser(
 		@RequestBody UpdateUserRequest request,
 		@LoginUser LoginToken loginToken) {
 
@@ -67,8 +67,8 @@ public class UserController {
 			request.getImage(),
 			request.getBio());
 
-		UserResult userResult = updateUserUseCase.updateUser(command, loginToken.getId());
+		LoginUserResult userResult = updateUserUseCase.updateUser(command, loginToken.getId());
 
-		return ResponseEntity.ok(UserResponse.of(userResult, loginToken.getToken()));
+		return ResponseEntity.ok(UserResponse.of(userResult));
 	}
 }

@@ -7,9 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hani.realworld.common.annotation.UseCase;
+import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
-import com.hani.realworld.user.application.port.in.result.UserResult;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.user.application.port.out.UpdateUserStatePort;
 import com.hani.realworld.user.domain.User;
@@ -21,12 +22,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UpdateUserService implements UpdateUserUseCase {
 
+	private final JwtProvider jwtProvider;
 	private final LoadUserWithIdPort loadUserWithIdPort;
 	private final UpdateUserStatePort updateUserStatePort;
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	public UserResult updateUser(UpdateUserCommand command, Long userId) {
+	public LoginUserResult updateUser(UpdateUserCommand command, Long userId) {
 		User user = loadUserWithIdPort.loadUserWithId(new UserId(userId));
 
 		User updatedUser = user.update(
@@ -39,6 +41,6 @@ public class UpdateUserService implements UpdateUserUseCase {
 
 		updateUserStatePort.updateUserState(updatedUser);
 
-		return UserResult.of(updatedUser);
+		return LoginUserResult.of(updatedUser, jwtProvider.generate(updatedUser.getEmail()));
 	}
 }

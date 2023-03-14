@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
-// @EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -51,12 +51,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// TODO: 요구사항에 맞게 Security 커스터마이징
 		http.authorizeRequests()
-			// .antMatchers(OPTIONS).permitAll()
-			// .antMatchers(POST, "/api/users", "/api/users/login", "/test/error").permitAll()
-			// .antMatchers(GET, "/api/profiles/**").permitAll()
-			// .antMatchers(GET, "/api/articles/**").permitAll()
-			// .antMatchers(GET, "/api/tags/**").permitAll()
-			// .anyRequest().authenticated();
+			.antMatchers(OPTIONS).permitAll()
+			.antMatchers(HttpMethod.OPTIONS).permitAll()
+			.antMatchers(HttpMethod.POST, "/api/users", "/api/users/login").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/articles/feed").authenticated()
+			.antMatchers(HttpMethod.GET, "/api/profiles/**", "/api/articles/**",
+				"/api/tags","docs/index.html").permitAll()
 			.anyRequest().authenticated();
 	}
 }

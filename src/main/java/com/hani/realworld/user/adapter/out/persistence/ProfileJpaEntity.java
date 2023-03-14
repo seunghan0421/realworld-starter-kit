@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 public class ProfileJpaEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "profile_id")
 	private Long id;
 
@@ -44,7 +44,7 @@ public class ProfileJpaEntity {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private UserJpaEntity user;
 
-	@ElementCollection
+	@ElementCollection(targetClass = Long.class)
 	private Set<Long> followees;
 
 	public void update(Profile profile) {
