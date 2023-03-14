@@ -1,12 +1,13 @@
 package com.hani.realworld.user.domain;
 
-import lombok.AccessLevel;
+import static lombok.AccessLevel.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = PRIVATE)
 public class Profile {
 
 	/* Profile Identification number */

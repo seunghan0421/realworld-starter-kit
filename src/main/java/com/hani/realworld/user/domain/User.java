@@ -1,18 +1,19 @@
 package com.hani.realworld.user.domain;
 
+import static lombok.AccessLevel.*;
+
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.hani.realworld.common.exception.UnAuthorizationException;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = PRIVATE)
 public class User {
 
 	/* User Identification Number */

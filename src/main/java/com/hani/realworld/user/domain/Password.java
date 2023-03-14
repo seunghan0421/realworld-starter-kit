@@ -11,14 +11,9 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Password {
 
-	// TODO: 이거는 DTO에서 입력 받고록 변경
-	// public static int MIN_LENGTH = 1;
-	// public static int MAX_LENGTH = 16;
-
 	private String value;
 
 	public Password(final String password) {
-
 		this.value = password;
 	}
 
