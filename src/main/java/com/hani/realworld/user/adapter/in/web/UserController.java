@@ -41,10 +41,10 @@ public class UserController {
 			request.getEmail(),
 			request.getPassword());
 
-		LoginUserResult userResult = registerUserUseCase.register(command);
+		UserResult userResult = registerUserUseCase.register(command);
 
 		return ResponseEntity.created(URI.create("/api/profiles/" + request.getUsername()))
-			.body(UserResponse.of(userResult));
+			.body(UserResponse.of(userResult, null));
 	}
 
 	@GetMapping("/api/user")

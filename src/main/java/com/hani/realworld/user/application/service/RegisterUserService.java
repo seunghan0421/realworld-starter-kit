@@ -9,6 +9,7 @@ import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.result.LoginUserResult;
+import com.hani.realworld.user.application.port.in.result.UserResult;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
 import com.hani.realworld.user.application.port.out.RegisterUserStatePort;
@@ -23,14 +24,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RegisterUserService implements RegisterUserUseCase {
 
-	private final JwtProvider jwtProvider;
 	private final RegisterUserStatePort registerUserStatePort;
 	private final RegisterProfileStatePort registerProfileStatePort;
 	private final LoadUserWithEmailPort loadUserWithEmailPort;
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	public LoginUserResult register(RegisterUserCommand command) {
+	public UserResult register(RegisterUserCommand command) {
 		User user = User.withoutId(
 			command.getUsername(),
 			command.getEmail(),
@@ -42,6 +42,6 @@ public class RegisterUserService implements RegisterUserUseCase {
 		Profile profile = Profile.withoutId(loadUserWithEmailPort.loadUserWithEmail(command.getEmail()));
 		registerProfileStatePort.register(profile);
 
-		return LoginUserResult.of(user, jwtProvider.generate(user.getEmail()));
+		return UserResult.of(user);
 	}
 }

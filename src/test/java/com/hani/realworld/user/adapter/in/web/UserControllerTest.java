@@ -19,6 +19,7 @@ import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 
 @WebMvcTest(UserController.class)
@@ -70,13 +71,13 @@ class UserControllerTest extends ControllerTest {
 	@Test
 	void updateUser_Succeeds() throws Exception {
 		String request = createJson(UPDATE_USER_REQUEST);
-		UserResult response = UserResult.of(USER2);
+		LoginUserResult response = LoginUserResult.of(USER2, "user1 valid token");
 
 		given(updateUserUseCase.updateUser(any(UpdateUserCommand.class), eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.put("/api/users")
+				RestDocumentationRequestBuilders.put("/api/user")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(request)
 			)
