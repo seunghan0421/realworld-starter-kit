@@ -5,6 +5,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.*;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,10 +43,14 @@ class FollowControllerTest extends ControllerTest {
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.post("/api/profiles/{username}/follow", USER1.getUsername())
 					.contentType(MediaType.APPLICATION_JSON)
+					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
 			.andExpect(status().isOk())
 			.andDo(
 				restDocs.document(
+					requestHeaders(
+						headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
+					),
 					responseFields(
 						fieldWithPath("profile").type(JsonFieldType.OBJECT).description("프로필 정보")
 					).andWithPrefix("profile.", ProfileFieldDescriptor.profile)
@@ -68,10 +73,14 @@ class FollowControllerTest extends ControllerTest {
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.delete("/api/profiles/{username}/follow", USER1.getUsername())
 					.contentType(MediaType.APPLICATION_JSON)
+					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
 			.andExpect(status().isOk())
 			.andDo(
 				restDocs.document(
+					requestHeaders(
+						headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
+					),
 					responseFields(
 						fieldWithPath("profile").type(JsonFieldType.OBJECT).description("프로필 정보")
 					).andWithPrefix("profile.", ProfileFieldDescriptor.profile)

@@ -1,6 +1,8 @@
 package com.hani.realworld.common.restdocs;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
+import static com.hani.realworld.infra.jwt.JwtAuthenticationFilter.*;
+import static com.hani.realworld.infra.jwt.JwtProvider.*;
 import static org.mockito.BDDMockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +33,10 @@ import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 @Import(RestDocsConfig.class)
 @ExtendWith(RestDocumentationExtension.class)
 public class ControllerTest {
+
+	protected static final String TOKEN = "abc.def.ghi";
+	protected static final String AUTHORIZATION_HEADER_NAME = AUTHORIZATION_HEADER;
+	protected static final String AUTHORIZATION_HEADER_VALUE = HEADER_PREFIX + TOKEN;
 
 	@MockBean
 	protected JwtProvider jwtProvider;

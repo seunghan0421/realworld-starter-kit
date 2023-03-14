@@ -2,6 +2,8 @@ package com.hani.realworld.user.adapter.in.web;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.mockito.BDDMockito.*;
+import static org.springframework.http.MediaType.*;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,7 +46,8 @@ class UserControllerTest extends ControllerTest {
 
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.post("/api/users")
-					.contentType(MediaType.APPLICATION_JSON)
+					.accept(APPLICATION_JSON_VALUE)
+					.contentType(APPLICATION_JSON_VALUE)
 					.content(request)
 			)
 			.andExpect(status().isCreated())
@@ -78,12 +81,17 @@ class UserControllerTest extends ControllerTest {
 
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.put("/api/user")
+					.accept(APPLICATION_JSON_VALUE)
 					.contentType(MediaType.APPLICATION_JSON)
+					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 					.content(request)
 			)
 			.andExpect(status().isOk())
 			.andDo(
 				restDocs.document(
+					requestHeaders(
+						headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
+					),
 					requestFields(
 						fieldWithPath("user.username").type(JsonFieldType.STRING).description("유저명"),
 						fieldWithPath("user.email").type(JsonFieldType.STRING).description("이메일"),

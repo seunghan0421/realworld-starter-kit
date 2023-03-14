@@ -3,6 +3,7 @@ package com.hani.realworld.user.adapter.in.web;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
+import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,7 +36,8 @@ class LoginUserControllerTest extends ControllerTest {
 
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.post("/api/users/login")
-					.contentType(MediaType.APPLICATION_JSON)
+					.accept(APPLICATION_JSON_VALUE)
+					.contentType(APPLICATION_JSON_VALUE)
 					.content(request)
 			)
 			.andExpect(status().isOk())
