@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
+	 * TODO: Bean Validation command validation error가 전부 담기게끔 리팩터가
 	 * enum type 일치하지 않아 binding 못할 경우 발생
 	 * 주로 @RequestParam enum으로 binding 못했을 경우 발생
 	 */
