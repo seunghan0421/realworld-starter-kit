@@ -29,6 +29,7 @@ public class RegisterUserCommand extends SelfValidating<RegisterUserCommand> {
 		String username,
 		String email,
 		String password) {
+
 		this.username = username;
 		this.email = email;
 		this.password = password;
