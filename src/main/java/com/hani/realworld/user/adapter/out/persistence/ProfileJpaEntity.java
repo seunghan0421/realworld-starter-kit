@@ -47,14 +47,9 @@ public class ProfileJpaEntity {
 	@ElementCollection(targetClass = Long.class)
 	private Set<Long> followees;
 
-	public void update(Profile profile) {
+	void update(Profile profile) {
 
-		this.user.update(
-			profile.getUser().getUsername(),
-			profile.getUser().getEmail(),
-			profile.getUser().getPassword().getValue(),
-			profile.getUser().getBio(),
-			profile.getUser().getImage());
+		this.user.update(profile.getUser());
 
 		this.followees = profile.getFollowees().getFollowees().stream()
 			.map(UserId::getValue)

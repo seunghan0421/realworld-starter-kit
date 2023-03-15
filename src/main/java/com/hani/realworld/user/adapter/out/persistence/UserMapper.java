@@ -23,7 +23,7 @@ public class UserMapper {
 				.collect(Collectors.toSet()));
 	}
 
-	public Profile mapToProfileEntity(ProfileJpaEntity profileJpaEntity) {
+	Profile mapToProfileEntity(ProfileJpaEntity profileJpaEntity) {
 		return Profile.withId(
 			new Profile.ProfileId(profileJpaEntity.getId()),
 			mapToUserEntity(profileJpaEntity.getUser()),

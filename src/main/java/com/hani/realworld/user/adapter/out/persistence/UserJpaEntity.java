@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.hani.realworld.user.domain.User;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,17 +43,11 @@ public class UserJpaEntity {
 	@Column
 	private String image;
 
-	public void update(
-		String username,
-		String email,
-		String password,
-		String bio,
-		String image) {
-
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.bio = bio;
-		this.image = image;
+	public void update(User user) {
+		this.username = user.getUsername();
+		this.email = user.getEmail();
+		this.password = user.getPassword().getValue();
+		this.bio = user.getBio();
+		this.image = user.getImage();
 	}
 }
