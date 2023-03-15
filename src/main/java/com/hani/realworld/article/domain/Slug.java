@@ -7,14 +7,14 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Slug {
 
-	private final String slug;
+	private String slug;
 
 	public Slug(final String title) {
-		this.slug = toSlug(title);
+		this.slug = title;
 	}
 
-	private String toSlug(final String title) {
-		String slugTitle = title.toLowerCase();
-		return slugTitle.replaceAll(" ", "-");
+	public void toSlug() {
+		String slugTitle = slug.toLowerCase();
+		this.slug = slugTitle.replaceAll(" ", "-");
 	}
 }

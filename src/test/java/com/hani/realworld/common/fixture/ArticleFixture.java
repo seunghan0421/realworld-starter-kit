@@ -60,6 +60,7 @@ public class ArticleFixture {
 
 		public ArticleBuilder withTitle(String title) {
 			this.slug = new Slug(title);
+			this.slug.toSlug();
 			this.title = title;
 
 			return this;

@@ -4,7 +4,6 @@ import static com.hani.realworld.user.domain.User.*;
 import static lombok.AccessLevel.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class Article {
 	private final Profile author;
 
 	/* Tag Set contains of Article */
-	private Tags tags;
+	private final Tags tags;
 
 	/* 아티클을 즐겨찾기 한 사람들 */
 	// private List<Favorite> favorites = new ArrayList<>();
@@ -59,7 +58,10 @@ public class Article {
 		String description,
 		String body) {
 
-		return new Article(null, author, tags, new Slug(title), title,
+		Slug slug = new Slug(title);
+		slug.toSlug();
+
+		return new Article(null, author, tags, slug, title,
 			description, body, LocalDateTime.now(), LocalDateTime.now());
 	}
 
@@ -89,7 +91,12 @@ public class Article {
 		String description,
 		String body) {
 
-		Slug uSlug = Optional.ofNullable(title).map(Slug::new).orElseGet(() -> this.slug);
+		Slug uSlug = Optional.ofNullable(title)
+			.map(t -> {
+				Slug slug = new Slug(t);
+				slug.toSlug();
+				return slug;
+			}).orElseGet(() -> this.slug);
 		String uTitle = Optional.ofNullable(title).orElseGet(() -> this.title);
 		String uDescription = Optional.ofNullable(description).orElseGet(() -> this.description);
 		String uBody = Optional.ofNullable(body).orElseGet(() -> this.body);
