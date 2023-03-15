@@ -7,7 +7,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Slug {
 
-	private String slug;
+	private final String slug;
 
 	public Slug(final String title) {
 		this.slug = toSlug(title);
