@@ -81,7 +81,7 @@ public class ArticleController {
 			request.getDescription(),
 			request.getBody());
 
-		ArticleResult articleResult = updateArticleUseCase.update(command, loginToken.getId());
+		ArticleResult articleResult = updateArticleUseCase.update(command, slug, loginToken.getId());
 
 		return ResponseEntity.ok(ArticleResponse.of(articleResult));
 	}

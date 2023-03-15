@@ -98,7 +98,7 @@ class ArticleControllerTest extends ControllerTest {
 				.withBody(UPDATE_ARTICLE_REQUEST.getBody()).build(),
 			ProfileResult.of(ARTICLE1.getAuthor(), false));
 
-		given(updateArticleUseCase.update(any(UpdateArticleCommand.class), eq(USER1.getId().getValue())))
+		given(updateArticleUseCase.update(any(UpdateArticleCommand.class), eq(ARTICLE1.getSlug().getSlug()), eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
@@ -131,6 +131,7 @@ class ArticleControllerTest extends ControllerTest {
 				UPDATE_ARTICLE_REQUEST.getTitle(),
 				UPDATE_ARTICLE_REQUEST.getDescription(),
 				UPDATE_ARTICLE_REQUEST.getBody())),
+				eq(ARTICLE1.getSlug().getSlug()),
 				eq(USER1.getId().getValue()));
 	}
 

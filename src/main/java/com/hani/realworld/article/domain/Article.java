@@ -1,11 +1,14 @@
 package com.hani.realworld.article.domain;
 
+import static com.hani.realworld.user.domain.User.*;
 import static lombok.AccessLevel.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
+import com.hani.realworld.common.exception.NotMyArticleException;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
@@ -97,6 +100,14 @@ public class Article {
 
 		return withId(this.id, this.author, this.tags, uSlug, uTitle, uDescription, uBody,
 			this.createdAt, LocalDateTime.now());
+	}
+
+	/**
+	 * check whether article author is login user
+	 */
+	public void checkisMyArticle(UserId userId) {
+		if (!Objects.equals(author.getUser().getId(), userId))
+			throw new NotMyArticleException();
 	}
 
 	/**
