@@ -28,6 +28,7 @@ public class ArticleJpaEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "article_id")
 	private Long id;
 
 	@Column(name = "author_id")

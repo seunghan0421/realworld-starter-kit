@@ -28,6 +28,7 @@ class UserPersistenceAdapterTest {
 
 	@Autowired
 	private UserRepository userRepository;
+
 	@Autowired
 	private ProfileRepository profileRepository;
 
@@ -123,11 +124,9 @@ class UserPersistenceAdapterTest {
 	}
 
 	@Sql(
-		value = {
-			"UserPersistenceAdapterTest.sql",
-			"ProfilePersistenceAdapterTest.sql"
-		},
-		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
+	)
 	@Test
 	void load_profile_with_userId_succeeds() {
 		// when
@@ -139,11 +138,9 @@ class UserPersistenceAdapterTest {
 	}
 
 	@Sql(
-		value = {
-			"UserPersistenceAdapterTest.sql",
-			"ProfilePersistenceAdapterTest.sql"
-		},
-		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
+	)
 	@Test
 	void load_profile_with_username_succeeds() {
 		// when
@@ -155,11 +152,9 @@ class UserPersistenceAdapterTest {
 	}
 
 	@Sql(
-		value = {
-			"UserPersistenceAdapterTest.sql",
-			"ProfilePersistenceAdapterTest.sql"
-		},
-		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
+	)
 	@Test
 	void update_followees_succeeds() {
 		// given
@@ -175,8 +170,10 @@ class UserPersistenceAdapterTest {
 		assertThat(profile.getFollowees().isFollow(USER2)).isTrue();
 	}
 
-	@Sql(value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
-		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
+	)
 	@Test
 	void load_profile_with_profileId_succeeds() {
 		// when
