@@ -3,8 +3,8 @@ package com.hani.realworld.user.adapter.out.persistence;
 import javax.persistence.EntityNotFoundException;
 
 import com.hani.realworld.common.annotation.PersistenceAdapter;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
@@ -18,15 +18,15 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class UserPersistenceAdapter implements
+public class UserPersistenceAdapterPort implements
 	LoadUserWithEmailPort,
 	LoadUserWithIdPort,
 	RegisterUserStatePort,
 	RegisterProfileStatePort,
 	UpdateUserStatePort,
 	UpdateProfileStatePort,
-	LoadProfileWithUsername,
-	LoadProfileWithUserId {
+	LoadProfileWithUsernamePort,
+	LoadProfileWithUserIdPort {
 
 	private final UserRepository userRepository;
 	private final ProfileRepository profileRepository;

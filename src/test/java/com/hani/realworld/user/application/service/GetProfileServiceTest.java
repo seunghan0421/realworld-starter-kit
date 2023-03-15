@@ -13,20 +13,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
 import com.hani.realworld.user.domain.Profile;
 
 class GetProfileServiceTest {
 
-	private final LoadProfileWithUsername loadProfileWithUsername =
-		Mockito.mock(LoadProfileWithUsername.class);
+	private final LoadProfileWithUsernamePort loadProfileWithUsernamePort =
+		Mockito.mock(LoadProfileWithUsernamePort.class);
 
-	private final LoadProfileWithUserId loadProfileWithUserId =
-		Mockito.mock(LoadProfileWithUserId.class);
+	private final LoadProfileWithUserIdPort loadProfileWithUserIdPort =
+		Mockito.mock(LoadProfileWithUserIdPort.class);
 
 	private final GetProfileService getProfileService =
-		new GetProfileService(loadProfileWithUsername, loadProfileWithUserId);
+		new GetProfileService(loadProfileWithUsernamePort, loadProfileWithUserIdPort);
 
 	// USER1이 USER2를 조회하는 상황
 	// 로그인 O, follow X
@@ -39,9 +39,9 @@ class GetProfileServiceTest {
 		String targetUsername = target.getUser().getUsername();
 		Optional<Long> baseUserId = Optional.of(base.getUser().getId().getValue());
 
-		given(loadProfileWithUsername.loadProfileWithUsername(eq(targetUsername)))
+		given(loadProfileWithUsernamePort.loadProfileWithUsername(eq(targetUsername)))
 			.willReturn(target);
-		given(loadProfileWithUserId.loadProfileWithUserId(eq(new UserId(baseUserId.get()))))
+		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new UserId(baseUserId.get()))))
 			.willReturn(base);
 
 		// when
@@ -53,8 +53,8 @@ class GetProfileServiceTest {
 		assertThat(result.getImage()).isEqualTo(USER2.getImage());
 		assertThat(result.isFollowing()).isTrue();
 
-		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
-		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(loadProfileWithUserIdPort).should().loadProfileWithUserId(eq(USER1.getId()));
+		then(loadProfileWithUsernamePort).should().loadProfileWithUsername(eq(USER2.getUsername()));
 		then(base).should().isFollowing(USER2);
 	}
 
@@ -68,7 +68,7 @@ class GetProfileServiceTest {
 		String targetUsername = target.getUser().getUsername();
 		Optional<Long> baseUserId = Optional.empty();
 
-		given(loadProfileWithUsername.loadProfileWithUsername(eq(targetUsername)))
+		given(loadProfileWithUsernamePort.loadProfileWithUsername(eq(targetUsername)))
 			.willReturn(target);
 
 		// when
@@ -80,7 +80,7 @@ class GetProfileServiceTest {
 		assertThat(result.getImage()).isEqualTo(USER2.getImage());
 		assertThat(result.isFollowing()).isFalse();
 
-		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(loadProfileWithUsernamePort).should().loadProfileWithUsername(eq(USER2.getUsername()));
 	}
 
 

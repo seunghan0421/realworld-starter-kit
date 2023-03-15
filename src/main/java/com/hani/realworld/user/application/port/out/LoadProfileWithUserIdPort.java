@@ -4,6 +4,6 @@ import static com.hani.realworld.user.domain.User.*;
 
 import com.hani.realworld.user.domain.Profile;
 
-public interface LoadProfileWithUserId {
+public interface LoadProfileWithUserIdPort {
 	Profile loadProfileWithUserId(UserId userId);
 }

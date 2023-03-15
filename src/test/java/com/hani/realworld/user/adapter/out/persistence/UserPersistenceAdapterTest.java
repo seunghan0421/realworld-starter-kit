@@ -5,12 +5,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.common.util.PasswordEncoderUtil.*;
 import static org.assertj.core.api.Assertions.*;
 
-import javax.transaction.Transactional;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -25,11 +20,11 @@ import com.hani.realworld.user.domain.User;
 @DataJpaTest
 // @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({UserPersistenceAdapter.class, UserMapper.class})
+@Import({UserPersistenceAdapterPort.class, UserMapper.class})
 class UserPersistenceAdapterTest {
 
 	@Autowired
-	private UserPersistenceAdapter adapter;
+	private UserPersistenceAdapterPort adapter;
 
 	@Autowired
 	private UserRepository userRepository;

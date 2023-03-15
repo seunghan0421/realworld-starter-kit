@@ -3,7 +3,6 @@ package com.hani.realworld.user.application.service;
 import static com.hani.realworld.common.fixture.ProfileServiceFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.doThrow;
@@ -12,25 +11,25 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
 import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
 class UnFollowProfileServiceTest {
 
-	private final LoadProfileWithUsername loadProfileWithUsername =
-		Mockito.mock(LoadProfileWithUsername.class);
+	private final LoadProfileWithUsernamePort loadProfileWithUsernamePort =
+		Mockito.mock(LoadProfileWithUsernamePort.class);
 
-	private final LoadProfileWithUserId loadProfileWithUserId =
-		Mockito.mock(LoadProfileWithUserId.class);
+	private final LoadProfileWithUserIdPort loadProfileWithUserIdPort =
+		Mockito.mock(LoadProfileWithUserIdPort.class);
 
 	private final UpdateProfileStatePort updateProfileStatePort =
 		Mockito.mock(UpdateProfileStatePort.class);
 
 	private final UnFollowProfileService unFollowProfileService =
-		new UnFollowProfileService(loadProfileWithUsername, loadProfileWithUserId, updateProfileStatePort);
+		new UnFollowProfileService(loadProfileWithUsernamePort, loadProfileWithUserIdPort, updateProfileStatePort);
 
 	// USER1가 USER2 unfollow - 성공
 	@Test
@@ -42,9 +41,9 @@ class UnFollowProfileServiceTest {
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();
 
-		given(loadProfileWithUsername.loadProfileWithUsername(eq(targetUsername)))
+		given(loadProfileWithUsernamePort.loadProfileWithUsername(eq(targetUsername)))
 			.willReturn(target);
-		given(loadProfileWithUserId.loadProfileWithUserId(eq(new User.UserId(baseUserId))))
+		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new User.UserId(baseUserId))))
 			.willReturn(base);
 		given(base.isFollowing(target.getUser()))
 			.willReturn(false);
@@ -58,8 +57,8 @@ class UnFollowProfileServiceTest {
 		assertThat(result.getImage()).isEqualTo(USER2.getImage());
 		assertThat(result.isFollowing()).isFalse();
 
-		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
-		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(loadProfileWithUserIdPort).should().loadProfileWithUserId(eq(USER1.getId()));
+		then(loadProfileWithUsernamePort).should().loadProfileWithUsername(eq(USER2.getUsername()));
 		then(updateProfileStatePort).should().updateProfile(eq(base));
 		then(base).should().unfollow(eq(USER2));
 		then(base).should().isFollowing(eq(USER2));
@@ -75,9 +74,9 @@ class UnFollowProfileServiceTest {
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();
 
-		given(loadProfileWithUsername.loadProfileWithUsername(eq(targetUsername)))
+		given(loadProfileWithUsernamePort.loadProfileWithUsername(eq(targetUsername)))
 			.willReturn(target);
-		given(loadProfileWithUserId.loadProfileWithUserId(eq(new User.UserId(baseUserId))))
+		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new User.UserId(baseUserId))))
 			.willReturn(base);
 		doThrow(new IllegalStateException()).when(base).unfollow(eq(USER2));
 
@@ -86,8 +85,8 @@ class UnFollowProfileServiceTest {
 			.isInstanceOf(IllegalStateException.class);
 
 		// then
-		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
-		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(loadProfileWithUserIdPort).should().loadProfileWithUserId(eq(USER1.getId()));
+		then(loadProfileWithUsernamePort).should().loadProfileWithUsername(eq(USER2.getUsername()));
 		then(base).should().unfollow(eq(USER2));
 	}
 

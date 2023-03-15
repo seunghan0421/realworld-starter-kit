@@ -11,24 +11,24 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUserId;
-import com.hani.realworld.user.application.port.out.LoadProfileWithUsername;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
 import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
 import com.hani.realworld.user.domain.Profile;
 
 class FollowProfileServiceTest {
 
-	private final LoadProfileWithUsername loadProfileWithUsername =
-		Mockito.mock(LoadProfileWithUsername.class);
+	private final LoadProfileWithUsernamePort loadProfileWithUsernamePort =
+		Mockito.mock(LoadProfileWithUsernamePort.class);
 
-	private final LoadProfileWithUserId loadProfileWithUserId =
-		Mockito.mock(LoadProfileWithUserId.class);
+	private final LoadProfileWithUserIdPort loadProfileWithUserIdPort =
+		Mockito.mock(LoadProfileWithUserIdPort.class);
 
 	private final UpdateProfileStatePort updateProfileStatePort =
 		Mockito.mock(UpdateProfileStatePort.class);
 
 	private final FollowProfileService followProfileService =
-		new FollowProfileService(loadProfileWithUsername, loadProfileWithUserId, updateProfileStatePort);
+		new FollowProfileService(loadProfileWithUsernamePort, loadProfileWithUserIdPort, updateProfileStatePort);
 
 	// USER1가 USER2 follow - 성공
 	@Test
@@ -40,9 +40,9 @@ class FollowProfileServiceTest {
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();
 
-		given(loadProfileWithUsername.loadProfileWithUsername(eq(targetUsername)))
+		given(loadProfileWithUsernamePort.loadProfileWithUsername(eq(targetUsername)))
 			.willReturn(target);
-		given(loadProfileWithUserId.loadProfileWithUserId(eq(new UserId(baseUserId))))
+		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new UserId(baseUserId))))
 			.willReturn(base);
 		given(base.isFollowing(target.getUser()))
 			.willReturn(true);
@@ -56,8 +56,8 @@ class FollowProfileServiceTest {
 		assertThat(result.getImage()).isEqualTo(USER2.getImage());
 		assertThat(result.isFollowing()).isTrue();
 
-		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
-		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(loadProfileWithUserIdPort).should().loadProfileWithUserId(eq(USER1.getId()));
+		then(loadProfileWithUsernamePort).should().loadProfileWithUsername(eq(USER2.getUsername()));
 		then(updateProfileStatePort).should().updateProfile(eq(base));
 		then(base).should().follow(eq(USER2));
 		then(base).should().isFollowing(eq(USER2));
@@ -73,9 +73,9 @@ class FollowProfileServiceTest {
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();
 
-		given(loadProfileWithUsername.loadProfileWithUsername(eq(targetUsername)))
+		given(loadProfileWithUsernamePort.loadProfileWithUsername(eq(targetUsername)))
 			.willReturn(target);
-		given(loadProfileWithUserId.loadProfileWithUserId(eq(new UserId(baseUserId))))
+		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new UserId(baseUserId))))
 			.willReturn(base);
 		// TODO: 여기 왜 eq(target.getUser()) 안되는지 확인해야함
 		doThrow(new IllegalStateException()).when(base).follow(eq(USER2));
@@ -85,8 +85,8 @@ class FollowProfileServiceTest {
 			.isInstanceOf(IllegalStateException.class);
 
 		// then
-		then(loadProfileWithUserId).should().loadProfileWithUserId(eq(USER1.getId()));
-		then(loadProfileWithUsername).should().loadProfileWithUsername(eq(USER2.getUsername()));
+		then(loadProfileWithUserIdPort).should().loadProfileWithUserId(eq(USER1.getId()));
+		then(loadProfileWithUsernamePort).should().loadProfileWithUsername(eq(USER2.getUsername()));
 		then(base).should().follow(eq(USER2));
 	}
 
