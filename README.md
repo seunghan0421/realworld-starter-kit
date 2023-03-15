@@ -40,6 +40,46 @@ $ ./gradlew bootJar
 
 For more details, see [`RealWorld - Spring Rest Docs`]( http://htmlpreview.github.io/?https://github.com/seunghan0421/realworld-starter-kit/blob/master/docs/index.html).
 
+# Architecture
+### A typical top-level directory layout
+```shell
+
+    ├── build                   # Compiled files (alternatively `dist`)
+    ├── docs                    # Documentation files (alternatively `doc`)
+    ├── src                     # Source files (alternatively `lib` or `app`)
+    ├── test                    # Automated tests (alternatively `spec` or `tests`)
+    ├── tools                   # Tools and utilities
+    ├── LICENSE
+    └── README.md
+```
+### File Directory Structure
+
+
+> **Q: Why did you use Hexagonal-architecture?**
+>
+> **A:** The Hexagonal or Ports and Adapters Architecture, is not the silver bullet for all applications. But if broken windows are allowed(as you often make mistakes when you use Traditional Layered Architecture), it might cause a lot of headaches.<br>
+&nbsp;&nbsp; When properly implemented and paired with other methodologies, like Domain-Driven Design, Ports and Adapters can ensure an application’s long term stability and extensibility, bringing a great deal of value to the system and the enterprise..
+
+    .
+    ├── src                    
+    │   ├── docs         
+    │       └── asciidoc                # documentation by Spring Rest Docs
+    │   ├── main
+    │       ├── ...          
+    │       ├── article                 # One of the aggregates
+    │           ├── domain
+    │           ├── adapter
+    │               ├── in              # Web Adapter
+    │               └── out             # Persistence Adapter
+    │                   └── persistence 
+    │           ├── application
+    │               └── service         # Service Implementations
+    │               ├── port         
+    │                   ├── in          # Service Interface(Port)
+    │                   └── out         # Persistence Port
+    │       └── ...  
+    │   └── test                        # Unit tests, Acceptence tests, etcs
+    └──
 # Diagram
 
 ![diagram](docs/images/diagram.png)
