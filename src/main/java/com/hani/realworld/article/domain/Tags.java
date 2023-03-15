@@ -29,6 +29,10 @@ public class Tags {
 		this.tags = new HashSet<>(tags);
 	}
 
+	public Tags(@NonNull Set<String> tags) {
+		this.tags = new HashSet<>(tags);
+	}
+
 	public Tags(@NonNull String... tags) {
 		this.tags = new HashSet<>(Arrays.asList(tags));
 	}
