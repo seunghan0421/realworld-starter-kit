@@ -1,7 +1,6 @@
 package com.hani.realworld.user.application.service;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
-import static com.hani.realworld.common.fixture.UserServiceFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -23,7 +22,7 @@ class GetUserServiceTest {
 	@Test
 	void getUser_Succeeds() {
 		// given
-		User user = givenAnUserWithUser1();
+		User user = getMockUSER1();
 
 		given(loadUserWithIdPort.loadUserWithId(eq(USER1.getId())))
 			.willReturn(user);

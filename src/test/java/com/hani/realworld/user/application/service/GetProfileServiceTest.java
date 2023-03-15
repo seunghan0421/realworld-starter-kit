@@ -1,6 +1,6 @@
 package com.hani.realworld.user.application.service;
 
-import static com.hani.realworld.common.fixture.ProfileServiceFixture.*;
+import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.user.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
@@ -33,8 +33,8 @@ class GetProfileServiceTest {
 	@Test
 	void getProfile_withLogin_Succeeds() {
 		// given
-		Profile target = givenAnProfileOfUser2();
-		Profile base = givenAnProfileOfUser1();
+		Profile target = getMockPROFILE2();
+		Profile base = getMockPROFILE1();
 
 		String targetUsername = target.getUser().getUsername();
 		Optional<Long> baseUserId = Optional.of(base.getUser().getId().getValue());
@@ -63,7 +63,7 @@ class GetProfileServiceTest {
 	@Test
 	void getProfile_withOutLogin_Succeeds() {
 		// given
-		Profile target = givenAnProfileOfUser2();
+		Profile target = getMockPROFILE2();
 
 		String targetUsername = target.getUser().getUsername();
 		Optional<Long> baseUserId = Optional.empty();

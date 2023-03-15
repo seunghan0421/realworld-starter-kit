@@ -1,6 +1,9 @@
 package com.hani.realworld.common.fixture;
 
 import static com.hani.realworld.user.domain.User.*;
+import static org.mockito.BDDMockito.*;
+
+import org.mockito.Mockito;
 
 import com.hani.realworld.common.util.PasswordEncoderUtil;
 import com.hani.realworld.infra.jwt.LoginToken;
@@ -100,6 +103,30 @@ public class UserFixture {
 		.withPassword("password2")
 		.withImage("http://image2.png")
 		.build();
+
+	public static User getMockUSER1() {
+		User user = Mockito.mock(User.class);
+
+		given(user.getId()).willReturn(USER1.getId());
+		given(user.getUsername()).willReturn(USER1.getUsername());
+		given(user.getEmail()).willReturn(USER1.getEmail());
+		given(user.getBio()).willReturn(USER1.getBio());
+		given(user.getImage()).willReturn(USER1.getImage());
+
+		return user;
+	}
+
+	public static User getMockUSER2() {
+		User user = Mockito.mock(User.class);
+
+		given(user.getId()).willReturn(USER2.getId());
+		given(user.getUsername()).willReturn(USER2.getUsername());
+		given(user.getEmail()).willReturn(USER2.getEmail());
+		given(user.getBio()).willReturn(USER2.getBio());
+		given(user.getImage()).willReturn(USER2.getImage());
+
+		return user;
+	}
 
 	public static final RegisterUserRequest REGISTER_USER_REQUEST =
 		new RegisterUserRequest(REGISTER_USER.getUsername(), REGISTER_USER.getEmail(), "password");

@@ -1,11 +1,10 @@
 package com.hani.realworld.user.application.service;
 
-import static com.hani.realworld.common.fixture.ProfileServiceFixture.*;
+import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.doThrow;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -35,8 +34,8 @@ class UnFollowProfileServiceTest {
 	@Test
 	void unfollowProfile_Succeeds() {
 		// given
-		Profile target = givenAnProfileOfUser2();
-		Profile base = givenAnProfileOfUser1();
+		Profile target = getMockPROFILE2();
+		Profile base = getMockPROFILE1();
 
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();
@@ -68,8 +67,8 @@ class UnFollowProfileServiceTest {
 	@Test
 	void unfollowProfile_Failure() {
 		// given
-		Profile target = givenAnProfileOfUser2();
-		Profile base = givenAnProfileOfUser1();
+		Profile target = getMockPROFILE2();
+		Profile base = getMockPROFILE1();
 
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();

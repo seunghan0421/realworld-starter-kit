@@ -1,7 +1,6 @@
 package com.hani.realworld.user.application.service;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
-import static com.hani.realworld.common.fixture.UserServiceFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -10,9 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
-import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.user.application.port.out.UpdateUserStatePort;
@@ -38,8 +35,8 @@ class UpdateUserServiceTest {
 	@Test
 	void updateUserState_Succeeds() {
 		// given
-		User user1 = givenAnUserWithUser1();
-		User user2 = givenAnUserWithUser2();
+		User user1 = getMockUSER1();
+		User user2 = getMockUSER2();
 
 		final String updatedPassword = "updatedPassword";
 		UpdateUserCommand command = new UpdateUserCommand(

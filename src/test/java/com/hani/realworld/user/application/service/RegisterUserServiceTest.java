@@ -1,7 +1,6 @@
 package com.hani.realworld.user.application.service;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
-import static com.hani.realworld.common.fixture.UserServiceFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -11,9 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
-import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
@@ -45,7 +42,7 @@ class RegisterUserServiceTest {
 	@Test
 	void registerUser_Succeeds() {
 		// given
-		User user = givenAnUserWithUser1();
+		User user = getMockUSER1();
 
 		RegisterUserCommand command = new RegisterUserCommand(
 			USER1.getUsername(),
