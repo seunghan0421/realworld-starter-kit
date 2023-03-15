@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
@@ -51,6 +52,9 @@ class FollowControllerTest extends ControllerTest {
 					requestHeaders(
 						headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
 					),
+					pathParameters(
+						parameterWithName("username").description("상대 이름")
+					),
 					responseFields(
 						fieldWithPath("profile").type(JsonFieldType.OBJECT).description("프로필 정보")
 					).andWithPrefix("profile.", ProfileFieldDescriptor.profile)
@@ -80,6 +84,9 @@ class FollowControllerTest extends ControllerTest {
 				restDocs.document(
 					requestHeaders(
 						headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
+					),
+					pathParameters(
+						parameterWithName("username").description("상대 이름")
 					),
 					responseFields(
 						fieldWithPath("profile").type(JsonFieldType.OBJECT).description("프로필 정보")

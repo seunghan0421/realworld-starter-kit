@@ -1166,6 +1166,28 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="profile-find-user_path_parameters"><a class="link" href="#profile-find-user_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/profiles/{username}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="profile-find-user_http_response"><a class="link" href="#profile-find-user_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
@@ -1251,6 +1273,28 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_요청_헤더_path_parameters"><a class="link" href="#_요청_헤더_path_parameters">Path parameters</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/profiles/{username}/follow</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상대 이름</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
 <h5 id="_요청_헤더_http_response"><a class="link" href="#_요청_헤더_http_response">HTTP response</a></h5>
 <div class="listingblock">
 <div class="content">
@@ -1333,6 +1377,28 @@ Authorization: Token abc.def.ghi
 Host: localhost:8080</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="profile-unfollow_path_parameters"><a class="link" href="#profile-unfollow_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/profiles/{username}/follow</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상대 이름</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="profile-unfollow_http_response"><a class="link" href="#profile-unfollow_http_response">HTTP response</a></h4>
@@ -1485,7 +1551,7 @@ Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Location: /api/articles/user1-article
 Content-Type: application/json;charset=UTF-8
-Content-Length: 420
+Content-Length: 421
 
 {
   "article" : {
@@ -1494,8 +1560,8 @@ Content-Length: 420
     "description" : "user1 description",
     "body" : "user1 body",
     "tagList" : [ "user1" ],
-    "createdAt" : "2023-03-14T17:21:13.068015",
-    "updatedAt" : "2023-03-14T17:21:13.06807",
+    "createdAt" : "2023-03-15T18:40:45.988256",
+    "updatedAt" : "2023-03-15T18:40:45.988282",
     "author" : {
       "username" : "username1",
       "bio" : "im user1",
@@ -1619,6 +1685,28 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
+<h4 id="article-update_path_parameters"><a class="link" href="#article-update_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/articles/{slug}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>slug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 슬러그</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="article-update_request_fields"><a class="link" href="#article-update_request_fields">Request fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1670,8 +1758,8 @@ Content-Length: 431
     "description" : "user2 description",
     "body" : "user2 body",
     "tagList" : [ "Spring", "React" ],
-    "createdAt" : "2023-03-14T17:21:14.605652",
-    "updatedAt" : "2023-03-14T17:21:14.605678",
+    "createdAt" : "2023-03-15T18:40:47.353453",
+    "updatedAt" : "2023-03-15T18:40:47.353479",
     "author" : {
       "username" : "username1",
       "bio" : "im user1",
@@ -1785,6 +1873,28 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="article-delete_path_parameters"><a class="link" href="#article-delete_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/articles/{slug}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>slug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 슬러그</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="article-delete_http_response"><a class="link" href="#article-delete_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
@@ -1811,6 +1921,28 @@ Authorization: Token abc.def.ghi
 Host: localhost:8080</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="article-find-one-by-slug_path_parameters"><a class="link" href="#article-find-one-by-slug_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/articles/{slug}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>slug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 슬러그</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="article-find-one-by-slug_response_fields"><a class="link" href="#article-find-one-by-slug_response_fields">Response fields</a></h4>
@@ -1905,7 +2037,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 420
+Content-Length: 421
 
 {
   "article" : {
@@ -1914,8 +2046,8 @@ Content-Length: 420
     "description" : "user1 description",
     "body" : "user1 body",
     "tagList" : [ "user1" ],
-    "createdAt" : "2023-03-14T17:21:13.068015",
-    "updatedAt" : "2023-03-14T17:21:13.06807",
+    "createdAt" : "2023-03-15T18:40:45.988256",
+    "updatedAt" : "2023-03-15T18:40:45.988282",
     "author" : {
       "username" : "username1",
       "bio" : "im user1",

@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Optional;
@@ -114,6 +115,9 @@ class ArticleControllerTest extends ControllerTest {
 					requestHeaders(
 						headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
 					),
+					pathParameters(
+						parameterWithName("slug").description("게시물 슬러그")
+					),
 					requestFields(
 						fieldWithPath("article.title").type(JsonFieldType.STRING).description("제목"),
 						fieldWithPath("article.description").type(JsonFieldType.STRING).description("설명"),
@@ -153,6 +157,9 @@ class ArticleControllerTest extends ControllerTest {
 			.andExpect(status().isOk())
 			.andDo(
 				restDocs.document(
+					pathParameters(
+						parameterWithName("slug").description("게시물 슬러그")
+					),
 					responseFields(
 						fieldWithPath("article").type(JsonFieldType.OBJECT).description("기사 정보")
 					).andWithPrefix("article.", ArticleFieldDescriptor.article)
@@ -174,6 +181,9 @@ class ArticleControllerTest extends ControllerTest {
 			)
 			.andExpect(status().isNoContent())
 			.andDo(restDocs.document(
+				pathParameters(
+					parameterWithName("slug").description("게시물 슬러그")
+				),
 				requestHeaders(
 					headerWithName(AUTHORIZATION_HEADER_NAME).description("토큰")
 				)
