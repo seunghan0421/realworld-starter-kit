@@ -1,5 +1,6 @@
 package com.hani.realworld.article.adapter.out.persistence;
 
+import com.hani.realworld.article.application.port.out.CreateArticleStatePort;
 import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleId;
 import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
 import com.hani.realworld.article.application.port.out.UpdateArticleStatePort;
@@ -12,11 +13,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ArticlePersistenceAdapter implements
 	LoadArticleWithSlugPort,
+	CreateArticleStatePort,
 	UpdateArticleStatePort,
 	DeleteArticleWithArticleId {
 
 	@Override
 	public void delete(Article.ArticleId articleId) {
+
+	}
+
+	@Override
+	public void create(Article article) {
 
 	}
 
@@ -29,4 +36,5 @@ public class ArticlePersistenceAdapter implements
 	public void update(Article article) {
 
 	}
+
 }

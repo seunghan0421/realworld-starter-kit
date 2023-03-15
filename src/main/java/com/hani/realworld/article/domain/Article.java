@@ -54,14 +54,10 @@ public class Article {
 	 */
 	public static Article withoutId(
 		Profile author,
-		List<String> tagList,
+		Tags tags,
 		String title,
 		String description,
 		String body) {
-
-		Tags tags = Optional.ofNullable(tagList)
-			.map(Tags::new)
-			.orElseGet(Tags::new);
 
 		return new Article(null, author, tags, new Slug(title), title,
 			description, body, LocalDateTime.now(), LocalDateTime.now());
