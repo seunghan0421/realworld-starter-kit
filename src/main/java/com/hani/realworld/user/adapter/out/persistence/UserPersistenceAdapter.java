@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class UserPersistenceAdapterPort implements
+public class UserPersistenceAdapter implements
 	LoadUserWithEmailPort,
 	LoadUserWithIdPort,
 	RegisterUserStatePort,

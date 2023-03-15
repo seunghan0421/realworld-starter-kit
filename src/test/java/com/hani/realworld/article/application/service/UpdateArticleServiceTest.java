@@ -44,18 +44,16 @@ class UpdateArticleServiceTest {
 
 		given(loadArticleWithSlugPort.load(eq(slug))).willReturn(article);
 		given(article.update(any(), any(), any())).willReturn(defaultArticle().
-				withTitle(ARTICLE2.getTitle()).
-				withDescription(ARTICLE2.getDescription()).
-				withBody(ARTICLE2.getBody())
-				.build());
-		given(getProfileQuery.getProfile(eq(authorName), any())).willReturn(response);
+			withTitle(ARTICLE2.getTitle()).
+			withDescription(ARTICLE2.getDescription()).
+			withBody(ARTICLE2.getBody())
+			.build());
+		given(getProfileQuery.getProfile(eq(authorName), eq(Optional.of(USER1.getId().getValue())))).willReturn(
+			response);
 
 		// when
 		ArticleResult result = updateArticleService.update(
-			new UpdateArticleCommand(
-			ARTICLE2.getTitle(),
-			ARTICLE2.getDescription(),
-			ARTICLE2.getBody()),
+			new UpdateArticleCommand(ARTICLE2.getTitle(), ARTICLE2.getDescription(), ARTICLE2.getBody()),
 			slug,
 			USER1.getId().getValue());
 

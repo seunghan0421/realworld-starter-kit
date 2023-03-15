@@ -20,11 +20,11 @@ import com.hani.realworld.user.domain.User;
 @DataJpaTest
 // @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({UserPersistenceAdapterPort.class, UserMapper.class})
+@Import({UserPersistenceAdapter.class, UserMapper.class})
 class UserPersistenceAdapterTest {
 
 	@Autowired
-	private UserPersistenceAdapterPort adapter;
+	private UserPersistenceAdapter adapter;
 
 	@Autowired
 	private UserRepository userRepository;
