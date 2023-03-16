@@ -1,8 +1,6 @@
 package com.hani.realworld.common.fixture;
 
 import static com.hani.realworld.common.fixture.ProfileFixture.*;
-import static com.hani.realworld.common.fixture.UserFixture.*;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.*;
 
 import java.time.LocalDateTime;
@@ -10,14 +8,12 @@ import java.util.ArrayList;
 
 import org.mockito.Mockito;
 
-import com.hani.realworld.article.adapter.in.dto.ArticleResponse;
 import com.hani.realworld.article.adapter.in.dto.CreateArticleRequest;
 import com.hani.realworld.article.adapter.in.dto.UpdateArticleRequest;
-import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.article.domain.Article;
+import com.hani.realworld.article.domain.Favorites;
 import com.hani.realworld.article.domain.Slug;
 import com.hani.realworld.article.domain.Tags;
-import com.hani.realworld.user.application.port.in.result.ProfileResult;
 import com.hani.realworld.user.domain.Profile;
 
 public class ArticleFixture {
@@ -29,12 +25,14 @@ public class ArticleFixture {
 			.withTags("Spring", "React")
 			.withTitle("Spring with React")
 			.withDescription("this is spring & react project")
-			.withBody("body about Project");
+			.withBody("body about Project")
+			.withFavorites(new Favorites());
 	}
 
 	public static class ArticleBuilder {
 		private Article.ArticleId articleId;
 		private Profile author;
+		private Favorites favorites;
 		private Tags tags;
 		private Slug slug;
 		private String title;
@@ -78,10 +76,17 @@ public class ArticleFixture {
 			return this;
 		}
 
+		public ArticleBuilder withFavorites(Favorites favorites) {
+			this.favorites = favorites;
+
+			return this;
+		}
+
 		public Article build() {
 			return Article.withId(
 				this.articleId,
 				this.author,
+				this.favorites,
 				this.tags,
 				this.slug,
 				this.title,
@@ -92,43 +97,40 @@ public class ArticleFixture {
 		}
 	}
 
-	public static final Article ARTICLE1 = defaultArticle()
+	public static ArticleBuilder ARTICLE1_BUILDER = defaultArticle()
 		.withArticleId(new Article.ArticleId(1L))
 		.withAuthor(PROFILE1)
 		.withTags("user1")
+		.withFavorites(new Favorites())
 		.withTitle("user1 article")
 		.withDescription("user1 description")
-		.withBody("user1 body")
-		.build();
+		.withBody("user1 body");
 
-	public static final Article ARTICLE1_WITHOUT_TAG = defaultArticle()
-		.withArticleId(new Article.ArticleId(1L))
-		.withAuthor(PROFILE1)
-		.withTags()
-		.withTitle("user1 article")
-		.withDescription("user1 description")
-		.withBody("user1 body")
-		.build();
-
-	public static final Article ARTICLE2 = defaultArticle()
+	public static ArticleBuilder ARTICLE2_BUILDER = defaultArticle()
 		.withArticleId(new Article.ArticleId(2L))
 		.withAuthor(PROFILE2)
 		.withTags("user2")
+		.withFavorites(new Favorites())
 		.withTitle("user2 article")
 		.withDescription("user2 description")
-		.withBody("user2 body")
-		.build();
+		.withBody("user2 body");
+
+	public static final Article ARTICLE1 = ARTICLE1_BUILDER.build();
+
+	public static final Article ARTICLE2 = ARTICLE2_BUILDER.build();
 
 	public static Article getMockARTICLE1() {
 		Article article = Mockito.mock(Article.class);
 
 		given(article.getId()).willReturn(ARTICLE1.getId());
 		given(article.getAuthor()).willReturn(ARTICLE1.getAuthor());
+		given(article.getFavorites()).willReturn(ARTICLE1.getFavorites());
+		given(article.getTags()).willReturn(ARTICLE1.getTags());
 		given(article.getSlug()).willReturn(ARTICLE1.getSlug());
 		given(article.getTitle()).willReturn(ARTICLE1.getTitle());
 		given(article.getDescription()).willReturn(ARTICLE1.getDescription());
 		given(article.getBody()).willReturn(ARTICLE1.getBody());
-		given(article.getTags()).willReturn(ARTICLE1.getTags());
+		given(article.getFavorites()).willReturn(ARTICLE1.getFavorites());
 		given(article.getCreatedAt()).willReturn(ARTICLE1.getCreatedAt());
 		given(article.getUpdatedAt()).willReturn(ARTICLE1.getUpdatedAt());
 
@@ -164,9 +166,4 @@ public class ArticleFixture {
 			ARTICLE2.getDescription(),
 			ARTICLE2.getBody());
 
-	public static ArticleResponse getArticleResponse(Article article) {
-		return ArticleResponse.of(ArticleResult.of(
-			article,
-			ProfileResult.of(article.getAuthor(), false)));
-	}
 }

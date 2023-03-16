@@ -15,6 +15,8 @@ public class ArticleFieldDescriptor {
 		fieldWithPath("tagList").type(JsonFieldType.ARRAY).description("태그 리스트"),
 		fieldWithPath("createdAt").type(JsonFieldType.STRING).description("작성일자"),
 		fieldWithPath("updatedAt").type(JsonFieldType.STRING).description("수정일자"),
+		fieldWithPath("favorited").type(JsonFieldType.BOOLEAN).description("즐겨찾기 여부"),
+		fieldWithPath("favoritesCount").type(JsonFieldType.NUMBER).description("즐겨찾기 수"),
 		fieldWithPath("author").type(JsonFieldType.OBJECT).description("작성자 프로필")
 	};
 }
