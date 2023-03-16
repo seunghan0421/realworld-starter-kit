@@ -65,6 +65,6 @@ public class ArticlePersistenceAdapter implements
 
 	@Override
 	public Set<String> getAllTags() {
-		return articleRepository.getAllTags();
+		return Collections.unmodifiableSet(articleRepository.getAllTags());
 	}
 }

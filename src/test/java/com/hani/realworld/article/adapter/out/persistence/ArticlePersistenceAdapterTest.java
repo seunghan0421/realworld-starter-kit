@@ -134,16 +134,4 @@ class ArticlePersistenceAdapterTest {
 		assertThat(allTags).contains("user1","user2").size().isEqualTo(2);
 	}
 
-	@Sql(
-		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
-			"ArticlePersistenceAdapterTest.sql"},
-		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-	@Test
-	void getOneTags_succeeds() {
-		// when
-		Set<String> tags = articleRepository.getTagsOfArticle(ARTICLE1.getId().getValue());
-
-		// then
-		assertThat(tags).contains("user1").size().isEqualTo(1);
-	}
 }

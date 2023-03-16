@@ -12,9 +12,6 @@ public interface ArticleRepository extends JpaRepository<ArticleJpaEntity, Long>
 		+ "where a.slug = :slug")
 	Optional<ArticleJpaEntity> getArticleWithSlug(String slug);
 
-	@Query(value = "select distinct t.tag_value from tag t where t.article_id = :article_id", nativeQuery = true)
-	Set<String> getTagsOfArticle(Long article_id);
-
 	@Query(value = "select distinct t.tag_value from tag t ", nativeQuery = true)
 	Set<String> getAllTags();
 }
