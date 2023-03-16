@@ -1,10 +1,15 @@
 package com.hani.realworld.article.adapter.out.persistence;
 
+import static com.hani.realworld.article.domain.Article.withId;
 import static com.hani.realworld.article.domain.Article.*;
+import static com.hani.realworld.user.domain.User.*;
+
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import com.hani.realworld.article.domain.Article;
+import com.hani.realworld.article.domain.Favorites;
 import com.hani.realworld.article.domain.Slug;
 import com.hani.realworld.article.domain.Tags;
 import com.hani.realworld.user.domain.Profile;
@@ -17,6 +22,9 @@ public class ArticleMapper {
 			article.getId() == null ? null : article.getId().getValue(),
 			article.getAuthor().getId().getValue(),
 			article.getTags().getTags(),
+			article.getFavorites().getFavorites().stream()
+					.map(UserId::getValue)
+						.collect(Collectors.toSet()),
 			article.getSlug().getSlug(),
 			article.getTitle(),
 			article.getDescription(),
@@ -29,6 +37,9 @@ public class ArticleMapper {
 		return withId(
 			new ArticleId(articleJpaEntity.getId()),
 			author,
+			new Favorites(articleJpaEntity.getUsers().stream()
+				.map(UserId::new)
+				.collect(Collectors.toSet())),
 			new Tags(articleJpaEntity.getTags()),
 			new Slug(articleJpaEntity.getSlug()),
 			articleJpaEntity.getTitle(),
@@ -37,6 +48,5 @@ public class ArticleMapper {
 			articleJpaEntity.getCreatedAt(),
 			articleJpaEntity.getUpdatedAt());
 	}
-
 
 }

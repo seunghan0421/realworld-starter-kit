@@ -25,11 +25,11 @@ public class Article {
 	/* Profile who write the Article */
 	private final Profile author;
 
+	/* Users who favorited the article. */
+	private final Favorites favorites;
+
 	/* Tag Set contains of Article */
 	private final Tags tags;
-
-	/* 아티클을 즐겨찾기 한 사람들 */
-	// private List<Favorite> favorites = new ArrayList<>();
 
 	/* Identification of Article's title */
 	private final Slug slug;
@@ -58,10 +58,11 @@ public class Article {
 		String description,
 		String body) {
 
+		Favorites favorites = new Favorites();
 		Slug slug = new Slug(title);
 		slug.toSlug();
 
-		return new Article(null, author, tags, slug, title,
+		return new Article(null, author, favorites, tags, slug, title,
 			description, body, LocalDateTime.now(), LocalDateTime.now());
 	}
 
@@ -71,6 +72,7 @@ public class Article {
 	public static Article withId(
 		ArticleId articleId,
 		Profile author,
+		Favorites favorites,
 		Tags tag,
 		Slug slug,
 		String title,
@@ -79,7 +81,7 @@ public class Article {
 		LocalDateTime createdAt,
 		LocalDateTime updatedAt) {
 
-		return new Article(articleId, author, tag, slug, title, description, body, createdAt, updatedAt);
+		return new Article(articleId, author, favorites, tag, slug, title, description, body, createdAt, updatedAt);
 	}
 
 	/**
@@ -101,7 +103,7 @@ public class Article {
 		String uDescription = Optional.ofNullable(description).orElseGet(() -> this.description);
 		String uBody = Optional.ofNullable(body).orElseGet(() -> this.body);
 
-		return withId(this.id, this.author, this.tags, uSlug, uTitle, uDescription, uBody,
+		return withId(this.id, this.author, this.favorites, this.tags, uSlug, uTitle, uDescription, uBody,
 			this.createdAt, LocalDateTime.now());
 	}
 
@@ -116,33 +118,30 @@ public class Article {
 	/**
 	 * 아티클 즐겨찾기
 	 */
-	// public void favorite(final User user) {
-	// 	this.favorites.add(new Favorite(user, this));
-	// }
+	public void favorite(final UserId userId) {
+		this.favorites.favorite(userId);
+	}
 
 	/**
 	 * 아티클 즐겨찾기 취소
 	 */
-	// public void unfavorite(final User user) {
-	// 	favorites.stream()
-	// 		.filter(favorite -> favorite.isSame(user, this))
-	// 		.findAny().ifPresent(favorite -> favorites.remove(favorite));
-	// }
+	public void unfavorite(final UserId userId) {
+		this.favorites.unfavorite(userId);
+	}
 
 	/**
 	 * 아티클 즐겨찾기 조회
 	 */
-	// public boolean isFavorite(final User user) {
-	// 	return favorites.stream().map(Favorite::getUser)
-	// 		.anyMatch(wrapper -> wrapper.equals(user));
-	// }
+	public boolean isFavorite(final UserId userId) {
+		return this.favorites.isFavorited(userId);
+	}
 
 	/**
 	 * 이 아티클을 즐겨찾기 한 사람 수
 	 */
-	// public int countOfFavorites() {
-	// 	return this.favorites.size();
-	// }
+	public int countOfFavorites() {
+		return this.favorites.getFavorites().size();
+	}
 
 	@Value
 	public static class ArticleId {

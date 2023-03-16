@@ -47,7 +47,7 @@ public class ArticlePersistenceAdapter implements
 		Profile author = loadProfileWithProfileIdPort.
 			loadProfileWithProfileId(new ProfileId(articleJpaEntity.getAuthorId()));
 
-		return articleMapper.mapToArticleEntity(articleJpaEntity, author, Collections.emptySet());
+		return articleMapper.mapToArticleEntity(articleJpaEntity, author);
 	}
 
 	@Override
