@@ -136,13 +136,6 @@ public class Article {
 		return this.favorites.isFavorited(userId);
 	}
 
-	/**
-	 * 이 아티클을 즐겨찾기 한 사람 수
-	 */
-	public int countOfFavorites() {
-		return this.favorites.getFavorites().size();
-	}
-
 	@Value
 	public static class ArticleId {
 		private Long value;

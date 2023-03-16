@@ -2,7 +2,6 @@ package com.hani.realworld.article.application.service;
 
 import static com.hani.realworld.user.domain.User.*;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -14,13 +13,8 @@ import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
 import com.hani.realworld.article.application.port.out.UpdateArticleStatePort;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.common.annotation.UseCase;
-import com.hani.realworld.common.exception.NotMyArticleException;
 import com.hani.realworld.user.application.port.in.GetProfileQuery;
-import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
-import com.hani.realworld.user.application.port.in.result.UserResult;
-import com.hani.realworld.user.domain.Profile;
-import com.hani.realworld.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
