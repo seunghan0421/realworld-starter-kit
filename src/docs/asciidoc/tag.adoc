@@ -1,0 +1,11 @@
+[[tag]]
+== TAG
+
+태그 전체 조회
+
+[[tag-find-all]]
+=== 태그 전체 조회
+
+모든 태그를 조회한다.
+
+operation::tag-controller-test/get-all-tags_-succeeds[snippets='http-request,http-response,response-fields']

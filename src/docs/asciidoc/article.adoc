@@ -31,4 +31,20 @@ operation::article-controller-test/delete-article_-succeeds[snippets='http-reque
 
 operation::article-controller-test/get-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']
 
+[[article-favorite]]
+=== 게시글 즐겨찾기하기
+
+요청한 슬러그에 해당하는 게시글을 즐겨찾기한다.
+성공하면 해당 게시글을 응답한다.
+
+operation::favorite-controller-test/favorite-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']
+
+[[article-unfavorite]]
+=== 게시글 즐겨찾기 취소
+
+요청한 슬러그에 해당하는 게시글을 이미 즐겨찾기했다면 취소한다.
+성공하면 해당 게시글을 응답한다.
+
+operation::favorite-controller-test/un-favorite-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']
+
 
