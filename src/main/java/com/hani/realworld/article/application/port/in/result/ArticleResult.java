@@ -19,11 +19,15 @@ public class ArticleResult {
 	private final Set<String> tagList;
 	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
-	// private boolean favorited;
-	// private int favoritesCount;
+	private final boolean favorited;
+	private final int favoritesCount;
 	private final ProfileResult profileResult;
 
-	public static ArticleResult of(Article article, ProfileResult profileResult) {
+	public static ArticleResult of(
+		Article article,
+		ProfileResult profileResult,
+		boolean favorited,
+		int favoritesCount) {
 		return new ArticleResult(
 			article.getSlug().getSlug(),
 			article.getTitle(),
@@ -32,6 +36,8 @@ public class ArticleResult {
 			article.getTags().getTags(),
 			article.getCreatedAt(),
 			article.getUpdatedAt(),
+			favorited,
+			favoritesCount,
 			profileResult);
 	}
 }

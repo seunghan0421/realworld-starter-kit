@@ -37,6 +37,6 @@ public class CreateArticleService implements CreateArticleUseCase {
 
 		createArticleStatePort.create(article);
 
-		return ArticleResult.of(article, ProfileResult.of(author, false));
+		return ArticleResult.of(article, ProfileResult.of(author, false), false ,0);
 	}
 }

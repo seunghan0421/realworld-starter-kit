@@ -51,9 +51,11 @@ public class UpdateArticleService implements UpdateArticleUseCase {
 			article.getAuthor().getUser().getUsername(),
 			Optional.of(userId));
 
-		return ArticleResult.of(updatedArticle, profileResult);
-	}
+		boolean isFavorited = article.isFavorite(new UserId(userId));
+		int favoritesCount = article.getFavorites().getFavorites().size();
 
+		return ArticleResult.of(updatedArticle, profileResult, isFavorited, favoritesCount);
+	}
 
 }
 

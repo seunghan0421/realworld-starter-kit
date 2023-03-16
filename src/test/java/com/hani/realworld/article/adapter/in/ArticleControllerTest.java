@@ -49,7 +49,7 @@ class ArticleControllerTest extends ControllerTest {
 	@Test
 	void createArticle_Succeeds() throws Exception {
 		String request = createJson(CREATE_ARTICLE_REQUEST);
-		final ArticleResult response = ArticleResult.of(ARTICLE1, ProfileResult.of(ARTICLE1.getAuthor(), false));
+		final ArticleResult response = ArticleResult.of(ARTICLE1, ProfileResult.of(ARTICLE1.getAuthor(), false), false, 0);
 
 		given(createArticleUseCase.create(any(CreateArticleCommand.class), eq(USER1.getId().getValue())))
 			.willReturn(response);
@@ -96,8 +96,10 @@ class ArticleControllerTest extends ControllerTest {
 			defaultArticle()
 				.withTitle(UPDATE_ARTICLE_REQUEST.getTitle())
 				.withDescription(UPDATE_ARTICLE_REQUEST.getDescription())
-				.withBody(UPDATE_ARTICLE_REQUEST.getBody()).build(),
-			ProfileResult.of(ARTICLE1.getAuthor(), false));
+				.withBody(UPDATE_ARTICLE_REQUEST.getBody())
+				.build(),
+			ProfileResult.of(ARTICLE1.getAuthor(), false),
+			false, 2);
 
 		given(updateArticleUseCase.update(any(UpdateArticleCommand.class), eq(ARTICLE1.getSlug().getSlug()), eq(USER1.getId().getValue())))
 			.willReturn(response);
@@ -143,7 +145,9 @@ class ArticleControllerTest extends ControllerTest {
 	void getArticle_Succeeds() throws Exception {
 		ArticleResult response = ArticleResult.of(
 			ARTICLE1,
-			ProfileResult.of(ARTICLE1.getAuthor(), false));
+			ProfileResult.of(ARTICLE1.getAuthor(), false),
+			false,
+			2);
 
 		Optional<Long> userId= Optional.of(ARTICLE1.getAuthor().getId().getValue());
 		given(getArticleQuery.getArticle(eq(ARTICLE1.getSlug().getSlug()), eq(userId)))
