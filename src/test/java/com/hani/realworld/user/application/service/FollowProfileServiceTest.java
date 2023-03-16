@@ -44,8 +44,7 @@ class FollowProfileServiceTest {
 			.willReturn(target);
 		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new UserId(baseUserId))))
 			.willReturn(base);
-		given(base.isFollowing(target.getUser()))
-			.willReturn(true);
+		given(base.isFollowing(target.getUser())).willReturn(true);
 
 		// when
 		ProfileResult result = followProfileService.followProfile(targetUsername, baseUserId);
@@ -77,7 +76,7 @@ class FollowProfileServiceTest {
 			.willReturn(target);
 		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new UserId(baseUserId))))
 			.willReturn(base);
-		// TODO: 여기 왜 eq(target.getUser()) 안되는지 확인해야함
+
 		doThrow(new IllegalStateException()).when(base).follow(eq(USER2));
 
 		// when

@@ -55,17 +55,19 @@ public class ProfileFixture {
 		}
 	}
 
-	public static final Profile PROFILE1 = defaultProfile()
+	public static ProfileBuilder PROFILE1_BUILDER = defaultProfile()
 		.withProfileId(new ProfileId(1L))
 		.withUser(USER1)
-		.withFollowees(new Followees(USER2.getId()))
-		.build();
+		.withFollowees(new Followees(USER2.getId()));
 
-	public static final Profile PROFILE2 = defaultProfile()
+	public static ProfileBuilder PROFILE2_BUILDER = defaultProfile()
 		.withProfileId(new ProfileId(2L))
 		.withUser(USER2)
-		.withFollowees(null)
-		.build();
+		.withFollowees(null);
+
+	public static final Profile PROFILE1 = PROFILE1_BUILDER.build();
+
+	public static final Profile PROFILE2 = PROFILE2_BUILDER.build();
 
 	public static Profile getMockPROFILE1() {
 		Profile profile = Mockito.mock(Profile.class);

@@ -65,7 +65,8 @@ For more details, see [`RealWorld - Spring Rest Docs`]( http://htmlpreview.githu
     │   ├── docs         
     │       └── asciidoc                # documentation by Spring Rest Docs
     │   ├── main
-    │       ├── ...          
+    │       ├── common          
+    │       ├── infra       
     │       ├── article                 # One of the aggregates
     │           ├── domain
     │           ├── adapter

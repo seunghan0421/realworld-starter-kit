@@ -86,23 +86,25 @@ public class UserFixture {
 		.withImage(null)
 		.build();
 
-	public static final User USER1 = defaultUser()
+	public static UserBuilder USER1_BUILDER = defaultUser()
 		.withUserId(new UserId(1L))
 		.withUsername("username1")
 		.withEmail("user1@naver.com")
 		.withBio("im user1")
 		.withPassword("password1")
-		.withImage("http://image1.png")
-		.build();
+		.withImage("http://image1.png");
 
-	public static final User USER2 = defaultUser()
+	public static UserBuilder USER2_BUILDER = defaultUser()
 		.withUserId(new UserId(2L))
 		.withUsername("username2")
 		.withEmail("user2@naver.com")
 		.withBio("im user2")
 		.withPassword("password2")
-		.withImage("http://image2.png")
-		.build();
+		.withImage("http://image2.png");
+
+	public static final User USER1 = USER1_BUILDER.build();
+
+	public static final User USER2 = USER2_BUILDER.build();
 
 	public static User getMockUSER1() {
 		User user = Mockito.mock(User.class);
