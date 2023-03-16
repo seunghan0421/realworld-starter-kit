@@ -3,10 +3,14 @@ package com.hani.realworld.article.adapter.out.persistence;
 import static com.hani.realworld.article.domain.Article.*;
 import static com.hani.realworld.user.domain.Profile.*;
 
+import java.util.Collections;
+import java.util.Set;
+
 import javax.persistence.EntityNotFoundException;
 
 import com.hani.realworld.article.application.port.out.CreateArticleStatePort;
 import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleId;
+import com.hani.realworld.article.application.port.out.GetAllTagsPort;
 import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
 import com.hani.realworld.article.application.port.out.UpdateArticleStatePort;
 import com.hani.realworld.article.domain.Article;
@@ -22,7 +26,8 @@ public class ArticlePersistenceAdapter implements
 	CreateArticleStatePort,
 	LoadArticleWithSlugPort,
 	UpdateArticleStatePort,
-	DeleteArticleWithArticleId {
+	DeleteArticleWithArticleId,
+	GetAllTagsPort {
 
 	private final ArticleRepository articleRepository;
 	private final LoadProfileWithProfileIdPort loadProfileWithProfileIdPort;
@@ -42,7 +47,7 @@ public class ArticlePersistenceAdapter implements
 		Profile author = loadProfileWithProfileIdPort.
 			loadProfileWithProfileId(new ProfileId(articleJpaEntity.getAuthorId()));
 
-		return articleMapper.mapToArticleEntity(articleJpaEntity, author);
+		return articleMapper.mapToArticleEntity(articleJpaEntity, author, Collections.emptySet());
 	}
 
 	@Override
@@ -58,4 +63,8 @@ public class ArticlePersistenceAdapter implements
 		articleRepository.deleteById(articleId.getValue());
 	}
 
+	@Override
+	public Set<String> getAllTags() {
+		return articleRepository.getAllTags();
+	}
 }

@@ -6,6 +6,7 @@ import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,7 @@ class ArticlePersistenceAdapterTest {
 
 		// then
 		assertThat(article.getAuthor().getId()).isEqualTo(PROFILE1.getId());
+		assertThat(article.getTags().getTags()).contains("user1").size().isEqualTo(1);
 		assertThat(article.getSlug()).isEqualTo(ARTICLE1.getSlug());
 		assertThat(article.getTitle()).isEqualTo(ARTICLE1.getTitle());
 		assertThat(article.getDescription()).isEqualTo(ARTICLE1.getDescription());
@@ -116,7 +118,32 @@ class ArticlePersistenceAdapterTest {
 		List<ArticleJpaEntity> articleJpaEntityList = articleRepository.findAll();
 		assertThat(articleJpaEntityList).size().isEqualTo(1);
 		assertThat(articleJpaEntityList.get(0).getId()).isEqualTo(2L);
-
 	}
 
+
+	@Sql(
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void getAllTags_succeeds() {
+		// when
+		final Set<String> allTags = adapter.getAllTags();
+
+		// then
+		assertThat(allTags).contains("user1","user2").size().isEqualTo(2);
+	}
+
+	@Sql(
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void getOneTags_succeeds() {
+		// when
+		Set<String> tags = articleRepository.getTagsOfArticle(ARTICLE1.getId().getValue());
+
+		// then
+		assertThat(tags).contains("user1").size().isEqualTo(1);
+	}
 }

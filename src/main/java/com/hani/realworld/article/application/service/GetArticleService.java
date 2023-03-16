@@ -1,5 +1,7 @@
 package com.hani.realworld.article.application.service;
 
+import static com.hani.realworld.user.domain.User.*;
+
 import java.util.Optional;
 
 import com.hani.realworld.article.application.port.in.GetArticleQuery;
@@ -25,6 +27,9 @@ public class GetArticleService implements GetArticleQuery {
 		Article article = loadArticleWithSlugPort.load(slug);
 		ProfileResult author = getProfileQuery.getProfile(article.getAuthor().getUser().getUsername(), userId);
 
-		return ArticleResult.of(article, author);
+		boolean isFavorited = userId.map(UserId::new).filter(article::isFavorite).isPresent();
+		int favoritesCount = article.getFavorites().getFavorites().size();
+
+		return ArticleResult.of(article, author, isFavorited, favoritesCount);
 	}
 }
