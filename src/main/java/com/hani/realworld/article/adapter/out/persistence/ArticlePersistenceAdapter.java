@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 
 import com.hani.realworld.article.application.port.out.CreateArticleStatePort;
-import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleId;
+import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleIdPort;
 import com.hani.realworld.article.application.port.out.GetAllTagsPort;
 import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
 import com.hani.realworld.article.application.port.out.UpdateArticleStatePort;
@@ -26,7 +26,7 @@ public class ArticlePersistenceAdapter implements
 	CreateArticleStatePort,
 	LoadArticleWithSlugPort,
 	UpdateArticleStatePort,
-	DeleteArticleWithArticleId,
+	DeleteArticleWithArticleIdPort,
 	GetAllTagsPort {
 
 	private final ArticleRepository articleRepository;
