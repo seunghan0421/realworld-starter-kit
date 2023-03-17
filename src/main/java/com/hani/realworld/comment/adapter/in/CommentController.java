@@ -18,7 +18,7 @@ import com.hani.realworld.comment.adapter.in.dto.CommentResponse;
 import com.hani.realworld.comment.adapter.in.dto.MultipleCommentResponse;
 import com.hani.realworld.comment.application.port.in.AddCommentUseCase;
 import com.hani.realworld.comment.application.port.in.DeleteCommentUseCase;
-import com.hani.realworld.comment.application.port.in.GetCommentQuery;
+import com.hani.realworld.comment.application.port.in.GetCommentsQuery;
 import com.hani.realworld.comment.application.port.in.command.AddCommentCommand;
 import com.hani.realworld.comment.application.port.in.result.CommentResult;
 import com.hani.realworld.infra.jwt.LoginToken;
@@ -35,7 +35,7 @@ public class CommentController {
 	private final AddCommentUseCase addCommentUseCase;
 	private final DeleteCommentUseCase deleteCommentUseCase;
 
-	private final GetCommentQuery getCommentQuery;
+	private final GetCommentsQuery getCommentsQuery;
 
 	@PostMapping("/{slug}/comments")
 	ResponseEntity<CommentResponse> addCommentToArticle(
@@ -60,18 +60,17 @@ public class CommentController {
 		Optional<Long> userId = Optional.ofNullable(loginToken)
 			.map(LoginToken::getId);
 
-		List<CommentResult> commentResults = getCommentQuery.getComments(slug, userId);
+		List<CommentResult> commentResults = getCommentsQuery.getComments(slug, userId);
 
 		return ResponseEntity.ok(MultipleCommentResponse.of(commentResults));
 	}
 
 	@DeleteMapping("/{slug}/comments/{id}")
 	ResponseEntity<Void> deleteCommentOfArticle(
-		@PathVariable("slug") String slug,
 		@PathVariable("id") Long commentId,
 		@LoginUser LoginToken loginToken) {
 
-		deleteCommentUseCase.deleteComment(slug, commentId, loginToken.getId());
+		deleteCommentUseCase.deleteComment(commentId, loginToken.getId());
 
 		return ResponseEntity.noContent().build();
 	}

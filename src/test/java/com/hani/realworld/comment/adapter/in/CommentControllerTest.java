@@ -24,7 +24,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.hani.realworld.comment.application.port.in.AddCommentUseCase;
 import com.hani.realworld.comment.application.port.in.DeleteCommentUseCase;
-import com.hani.realworld.comment.application.port.in.GetCommentQuery;
+import com.hani.realworld.comment.application.port.in.GetCommentsQuery;
 import com.hani.realworld.comment.application.port.in.command.AddCommentCommand;
 import com.hani.realworld.comment.application.port.in.result.CommentResult;
 import com.hani.realworld.common.descriptor.CommentFieldDescriptor;
@@ -42,7 +42,7 @@ class CommentControllerTest extends ControllerTest {
 	private DeleteCommentUseCase deleteCommentUseCase;
 
 	@MockBean
-	private GetCommentQuery getCommentQuery;
+	private GetCommentsQuery getCommentsQuery;
 
 	@Test
 	void AddCommentToArticle_Succeeds() throws Exception {
@@ -96,7 +96,7 @@ class CommentControllerTest extends ControllerTest {
 		);
 
 		Optional<Long> userId = Optional.of(USER1.getId().getValue());
-		given(getCommentQuery.getComments(eq(ARTICLE1.getSlug().getSlug()), eq(userId)))
+		given(getCommentsQuery.getComments(eq(ARTICLE1.getSlug().getSlug()), eq(userId)))
 			.willReturn(response);
 
 		mockMvc.perform(
@@ -117,7 +117,7 @@ class CommentControllerTest extends ControllerTest {
 				)
 			);
 
-		then(getCommentQuery).should()
+		then(getCommentsQuery).should()
 			.getComments(eq(ARTICLE1.getSlug().getSlug()), eq(userId));
 	}
 
@@ -142,10 +142,7 @@ class CommentControllerTest extends ControllerTest {
 			));
 
 		then(deleteCommentUseCase).should()
-			.deleteComment(
-				eq(ARTICLE1.getSlug().getSlug()),
-				eq(COMMENT1.getId().getValue()),
-				eq(USER1.getId().getValue()));
+			.deleteComment(eq(COMMENT1.getId().getValue()), eq(USER1.getId().getValue()));
 	}
 
 }
