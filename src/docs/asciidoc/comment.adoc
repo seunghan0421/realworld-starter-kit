@@ -22,4 +22,4 @@ operation::comment-controller-test/delete-comment-from-article_-succeeds[snippet
 
 해당 게시글의 모든 댓글을 조회한다.
 
-operation::comment-controller-test/add-comment-to-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']
+operation::comment-controller-test/get-multiple-comment-of-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']

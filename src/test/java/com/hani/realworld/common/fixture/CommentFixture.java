@@ -63,7 +63,7 @@ public class CommentFixture {
 	public static final Comment COMMENT2 = defaultComment()
 		.withId(new CommentId(2L))
 		.withAuthor(PROFILE2)
-		.withBody("user1 comment1")
+		.withBody("user2 comment2")
 		.build();
 
 	public static Comment getMockComment1() {
