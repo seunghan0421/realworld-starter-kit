@@ -67,7 +67,7 @@ public class Article {
 	}
 
 	/**
-	 * Creates an {@link Profile} entity with an ID. Use to reconstitute a persisted entity.
+	 * Creates an {@link Article} entity with an ID. Use to reconstitute a persisted entity.
 	 */
 	public static Article withId(
 		ArticleId articleId,
@@ -85,7 +85,7 @@ public class Article {
 	}
 
 	/**
-	 * Creates an {@link User} entity with an ID. Use to update the persisted entity.
+	 * Creates an {@link Article} entity with an ID. Use to update the persisted entity.
 	 * can update ["title", "description", "body"] - Optional
 	 */
 	public Article update(
