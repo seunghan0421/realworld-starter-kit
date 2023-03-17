@@ -23,11 +23,18 @@ public class CommentFixture {
 
 	public static class CommentBuilder {
 		private CommentId id;
+		private Long articleId;
 		private Profile author;
 		private String body;
 
 		public CommentBuilder withId(CommentId id) {
 			this.id = id;
+
+			return this;
+		}
+
+		public CommentBuilder withArticleId(Long articleId) {
+			this.articleId = articleId;
 
 			return this;
 		}
@@ -47,6 +54,7 @@ public class CommentFixture {
 		public Comment build() {
 			return Comment.withId(
 				this.id,
+				this.articleId,
 				this.author,
 				this.body,
 				LocalDateTime.now(),
@@ -56,12 +64,14 @@ public class CommentFixture {
 
 	public static final Comment COMMENT1 = defaultComment()
 		.withId(new CommentId(1L))
+		.withArticleId(1L)
 		.withAuthor(PROFILE1)
 		.withBody("user1 comment1")
 		.build();
 
 	public static final Comment COMMENT2 = defaultComment()
 		.withId(new CommentId(2L))
+		.withArticleId(1L)
 		.withAuthor(PROFILE2)
 		.withBody("user2 comment2")
 		.build();
@@ -70,8 +80,11 @@ public class CommentFixture {
 		Comment comment = Mockito.mock(Comment.class);
 
 		given(comment.getId()).willReturn(COMMENT1.getId());
+		given(comment.getArticleId()).willReturn(COMMENT1.getArticleId());
 		given(comment.getAuthor()).willReturn(COMMENT1.getAuthor());
 		given(comment.getBody()).willReturn(COMMENT1.getBody());
+		given(comment.getCreatedAt()).willReturn(COMMENT1.getCreatedAt());
+		given(comment.getUpdatedAt()).willReturn(COMMENT1.getUpdatedAt());
 
 		return comment;
 	}
