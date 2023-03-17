@@ -1,0 +1,25 @@
+[[comment]]
+== COMMENT
+
+댓글 생성, 삭제, 전체 조회
+
+[[comment-create]]
+=== 댓글 생성
+
+댓글 생성에 성공하면 해당 댓글 정보를 응답한다.
+
+operation::comment-controller-test/add-comment-to-article_-succeeds[snippets='http-request,request-headers,path-parameters,response-fields,http-response']
+
+[[comment-delete]]
+=== 댓글 삭제
+
+댓글 삭제에 성공하면 HTTP 204 No Content 상태 코드를 응답한다.
+
+operation::comment-controller-test/delete-comment-from-article_-succeeds[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[comment-find-all]]
+=== 댓글 전체 조회
+
+해당 게시글의 모든 댓글을 조회한다.
+
+operation::comment-controller-test/add-comment-to-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']

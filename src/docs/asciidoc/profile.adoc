@@ -17,11 +17,11 @@ operation::profile-controller-test/get-profile_-succeeds[snippets='http-request,
 
 ==== 요청 헤더
 
-operation::follow-controller-test/follow-profile_-succeeds[snippets='http-request,path-parameters,http-response,response-fields']
+operation::follow-controller-test/follow-profile_-succeeds[snippets='http-request,request-headers,path-parameters,http-response,response-fields']
 
 [[profile-unfollow]]
 === 언팔로우
 
 유저명으로 회원을 언팔로우한다.
 
-operation::follow-controller-test/un-follow-profile_-succeeds[snippets='http-request,path-parameters,http-response,response-fields']
+operation::follow-controller-test/un-follow-profile_-succeeds[snippets='http-request,request-headers,path-parameters,http-response,response-fields']

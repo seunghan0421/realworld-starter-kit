@@ -73,9 +73,9 @@ For more details, see [`RealWorld - Spring Rest Docs`]( http://htmlpreview.githu
     │               ├── in              # Web Adapter
     │               └── out             # Persistence Adapter
     │                   └── persistence 
-    │           ├── application
+    │           └── application
     │               └── service         # Service Implementations
-    │               ├── port         
+    │               └── port         
     │                   ├── in          # Service Interface(Port)
     │                   └── out         # Persistence Port
     │       └── ...  

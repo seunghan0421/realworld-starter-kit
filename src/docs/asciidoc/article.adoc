@@ -8,21 +8,21 @@
 
 게시글 생성에 성공하면 해당 게시글 정보를 응답한다.
 
-operation::article-controller-test/create-article_-succeeds[snippets='http-request,request-fields,http-response,response-fields']
+operation::article-controller-test/create-article_-succeeds[snippets='http-request,request-headers,request-fields,http-response,response-fields']
 
 [[article-update]]
 === 게시글 수정
 
 게시글 수정에 성공하면 해당 게시글 정보를 응답한다.
 
-operation::article-controller-test/update-article_-succeeds[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
+operation::article-controller-test/update-article_-succeeds[snippets='http-request,request-headers,path-parameters,request-fields,http-response,response-fields']
 
 [[article-delete]]
 === 게시글 삭제
 
 게시글 삭제에 성공하면 HTTP 204 No Content 상태 코드를 응답한다.
 
-operation::article-controller-test/delete-article_-succeeds[snippets='http-request,path-parameters,http-response']
+operation::article-controller-test/delete-article_-succeeds[snippets='http-request,request-headers,path-parameters,http-response']
 
 [[article-find-one-by-slug]]
 === 게시글 단일 조회
@@ -37,7 +37,7 @@ operation::article-controller-test/get-article_-succeeds[snippets='http-request,
 요청한 슬러그에 해당하는 게시글을 즐겨찾기한다.
 성공하면 해당 게시글을 응답한다.
 
-operation::favorite-controller-test/favorite-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']
+operation::favorite-controller-test/favorite-article_-succeeds[snippets='http-request,request-headers,path-parameters,response-fields,http-response']
 
 [[article-unfavorite]]
 === 게시글 즐겨찾기 취소
@@ -45,6 +45,6 @@ operation::favorite-controller-test/favorite-article_-succeeds[snippets='http-re
 요청한 슬러그에 해당하는 게시글을 이미 즐겨찾기했다면 취소한다.
 성공하면 해당 게시글을 응답한다.
 
-operation::favorite-controller-test/un-favorite-article_-succeeds[snippets='http-request,path-parameters,response-fields,http-response']
+operation::favorite-controller-test/un-favorite-article_-succeeds[snippets='http-request,request-headers,path-parameters,response-fields,http-response']
 
 
