@@ -8,6 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import com.hani.realworld.comment.application.port.in.result.CommentResult;
 
-public interface GetCommentQuery {
+public interface GetCommentsQuery {
 	List<CommentResult> getComments(@NotBlank String slug, @NotNull Optional<Long> id);
 }

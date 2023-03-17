@@ -5,7 +5,7 @@ import static com.hani.realworld.user.domain.User.*;
 import javax.transaction.Transactional;
 
 import com.hani.realworld.article.application.port.in.DeleteArticleUseCase;
-import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleId;
+import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleIdPort;
 import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.common.annotation.UseCase;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class DeleteArticleService implements DeleteArticleUseCase {
 
 	private final LoadArticleWithSlugPort loadArticleWithSlugPort;
-	private final DeleteArticleWithArticleId deleteArticleWithArticleId;
+	private final DeleteArticleWithArticleIdPort deleteArticleWithArticleIdPort;
 
 	@Override
 	public void delete(String slug, Long userId) {
@@ -26,6 +26,6 @@ public class DeleteArticleService implements DeleteArticleUseCase {
 
 		article.checkisMyArticle(new UserId(userId));
 
-		deleteArticleWithArticleId.delete(article.getId());
+		deleteArticleWithArticleIdPort.delete(article.getId());
 	}
 }

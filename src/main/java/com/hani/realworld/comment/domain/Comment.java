@@ -1,9 +1,11 @@
 package com.hani.realworld.comment.domain;
 
+import static com.hani.realworld.user.domain.User.*;
 import static lombok.AccessLevel.*;
 
 import java.time.LocalDateTime;
 
+import com.hani.realworld.common.exception.NotMyCommentException;
 import com.hani.realworld.user.domain.Profile;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,9 @@ public class Comment {
 
 	/* Comment Identification number */
 	private final CommentId id;
+
+	/* Article that comment is added */
+	private final Long articleId;
 
 	/* Profile who write the Comment */
 	private final Profile author;
@@ -30,8 +35,8 @@ public class Comment {
 	 * Creates an {@link Comment} entity without an ID. Use to create a new entity that is not yet
 	 * persisted.
 	 */
-	public static Comment withoutId(Profile author, String body) {
-		return new Comment(null, author, body, LocalDateTime.now(), LocalDateTime.now());
+	public static Comment withoutId(Long articleId, Profile author, String body) {
+		return new Comment(null, articleId, author, body, LocalDateTime.now(), LocalDateTime.now());
 	}
 
 	/**
@@ -39,12 +44,19 @@ public class Comment {
 	 */
 	public static Comment withId(
 		CommentId commentId,
+		Long articleId,
 		Profile author,
 		String body,
 		LocalDateTime createdAt,
 		LocalDateTime updatedAt) {
 
-		return new Comment(commentId, author, body, createdAt, updatedAt);
+		return new Comment(commentId, articleId, author, body, createdAt, updatedAt);
+	}
+
+	public void checkIsMyComment(Long userId) {
+		if (this.author.getUser().getId().getValue() != userId) {
+			throw new NotMyCommentException();
+		}
 	}
 
 	@Value
