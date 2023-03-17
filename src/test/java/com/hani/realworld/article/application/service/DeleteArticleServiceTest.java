@@ -8,7 +8,7 @@ import static org.mockito.BDDMockito.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleId;
+import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleIdPort;
 import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
 import com.hani.realworld.article.domain.Article;
 
@@ -17,11 +17,11 @@ class DeleteArticleServiceTest {
 	private final LoadArticleWithSlugPort loadArticleWithSlugPort =
 		Mockito.mock(LoadArticleWithSlugPort.class);
 
-	private final DeleteArticleWithArticleId deleteArticleWithArticleId =
-		Mockito.mock(DeleteArticleWithArticleId.class);
+	private final DeleteArticleWithArticleIdPort deleteArticleWithArticleIdPort =
+		Mockito.mock(DeleteArticleWithArticleIdPort.class);
 
 	private final DeleteArticleService deleteArticleService =
-		new DeleteArticleService(loadArticleWithSlugPort, deleteArticleWithArticleId);
+		new DeleteArticleService(loadArticleWithSlugPort, deleteArticleWithArticleIdPort);
 
 	@Test
 	void deleteArticle_Succeeds() {
@@ -38,7 +38,7 @@ class DeleteArticleServiceTest {
 		// then
 		then(loadArticleWithSlugPort).should().load(eq(slug));
 		then(article).should().checkisMyArticle(eq(USER1.getId()));
-		then(deleteArticleWithArticleId).should().delete(eq(ARTICLE1.getId()));
+		then(deleteArticleWithArticleIdPort).should().delete(eq(ARTICLE1.getId()));
 	}
 
 }

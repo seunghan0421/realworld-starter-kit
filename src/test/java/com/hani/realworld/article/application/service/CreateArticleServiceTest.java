@@ -3,30 +3,22 @@ package com.hani.realworld.article.application.service;
 import static com.hani.realworld.common.fixture.ArticleFixture.*;
 import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
-import static com.hani.realworld.user.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import com.hani.realworld.article.application.port.in.command.CreateArticleCommand;
-import com.hani.realworld.article.application.port.in.command.UpdateArticleCommand;
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.article.application.port.out.CreateArticleStatePort;
 import com.hani.realworld.article.domain.Article;
-import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
-import com.hani.realworld.user.application.port.in.result.ProfileResult;
-import com.hani.realworld.user.application.port.in.result.UserResult;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
 import com.hani.realworld.user.domain.Profile;
-import com.hani.realworld.user.domain.User;
 
 class CreateArticleServiceTest {
 
