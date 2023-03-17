@@ -27,6 +27,31 @@ public class ProfileFixture {
 					.withUsername("user22").build().getId()));
 	}
 
+	public static final Profile PROFILE1 = defaultProfile()
+		.withProfileId(new ProfileId(1L))
+		.withUser(USER1)
+		.withFollowees(new Followees(USER2.getId()))
+		.build();
+
+	public static final Profile PROFILE2 = defaultProfile()
+		.withProfileId(new ProfileId(2L))
+		.withUser(USER2)
+		.withFollowees(null)
+		.build();
+
+	public static Profile getMockPROFILE1() {
+		Profile profile = Mockito.mock(Profile.class);
+
+		given(profile.getUser()).willReturn(USER1);
+		given(profile.getId()).willReturn(PROFILE1.getId());
+		given(profile.getFollowees()).willReturn(PROFILE1.getFollowees());
+
+		given(profile.isFollowing(eq(USER2)))
+			.willReturn(true);
+
+		return profile;
+	}
+
 	public static class ProfileBuilder {
 		private ProfileId profileId;
 		private User user;
@@ -54,52 +79,4 @@ public class ProfileFixture {
 				this.followees);
 		}
 	}
-
-	public static ProfileBuilder PROFILE1_BUILDER = defaultProfile()
-		.withProfileId(new ProfileId(1L))
-		.withUser(USER1)
-		.withFollowees(new Followees(USER2.getId()));
-
-	public static ProfileBuilder PROFILE2_BUILDER = defaultProfile()
-		.withProfileId(new ProfileId(2L))
-		.withUser(USER2)
-		.withFollowees(null);
-
-	public static final Profile PROFILE1 = PROFILE1_BUILDER.build();
-
-	public static final Profile PROFILE2 = PROFILE2_BUILDER.build();
-
-	public static Profile getMockPROFILE1() {
-		Profile profile = Mockito.mock(Profile.class);
-
-		given(profile.getUser()).willReturn(USER1);
-		given(profile.getId()).willReturn(PROFILE1.getId());
-		given(profile.getFollowees()).willReturn(PROFILE1.getFollowees());
-
-		given(profile.isFollowing(eq(USER2)))
-			.willReturn(true);
-
-		return profile;
-	}
-
-	public static Profile getMockPROFILE2() {
-		Profile profile = Mockito.mock(Profile.class);
-
-		given(profile.getUser()).willReturn(USER2);
-		given(profile.getId()).willReturn(PROFILE2.getId());
-		given(profile.getFollowees()).willReturn(PROFILE2.getFollowees());
-
-		given(profile.isFollowing(eq(USER2)))
-			.willReturn(false);
-
-		return profile;
-	}
-
-	// public static ProfileResponse getResponseFromProfile(Profile profile) {
-	// 	return ProfileResponse.of(new ProfileResult(
-	// 		profile.getUser().getUsername(),
-	// 		profile.getUser().getBio(),
-	// 		profile.getUser().getImage(),
-	// 		true));
-	// }
 }

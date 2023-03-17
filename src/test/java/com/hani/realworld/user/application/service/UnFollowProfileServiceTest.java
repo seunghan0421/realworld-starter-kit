@@ -34,7 +34,7 @@ class UnFollowProfileServiceTest {
 	@Test
 	void unfollowProfile_Succeeds() {
 		// given
-		Profile target = getMockPROFILE2();
+		Profile target = PROFILE2;
 		Profile base = getMockPROFILE1();
 
 		String targetUsername = target.getUser().getUsername();
@@ -67,7 +67,7 @@ class UnFollowProfileServiceTest {
 	@Test
 	void unfollowProfile_Failure() {
 		// given
-		Profile target = getMockPROFILE2();
+		Profile target = PROFILE2;
 		Profile base = getMockPROFILE1();
 
 		String targetUsername = target.getUser().getUsername();

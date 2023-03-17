@@ -28,15 +28,13 @@ class DeleteArticleServiceTest {
 		// given
 		Article article = getMockARTICLE1();
 
-		final String slug = ARTICLE1.getSlug().getSlug();
-
-		given(loadArticleWithSlugPort.load(eq(slug))).willReturn(article);
+		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getSlug()))).willReturn(article);
 
 		// when
-		deleteArticleService.delete(slug, USER1.getId().getValue());
+		deleteArticleService.delete(ARTICLE1.getSlug().getSlug(), USER1.getId().getValue());
 
 		// then
-		then(loadArticleWithSlugPort).should().load(eq(slug));
+		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getSlug()));
 		then(article).should().checkisMyArticle(eq(USER1.getId()));
 		then(deleteArticleWithArticleIdPort).should().delete(eq(ARTICLE1.getId()));
 	}

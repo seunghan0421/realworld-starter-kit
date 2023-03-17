@@ -42,14 +42,16 @@ class UpdateArticleServiceTest {
 		final String slug = ARTICLE1.getSlug().getSlug();
 		final String authorName = ARTICLE1.getAuthor().getUser().getUsername();
 
-		given(loadArticleWithSlugPort.load(eq(slug))).willReturn(article);
-		given(article.update(any(), any(), any())).willReturn(defaultArticle().
-			withTitle(ARTICLE2.getTitle()).
-			withDescription(ARTICLE2.getDescription()).
-			withBody(ARTICLE2.getBody())
-			.build());
-		given(getProfileQuery.getProfile(eq(authorName), eq(Optional.of(USER1.getId().getValue())))).willReturn(
-			response);
+		given(loadArticleWithSlugPort.load(eq(slug)))
+			.willReturn(article);
+		given(getProfileQuery.getProfile(eq(authorName), eq(Optional.of(USER1.getId().getValue()))))
+			.willReturn(response);
+		given(article.update(any(), any(), any()))
+			.willReturn(defaultArticle().
+				withTitle(ARTICLE2.getTitle()).
+				withDescription(ARTICLE2.getDescription()).
+				withBody(ARTICLE2.getBody())
+				.build());
 
 		// when
 		ArticleResult result = updateArticleService.update(
@@ -65,10 +67,7 @@ class UpdateArticleServiceTest {
 
 		then(loadArticleWithSlugPort).should().load(eq(slug));
 		then(article).should().checkisMyArticle(eq(USER1.getId()));
-		then(article).should().update(
-			eq(ARTICLE2.getTitle()),
-			eq(ARTICLE2.getDescription()),
-			eq(ARTICLE2.getBody()));
+		then(article).should().update(eq(ARTICLE2.getTitle()), eq(ARTICLE2.getDescription()), eq(ARTICLE2.getBody()));
 		then(updateArticleStatePort).should().update(any());
 		then(getProfileQuery).should().getProfile(eq(authorName), eq(Optional.of(USER1.getId().getValue())));
 	}

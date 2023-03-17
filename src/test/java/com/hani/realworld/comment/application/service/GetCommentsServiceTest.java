@@ -39,16 +39,14 @@ class GetCommentsServiceTest {
 	@Test
 	void getComments_Succeeds() {
 		// given
-		Article article = getMockARTICLE1();
 		List<Comment> comments = List.of(COMMENT1, COMMENT2);
 		ProfileResult profileResult = ProfileResult.of(PROFILE1, false);
 
 		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getSlug())))
-			.willReturn(article);
+			.willReturn(ARTICLE1);
 		given(getMultipleCommentWithArticleIdPort.getCommentsWithArticleId(eq(ARTICLE1.getId())))
 			.willReturn(comments);
-		given(getProfileQuery.getProfile(any(), any()))
-			.willReturn(profileResult);
+		given(getProfileQuery.getProfile(any(), any())).willReturn(profileResult);
 
 		// when
 		List<CommentResult> result = getCommentsService.getComments(

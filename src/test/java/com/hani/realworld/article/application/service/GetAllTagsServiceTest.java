@@ -23,8 +23,7 @@ class GetAllTagsServiceTest {
 		// given
 		Set<String> tagResponse = Set.of("user1", "user2");
 
-		given(getAllTagsPort.getAllTags())
-			.willReturn(tagResponse);
+		given(getAllTagsPort.getAllTags()).willReturn(tagResponse);
 
 		// when
 		Set<String> tags = getAllTagsService.getAllTags();

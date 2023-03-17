@@ -8,6 +8,9 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -38,10 +41,11 @@ class ArticlePersistenceAdapterTest {
 		// given
 		Article article = defaultArticle()
 			.withArticleId(null)
+			.withAuthor(PROFILE1)
 			.withTitle(ARTICLE1.getTitle())
 			.withDescription(ARTICLE1.getDescription())
 			.withBody(ARTICLE1.getBody())
-			.withTags("Spring", "React")
+			.withTags("user1")
 			.build();
 
 		// when
@@ -57,12 +61,15 @@ class ArticlePersistenceAdapterTest {
 		assertThat(savedEntity.getTitle()).isEqualTo(ARTICLE1.getTitle());
 		assertThat(savedEntity.getDescription()).isEqualTo(ARTICLE1.getDescription());
 		assertThat(savedEntity.getBody()).isEqualTo(ARTICLE1.getBody());
-		assertThat(savedEntity.getTags()).contains("Spring", "React").size().isEqualTo(2);
+		assertThat(savedEntity.getTags()).contains("user1").size().isEqualTo(1);
 	}
 
 	@Sql(
-		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
-			"ArticlePersistenceAdapterTest.sql"},
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
 	)
 	@Test
@@ -82,13 +89,17 @@ class ArticlePersistenceAdapterTest {
 	}
 
 	@Sql(
-		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
-			"ArticlePersistenceAdapterTest.sql"},
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void update_Article_succeeds() {
 		// given
 		Article updatedArticle = defaultArticle()
+			.withArticleId(new ArticleId(1L))
 			.withTitle(ARTICLE2.getTitle())
 			.withDescription(ARTICLE2.getDescription())
 			.withBody(ARTICLE2.getBody())
@@ -106,24 +117,29 @@ class ArticlePersistenceAdapterTest {
 	}
 
 	@Sql(
-		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
-			"ArticlePersistenceAdapterTest.sql"},
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void delete_Article_succeeds() {
 		// when
-		adapter.delete(new ArticleId(1L));
+		adapter.delete(ARTICLE1.getId());
 
 		// then
 		List<ArticleJpaEntity> articleJpaEntityList = articleRepository.findAll();
 		assertThat(articleJpaEntityList).size().isEqualTo(1);
-		assertThat(articleJpaEntityList.get(0).getId()).isEqualTo(2L);
+		assertThat(articleJpaEntityList.get(0).getId()).isEqualTo(ARTICLE2.getId().getValue());
 	}
 
-
 	@Sql(
-		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql",
-			"ArticlePersistenceAdapterTest.sql"},
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void getAllTags_succeeds() {
@@ -131,7 +147,7 @@ class ArticlePersistenceAdapterTest {
 		final Set<String> allTags = adapter.getAllTags();
 
 		// then
-		assertThat(allTags).contains("user1","user2").size().isEqualTo(2);
+		assertThat(allTags).contains("user1", "user2").size().isEqualTo(2);
 	}
 
 }

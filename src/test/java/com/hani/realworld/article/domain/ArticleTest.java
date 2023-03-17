@@ -38,7 +38,7 @@ class ArticleTest {
 	@Test
 	void checkIsMyArticle_notThrow_Succeeds() {
 		// given
-		Article article = ARTICLE1_BUILDER.build();
+		Article article = ARTICLE1;
 		User user = USER1;
 
 		// when

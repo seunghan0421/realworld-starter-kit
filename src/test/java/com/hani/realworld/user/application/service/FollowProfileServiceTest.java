@@ -34,8 +34,8 @@ class FollowProfileServiceTest {
 	@Test
 	void followProfile_Succeeds() {
 		// given
-		Profile target = getMockPROFILE2();
 		Profile base = getMockPROFILE1();
+		Profile target = PROFILE2;
 
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();
@@ -44,7 +44,8 @@ class FollowProfileServiceTest {
 			.willReturn(target);
 		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(new UserId(baseUserId))))
 			.willReturn(base);
-		given(base.isFollowing(target.getUser())).willReturn(true);
+		given(base.isFollowing(target.getUser()))
+			.willReturn(true);
 
 		// when
 		ProfileResult result = followProfileService.followProfile(targetUsername, baseUserId);
@@ -66,8 +67,8 @@ class FollowProfileServiceTest {
 	@Test
 	void followProfile_Failure() {
 		// given
-		Profile target = getMockPROFILE2();
 		Profile base = getMockPROFILE1();
+		Profile target = PROFILE2;
 
 		String targetUsername = target.getUser().getUsername();
 		Long baseUserId = base.getUser().getId().getValue();

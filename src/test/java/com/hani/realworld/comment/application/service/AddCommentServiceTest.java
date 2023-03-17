@@ -47,7 +47,7 @@ class AddCommentServiceTest {
 	@Test
 	void createArticle_Succeeds() {
 		// given
-		Comment comment = getMockComment1();
+		Comment comment = COMMENT1;
 		AddCommentCommand command = new AddCommentCommand(COMMENT1.getBody());
 
 		MockedStatic<Comment> mockCommentClass = mockStatic(Comment.class);
@@ -58,6 +58,8 @@ class AddCommentServiceTest {
 			.willReturn(ARTICLE1);
 		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(USER1.getId())))
 			.willReturn(PROFILE1);
+		given(createCommentStatePort.createComment(comment))
+			.willReturn(COMMENT1);
 		given(getProfileQuery.getProfile(eq(USER1.getUsername()), eq(Optional.of(USER1.getId().getValue()))))
 			.willReturn(ProfileResult.of(PROFILE1, false));
 

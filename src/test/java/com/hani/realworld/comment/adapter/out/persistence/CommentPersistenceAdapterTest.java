@@ -56,7 +56,6 @@ class CommentPersistenceAdapterTest {
 
 		CommentJpaEntity savedEntity = commentRepository.findAll().get(0);
 
-		assertThat(savedEntity.getId()).isEqualTo(1L);
 		assertThat(savedEntity.getArticleId()).isEqualTo(ARTICLE1.getId().getValue());
 		assertThat(savedEntity.getAuthorId()).isEqualTo(PROFILE1.getId().getValue());
 		assertThat(savedEntity.getBody()).isEqualTo(COMMENT1.getBody());

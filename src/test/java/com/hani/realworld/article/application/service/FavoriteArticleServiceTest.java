@@ -61,8 +61,7 @@ class FavoriteArticleServiceTest {
 		then(loadArticleWithSlugPort).should().load(eq(article1Slug));
 		then(article).should().favorite(eq(USER2.getId()));
 		then(updateArticleStatePort).should().update(any());
-		then(getArticleQuery).should()
-			.getArticle(eq(article1Slug), eq(Optional.of(user2Id)));
+		then(getArticleQuery).should().getArticle(eq(article1Slug), eq(Optional.of(user2Id)));
 	}
 
 }

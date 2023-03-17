@@ -34,8 +34,7 @@ class CreateArticleServiceTest {
 	@Test
 	void createArticle_Succeeds() {
 		// given
-		Article article = getMockARTICLE1();
-		Profile profile = getMockPROFILE1();
+		Article article = ARTICLE1;
 
 		CreateArticleCommand command = new CreateArticleCommand(
 			ARTICLE1.getTitle(),
@@ -48,7 +47,7 @@ class CreateArticleServiceTest {
 			.thenReturn(article);
 
 		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(USER1.getId())))
-			.willReturn(profile);
+			.willReturn(PROFILE1);
 
 		// when
 		ArticleResult result = createArticleService.create(command, USER1.getId().getValue());

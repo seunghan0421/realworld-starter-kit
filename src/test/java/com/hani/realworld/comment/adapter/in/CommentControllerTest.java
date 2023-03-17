@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import com.hani.realworld.comment.adapter.in.dto.AddCommentRequest;
 import com.hani.realworld.comment.application.port.in.AddCommentUseCase;
 import com.hani.realworld.comment.application.port.in.DeleteCommentUseCase;
 import com.hani.realworld.comment.application.port.in.GetCommentsQuery;
@@ -46,7 +47,7 @@ class CommentControllerTest extends ControllerTest {
 
 	@Test
 	void AddCommentToArticle_Succeeds() throws Exception {
-		String request = createJson(ADD_COMMENT_REQUEST);
+		String request = createJson(new AddCommentRequest(COMMENT1.getBody()));
 		final CommentResult response = CommentResult.of(COMMENT1, ProfileResult.of(PROFILE1, false));
 
 		given(addCommentUseCase.addComment(
@@ -83,7 +84,7 @@ class CommentControllerTest extends ControllerTest {
 
 		then(addCommentUseCase).should()
 			.addComment(
-				eq(new AddCommentCommand(ADD_COMMENT_REQUEST.getBody())),
+				eq(new AddCommentCommand(COMMENT1.getBody())),
 				eq(ARTICLE1.getSlug().getSlug()),
 				eq(USER1.getId().getValue()));
 	}

@@ -28,17 +28,13 @@ class RegisterUserServiceTest {
 	private final LoadUserWithEmailPort loadUserWithEmailPort =
 		Mockito.mock(LoadUserWithEmailPort.class);
 
-	private final PasswordEncoder passwordEncoder =
-		new BCryptPasswordEncoder();
-
 	private final RegisterUserService registerUserService =
 		new RegisterUserService(
 			registerUserStatePort,
 			registerProfileStatePort,
 			loadUserWithEmailPort,
-			passwordEncoder);
+			new BCryptPasswordEncoder());
 
-	// TODO mock static test 해결해야함
 	@Test
 	void registerUser_Succeeds() {
 		// given

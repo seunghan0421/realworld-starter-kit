@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 import org.mockito.Mockito;
 
-import com.hani.realworld.comment.adapter.in.dto.AddCommentRequest;
 import com.hani.realworld.comment.domain.Comment;
 import com.hani.realworld.user.domain.Profile;
 
@@ -19,6 +18,33 @@ public class CommentFixture {
 			.withId(new CommentId(1L))
 			.withAuthor(PROFILE1)
 			.withBody("user1 comment1");
+	}
+
+	public static final Comment COMMENT1 = defaultComment()
+		.withId(new CommentId(1L))
+		.withArticleId(1L)
+		.withAuthor(PROFILE1)
+		.withBody("user1 comment1")
+		.build();
+
+	public static final Comment COMMENT2 = defaultComment()
+		.withId(new CommentId(2L))
+		.withArticleId(1L)
+		.withAuthor(PROFILE2)
+		.withBody("user2 comment2")
+		.build();
+
+	public static Comment getMockComment1() {
+		Comment comment = Mockito.mock(Comment.class);
+
+		given(comment.getId()).willReturn(COMMENT1.getId());
+		given(comment.getArticleId()).willReturn(COMMENT1.getArticleId());
+		given(comment.getAuthor()).willReturn(COMMENT1.getAuthor());
+		given(comment.getBody()).willReturn(COMMENT1.getBody());
+		given(comment.getCreatedAt()).willReturn(COMMENT1.getCreatedAt());
+		given(comment.getUpdatedAt()).willReturn(COMMENT1.getUpdatedAt());
+
+		return comment;
 	}
 
 	public static class CommentBuilder {
@@ -61,35 +87,5 @@ public class CommentFixture {
 				LocalDateTime.now());
 		}
 	}
-
-	public static final Comment COMMENT1 = defaultComment()
-		.withId(new CommentId(1L))
-		.withArticleId(1L)
-		.withAuthor(PROFILE1)
-		.withBody("user1 comment1")
-		.build();
-
-	public static final Comment COMMENT2 = defaultComment()
-		.withId(new CommentId(2L))
-		.withArticleId(1L)
-		.withAuthor(PROFILE2)
-		.withBody("user2 comment2")
-		.build();
-
-	public static Comment getMockComment1() {
-		Comment comment = Mockito.mock(Comment.class);
-
-		given(comment.getId()).willReturn(COMMENT1.getId());
-		given(comment.getArticleId()).willReturn(COMMENT1.getArticleId());
-		given(comment.getAuthor()).willReturn(COMMENT1.getAuthor());
-		given(comment.getBody()).willReturn(COMMENT1.getBody());
-		given(comment.getCreatedAt()).willReturn(COMMENT1.getCreatedAt());
-		given(comment.getUpdatedAt()).willReturn(COMMENT1.getUpdatedAt());
-
-		return comment;
-	}
-
-	public static AddCommentRequest ADD_COMMENT_REQUEST =
-		new AddCommentRequest(COMMENT1.getBody());
 
 }

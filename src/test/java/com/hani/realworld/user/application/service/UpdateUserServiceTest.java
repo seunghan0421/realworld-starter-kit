@@ -23,38 +23,40 @@ class UpdateUserServiceTest {
 	private final UpdateUserStatePort updateUserStatePort =
 		Mockito.mock(UpdateUserStatePort.class);
 
-	private final PasswordEncoder passwordEncoder =
-		new BCryptPasswordEncoder();
-
 	private final UpdateUserService updateUserService =
 		new UpdateUserService(
 			loadUserWithIdPort,
 			updateUserStatePort,
-			passwordEncoder);
+			new BCryptPasswordEncoder());
 
 	@Test
-	void updateUserState_Succeeds() {
+	void updateUserState_Succeeds(){
 		// given
 		User user1 = getMockUSER1();
-		User user2 = getMockUSER2();
+		User updatedUser = defaultUser()
+			.withUserId(USER1.getId())
+			.withEmail(USER2.getEmail())
+			.withUsername(USER2.getUsername())
+			.withImage(USER2.getImage())
+			.withBio(USER2.getBio())
+			.build();
 
-		final String updatedPassword = "updatedPassword";
 		UpdateUserCommand command = new UpdateUserCommand(
-			user2.getEmail(),
-			user2.getUsername(),
-			updatedPassword,
-			user2.getImage(),
-			user2.getBio());
+			USER2.getEmail(),
+			USER2.getUsername(),
+			null,
+			USER2.getImage(),
+			USER2.getBio());
 
 		given(loadUserWithIdPort.loadUserWithId(eq(USER1.getId())))
 			.willReturn(user1);
 		given(user1.update(
 			eq(USER2.getEmail()),
 			eq(USER2.getUsername()),
-			eq(updatedPassword),
+			any(),
 			eq(USER2.getImage()),
 			eq(USER2.getBio()), any()))
-			.willReturn(user2);
+			.willReturn(updatedUser);
 
 		// when
 		UserResult result = updateUserService.updateUser(command, USER1.getId().getValue());
@@ -69,7 +71,7 @@ class UpdateUserServiceTest {
 		then(user1).should().update(
 			eq(USER2.getEmail()),
 			eq(USER2.getUsername()),
-			eq(updatedPassword),
+			any(),
 			eq(USER2.getImage()),
 			eq(USER2.getBio()), any());
 		then(updateUserStatePort).should().updateUserState(any());

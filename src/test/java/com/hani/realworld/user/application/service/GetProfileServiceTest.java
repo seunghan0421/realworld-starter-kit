@@ -33,8 +33,8 @@ class GetProfileServiceTest {
 	@Test
 	void getProfile_withLogin_Succeeds() {
 		// given
-		Profile target = getMockPROFILE2();
 		Profile base = getMockPROFILE1();
+		Profile target = PROFILE2;
 
 		String targetUsername = target.getUser().getUsername();
 		Optional<Long> baseUserId = Optional.of(base.getUser().getId().getValue());
@@ -63,7 +63,7 @@ class GetProfileServiceTest {
 	@Test
 	void getProfile_withOutLogin_Succeeds() {
 		// given
-		Profile target = getMockPROFILE2();
+		Profile target = PROFILE2;
 
 		String targetUsername = target.getUser().getUsername();
 		Optional<Long> baseUserId = Optional.empty();

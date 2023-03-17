@@ -23,11 +23,8 @@ class LoginUserServiceTest {
 	private final JwtProvider jwtProvider =
 		Mockito.mock(JwtProvider.class);
 
-	private final PasswordEncoder passwordEncoder =
-		new BCryptPasswordEncoder();
-
 	private final LoginUserService loginUserService =
-		new LoginUserService(loadUserWithEmailPort, jwtProvider, passwordEncoder);
+		new LoginUserService(loadUserWithEmailPort, jwtProvider, new BCryptPasswordEncoder());
 
 	@Test
 	void loginUser_Succeeds() {
@@ -35,9 +32,7 @@ class LoginUserServiceTest {
 		User user = getMockUSER1();
 		final String token = "user1 valid token";
 
-		LoginUserCommand command = new LoginUserCommand(
-			USER1.getEmail(),
-			"password1");
+		LoginUserCommand command = new LoginUserCommand(USER1.getEmail(), "password1");
 
 		given(loadUserWithEmailPort.loadUserWithEmail(eq(USER1.getEmail())))
 			.willReturn(user);

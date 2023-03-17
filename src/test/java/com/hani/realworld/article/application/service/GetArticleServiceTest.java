@@ -30,13 +30,15 @@ class GetArticleServiceTest {
 	@Test
 	void getArticle_Succeeds() {
 		// given
-		ProfileResult response = ProfileResult.of(ARTICLE1.getAuthor(), false);
+		ProfileResult profileResult = ProfileResult.of(ARTICLE1.getAuthor(), false);
 
 		final String slug = ARTICLE1.getSlug().getSlug();
 		final String authorName = ARTICLE1.getAuthor().getUser().getUsername();
 
-		given(loadArticleWithSlugPort.load(eq(slug))).willReturn(ARTICLE1);
-		given(getProfileQuery.getProfile(eq(authorName), any())).willReturn(response);
+		given(loadArticleWithSlugPort.load(eq(slug)))
+			.willReturn(ARTICLE1);
+		given(getProfileQuery.getProfile(eq(authorName), any()))
+			.willReturn(profileResult);
 
 		// when
 		ArticleResult result = getArticleService.getArticle(slug, Optional.of(USER1.getId().getValue()));

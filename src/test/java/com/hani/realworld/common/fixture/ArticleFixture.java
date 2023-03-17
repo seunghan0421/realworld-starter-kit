@@ -29,6 +29,58 @@ public class ArticleFixture {
 			.withFavorites(new Favorites());
 	}
 
+	public static final Article ARTICLE1 = defaultArticle()
+		.withArticleId(new Article.ArticleId(1L))
+		.withAuthor(PROFILE1)
+		.withTags("user1")
+		.withFavorites(new Favorites())
+		.withTitle("user1 article")
+		.withDescription("user1 description")
+		.withBody("user1 body")
+		.build();
+
+	public static final Article ARTICLE2 = defaultArticle()
+		.withArticleId(new Article.ArticleId(2L))
+		.withAuthor(PROFILE2)
+		.withTags("user2")
+		.withFavorites(new Favorites())
+		.withTitle("user2 article")
+		.withDescription("user2 description")
+		.withBody("user2 body")
+		.build();
+
+	public static Article getMockARTICLE1() {
+		Article article = Mockito.mock(Article.class);
+
+		given(article.getId()).willReturn(ARTICLE1.getId());
+		given(article.getAuthor()).willReturn(ARTICLE1.getAuthor());
+		given(article.getFavorites()).willReturn(ARTICLE1.getFavorites());
+		given(article.getTags()).willReturn(ARTICLE1.getTags());
+		given(article.getSlug()).willReturn(ARTICLE1.getSlug());
+		given(article.getTitle()).willReturn(ARTICLE1.getTitle());
+		given(article.getDescription()).willReturn(ARTICLE1.getDescription());
+		given(article.getBody()).willReturn(ARTICLE1.getBody());
+		given(article.getFavorites()).willReturn(ARTICLE1.getFavorites());
+		given(article.getCreatedAt()).willReturn(ARTICLE1.getCreatedAt());
+		given(article.getUpdatedAt()).willReturn(ARTICLE1.getUpdatedAt());
+
+		return article;
+	}
+
+	public static final CreateArticleRequest CREATE_ARTICLE_REQUEST =
+		new CreateArticleRequest(
+			ARTICLE1.getTitle(),
+			ARTICLE1.getDescription(),
+			ARTICLE1.getBody(),
+			new ArrayList<>(ARTICLE1.getTags().getTags()));
+
+	public static final UpdateArticleRequest UPDATE_ARTICLE_REQUEST =
+		new UpdateArticleRequest(
+			ARTICLE2.getTitle(),
+			ARTICLE2.getDescription(),
+			ARTICLE2.getBody());
+
+
 	public static class ArticleBuilder {
 		private Article.ArticleId articleId;
 		private Profile author;
@@ -96,74 +148,4 @@ public class ArticleFixture {
 				LocalDateTime.now());
 		}
 	}
-
-	public static ArticleBuilder ARTICLE1_BUILDER = defaultArticle()
-		.withArticleId(new Article.ArticleId(1L))
-		.withAuthor(PROFILE1)
-		.withTags("user1")
-		.withFavorites(new Favorites())
-		.withTitle("user1 article")
-		.withDescription("user1 description")
-		.withBody("user1 body");
-
-	public static ArticleBuilder ARTICLE2_BUILDER = defaultArticle()
-		.withArticleId(new Article.ArticleId(2L))
-		.withAuthor(PROFILE2)
-		.withTags("user2")
-		.withFavorites(new Favorites())
-		.withTitle("user2 article")
-		.withDescription("user2 description")
-		.withBody("user2 body");
-
-	public static final Article ARTICLE1 = ARTICLE1_BUILDER.build();
-
-	public static final Article ARTICLE2 = ARTICLE2_BUILDER.build();
-
-	public static Article getMockARTICLE1() {
-		Article article = Mockito.mock(Article.class);
-
-		given(article.getId()).willReturn(ARTICLE1.getId());
-		given(article.getAuthor()).willReturn(ARTICLE1.getAuthor());
-		given(article.getFavorites()).willReturn(ARTICLE1.getFavorites());
-		given(article.getTags()).willReturn(ARTICLE1.getTags());
-		given(article.getSlug()).willReturn(ARTICLE1.getSlug());
-		given(article.getTitle()).willReturn(ARTICLE1.getTitle());
-		given(article.getDescription()).willReturn(ARTICLE1.getDescription());
-		given(article.getBody()).willReturn(ARTICLE1.getBody());
-		given(article.getFavorites()).willReturn(ARTICLE1.getFavorites());
-		given(article.getCreatedAt()).willReturn(ARTICLE1.getCreatedAt());
-		given(article.getUpdatedAt()).willReturn(ARTICLE1.getUpdatedAt());
-
-		return article;
-	}
-
-	public static Article getMockARTICLE2() {
-		Article article = Mockito.mock(Article.class);
-
-		given(article.getId()).willReturn(ARTICLE2.getId());
-		given(article.getAuthor()).willReturn(ARTICLE2.getAuthor());
-		given(article.getSlug()).willReturn(ARTICLE2.getSlug());
-		given(article.getTitle()).willReturn(ARTICLE2.getTitle());
-		given(article.getDescription()).willReturn(ARTICLE2.getDescription());
-		given(article.getBody()).willReturn(ARTICLE2.getBody());
-		given(article.getTags()).willReturn(ARTICLE2.getTags());
-		given(article.getCreatedAt()).willReturn(ARTICLE2.getCreatedAt());
-		given(article.getUpdatedAt()).willReturn(ARTICLE2.getUpdatedAt());
-
-		return article;
-	}
-
-	public static final CreateArticleRequest CREATE_ARTICLE_REQUEST =
-		new CreateArticleRequest(
-			ARTICLE1.getTitle(),
-			ARTICLE1.getDescription(),
-			ARTICLE1.getBody(),
-			new ArrayList<>(ARTICLE1.getTags().getTags()));
-
-	public static final UpdateArticleRequest UPDATE_ARTICLE_REQUEST =
-		new UpdateArticleRequest(
-			ARTICLE2.getTitle(),
-			ARTICLE2.getDescription(),
-			ARTICLE2.getBody());
-
 }

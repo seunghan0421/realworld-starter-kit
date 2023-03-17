@@ -3,6 +3,7 @@ package com.hani.realworld.user.adapter.out.persistence;
 import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.common.util.PasswordEncoderUtil.*;
+import static com.hani.realworld.user.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.hani.realworld.user.domain.Followees;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
@@ -57,7 +57,13 @@ class UserPersistenceAdapterTest {
 	@Test
 	void register_User_succeeds() {
 		// given
-		User user = defaultUser().withUserId(null).build();
+		User user = defaultUser()
+			.withUserId(new UserId(1L))
+			.withUsername(USER1.getUsername())
+			.withEmail(USER1.getEmail())
+			.withBio(USER1.getBio())
+			.withImage(USER1.getImage())
+			.build();
 
 		// when
 		adapter.register(user);
@@ -67,10 +73,10 @@ class UserPersistenceAdapterTest {
 
 		UserJpaEntity savedEntity = userRepository.findAll().get(0);
 
-		assertThat(savedEntity.getUsername()).isEqualTo(user.getUsername());
-		assertThat(savedEntity.getEmail()).isEqualTo(user.getEmail());
-		assertThat(savedEntity.getBio()).isEqualTo(user.getBio());
-		assertThat(savedEntity.getImage()).isEqualTo(user.getImage());
+		assertThat(savedEntity.getUsername()).isEqualTo(USER1.getUsername());
+		assertThat(savedEntity.getEmail()).isEqualTo(USER1.getEmail());
+		assertThat(savedEntity.getBio()).isEqualTo(USER1.getBio());
+		assertThat(savedEntity.getImage()).isEqualTo(USER1.getImage());
 
 		verifyPassword(savedEntity, "password");
 	}
@@ -82,7 +88,7 @@ class UserPersistenceAdapterTest {
 		Profile profile = defaultProfile()
 			.withProfileId(null)
 			.withUser(USER1)
-			.withFollowees(new Followees())
+			.withFollowees(PROFILE1.getFollowees())
 			.build();
 
 		// when
@@ -93,6 +99,7 @@ class UserPersistenceAdapterTest {
 
 		ProfileJpaEntity savedEntity = profileRepository.findAll().get(0);
 		assertThat(savedEntity.getUser().getId()).isEqualTo(USER1.getId().getValue());
+		assertThat(savedEntity.getFollowees()).contains(USER2.getId().getValue()).size().isEqualTo(1);
 	}
 
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -106,8 +113,8 @@ class UserPersistenceAdapterTest {
 			.withUsername(USER2.getUsername())
 			.withEmail(USER2.getEmail())
 			.withPassword(updatePassword)
-			.withBio(USER2.getBio())
 			.withImage(USER2.getImage())
+			.withBio(USER2.getBio())
 			.build();
 
 		// when
@@ -165,9 +172,8 @@ class UserPersistenceAdapterTest {
 		adapter.updateProfile(profile);
 
 		// then
-		// assertThat(profile.getId()).isEqualTo(PROFILE1.getId());
-		// assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
-		assertThat(profile.getFollowees().isFollow(USER2)).isTrue();
+		ProfileJpaEntity result = profileRepository.findById(USER1.getId().getValue()).get();
+		assertThat(result.getFollowees()).contains(USER2.getId().getValue());
 	}
 
 	@Sql(

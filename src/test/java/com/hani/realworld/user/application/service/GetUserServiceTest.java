@@ -22,7 +22,7 @@ class GetUserServiceTest {
 	@Test
 	void getUser_Succeeds() {
 		// given
-		User user = getMockUSER1();
+		User user = USER1;
 
 		given(loadUserWithIdPort.loadUserWithId(eq(USER1.getId())))
 			.willReturn(user);
