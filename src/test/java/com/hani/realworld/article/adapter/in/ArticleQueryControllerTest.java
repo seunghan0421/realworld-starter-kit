@@ -168,6 +168,4 @@ class ArticleQueryControllerTest extends ControllerTest {
 			.getFeedArticleList(eq(PAGING_PARAM), eq(USER1.getId().getValue()));
 	}
 
-	private PagingParam PAGING_PARAM = new PagingParam(0, 20);
-
 }

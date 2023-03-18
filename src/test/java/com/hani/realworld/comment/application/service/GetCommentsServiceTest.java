@@ -15,9 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.hani.realworld.article.application.port.out.LoadArticleWithSlugPort;
-import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.comment.application.port.in.result.CommentResult;
-import com.hani.realworld.comment.application.port.out.GetMultipleCommentWithArticleIdPort;
+import com.hani.realworld.comment.application.port.out.LoadMultipleCommentWithArticleIdPort;
 import com.hani.realworld.comment.domain.Comment;
 import com.hani.realworld.user.application.port.in.GetProfileQuery;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
@@ -27,14 +26,14 @@ class GetCommentsServiceTest {
 	private final LoadArticleWithSlugPort loadArticleWithSlugPort =
 		Mockito.mock(LoadArticleWithSlugPort.class);
 
-	private final GetMultipleCommentWithArticleIdPort getMultipleCommentWithArticleIdPort =
-		Mockito.mock(GetMultipleCommentWithArticleIdPort.class);
+	private final LoadMultipleCommentWithArticleIdPort loadMultipleCommentWithArticleIdPort =
+		Mockito.mock(LoadMultipleCommentWithArticleIdPort.class);
 
 	private final GetProfileQuery getProfileQuery =
 		Mockito.mock(GetProfileQuery.class);
 
 	private final GetCommentsService getCommentsService =
-		new GetCommentsService(loadArticleWithSlugPort, getMultipleCommentWithArticleIdPort, getProfileQuery);
+		new GetCommentsService(loadArticleWithSlugPort, loadMultipleCommentWithArticleIdPort, getProfileQuery);
 
 	@Test
 	void getComments_Succeeds() {
@@ -44,7 +43,7 @@ class GetCommentsServiceTest {
 
 		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getSlug())))
 			.willReturn(ARTICLE1);
-		given(getMultipleCommentWithArticleIdPort.getCommentsWithArticleId(eq(ARTICLE1.getId())))
+		given(loadMultipleCommentWithArticleIdPort.getCommentsWithArticleId(eq(ARTICLE1.getId())))
 			.willReturn(comments);
 		given(getProfileQuery.getProfile(any(), any())).willReturn(profileResult);
 
@@ -61,9 +60,8 @@ class GetCommentsServiceTest {
 			.containsOnly(PROFILE1.getUser().getUsername());
 
 		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getSlug()));
-		then(getMultipleCommentWithArticleIdPort).should().getCommentsWithArticleId(eq(ARTICLE1.getId()));
+		then(loadMultipleCommentWithArticleIdPort).should().getCommentsWithArticleId(eq(ARTICLE1.getId()));
 		then(getProfileQuery).should()
 			.getProfile(eq(PROFILE1.getUser().getUsername()), eq(Optional.of(USER1.getId().getValue())));
-
 	}
 }

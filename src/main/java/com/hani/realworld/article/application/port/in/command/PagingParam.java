@@ -12,16 +12,16 @@ import lombok.Getter;
 public class PagingParam extends SelfValidating<PagingParam> {
 
 	@Min(value = 0, message = "offset must be greater or equals to zero")
-	final long offset;
+	final int offset;
 
 	@Min(value = 1, message = "limit must be greater than zero")
-	final long limit;
+	final int limit;
 
 	public PagingParam() {
 		this(0, 20);
 	}
 
-	public PagingParam(long offset, long limit) {
+	public PagingParam(int offset, int limit) {
 		this.offset = offset;
 		this.limit = limit;
 

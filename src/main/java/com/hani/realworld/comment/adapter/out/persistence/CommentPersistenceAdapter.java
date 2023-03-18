@@ -9,11 +9,10 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.hani.realworld.comment.application.port.in.result.CommentResult;
 import com.hani.realworld.comment.application.port.out.CreateCommentStatePort;
 import com.hani.realworld.comment.application.port.out.DeleteCommentWithCommentIdPort;
 import com.hani.realworld.comment.application.port.out.GetCommentWithIdPort;
-import com.hani.realworld.comment.application.port.out.GetMultipleCommentWithArticleIdPort;
+import com.hani.realworld.comment.application.port.out.LoadMultipleCommentWithArticleIdPort;
 import com.hani.realworld.comment.domain.Comment;
 import com.hani.realworld.common.annotation.PersistenceAdapter;
 import com.hani.realworld.user.application.port.out.LoadProfileWithProfileIdPort;
@@ -26,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class CommentPersistenceAdapter implements
 	CreateCommentStatePort,
 	GetCommentWithIdPort,
-	GetMultipleCommentWithArticleIdPort,
+	LoadMultipleCommentWithArticleIdPort,
 	DeleteCommentWithCommentIdPort {
 
 	private final CommentRepository commentRepository;
