@@ -31,7 +31,7 @@ class DeleteArticleServiceTest {
 		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getSlug()))).willReturn(article);
 
 		// when
-		deleteArticleService.delete(ARTICLE1.getSlug().getSlug(), USER1.getId().getValue());
+		deleteArticleService.deleteArticle(ARTICLE1.getSlug().getSlug(), USER1.getId().getValue());
 
 		// then
 		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getSlug()));

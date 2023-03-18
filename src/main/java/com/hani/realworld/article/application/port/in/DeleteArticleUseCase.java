@@ -4,5 +4,5 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public interface DeleteArticleUseCase {
-	void delete(@NotBlank String slug, @NotNull Long userId);
+	void deleteArticle(@NotBlank String slug, @NotNull Long userId);
 }

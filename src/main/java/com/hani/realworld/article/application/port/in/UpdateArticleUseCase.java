@@ -7,5 +7,5 @@ import com.hani.realworld.article.application.port.in.command.UpdateArticleComma
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 
 public interface UpdateArticleUseCase {
-	ArticleResult update(@NotNull UpdateArticleCommand command, @NotBlank String slug, @NotNull Long userId);
+	ArticleResult updateArticle(@NotNull UpdateArticleCommand command, @NotBlank String slug, @NotNull Long userId);
 }

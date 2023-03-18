@@ -29,7 +29,7 @@ public class UpdateArticleService implements UpdateArticleUseCase {
 	private final GetProfileQuery getProfileQuery;
 
 	@Override
-	public ArticleResult update(UpdateArticleCommand command, String slug, Long userId) {
+	public ArticleResult updateArticle(UpdateArticleCommand command, String slug, Long userId) {
 		Article article = loadArticleWithSlugPort.load(slug);
 
 		article.checkisMyArticle(new UserId(userId));

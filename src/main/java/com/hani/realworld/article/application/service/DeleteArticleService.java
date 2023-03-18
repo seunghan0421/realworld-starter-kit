@@ -21,7 +21,7 @@ public class DeleteArticleService implements DeleteArticleUseCase {
 	private final DeleteArticleWithArticleIdPort deleteArticleWithArticleIdPort;
 
 	@Override
-	public void delete(String slug, Long userId) {
+	public void deleteArticle(String slug, Long userId) {
 		Article article = loadArticleWithSlugPort.load(slug);
 
 		article.checkisMyArticle(new UserId(userId));

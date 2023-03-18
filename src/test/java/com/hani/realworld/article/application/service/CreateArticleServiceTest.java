@@ -18,7 +18,6 @@ import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.article.application.port.out.CreateArticleStatePort;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
-import com.hani.realworld.user.domain.Profile;
 
 class CreateArticleServiceTest {
 
@@ -50,7 +49,7 @@ class CreateArticleServiceTest {
 			.willReturn(PROFILE1);
 
 		// when
-		ArticleResult result = createArticleService.create(command, USER1.getId().getValue());
+		ArticleResult result = createArticleService.createArticle(command, USER1.getId().getValue());
 
 		// then
 		assertThat(result.getSlug()).isEqualTo(ARTICLE1.getSlug().getSlug());

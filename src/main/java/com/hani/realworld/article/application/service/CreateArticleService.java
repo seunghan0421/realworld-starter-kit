@@ -25,7 +25,7 @@ public class CreateArticleService implements CreateArticleUseCase {
 	private final LoadProfileWithUserIdPort loadProfileWithUserIdPort;
 
 	@Override
-	public ArticleResult create(CreateArticleCommand command, Long userId) {
+	public ArticleResult createArticle(CreateArticleCommand command, Long userId) {
 		Profile author = loadProfileWithUserIdPort.loadProfileWithUserId(new UserId(userId));
 
 		Article article = Article.withoutId(

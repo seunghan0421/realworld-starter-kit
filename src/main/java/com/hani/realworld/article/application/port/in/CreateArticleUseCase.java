@@ -6,5 +6,5 @@ import com.hani.realworld.article.application.port.in.command.CreateArticleComma
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 
 public interface CreateArticleUseCase {
-	ArticleResult create(@NotNull CreateArticleCommand command, @NotNull Long userId);
+	ArticleResult createArticle(@NotNull CreateArticleCommand command, @NotNull Long userId);
 }

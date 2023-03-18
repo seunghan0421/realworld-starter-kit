@@ -54,7 +54,7 @@ class UpdateArticleServiceTest {
 				.build());
 
 		// when
-		ArticleResult result = updateArticleService.update(
+		ArticleResult result = updateArticleService.updateArticle(
 			new UpdateArticleCommand(ARTICLE2.getTitle(), ARTICLE2.getDescription(), ARTICLE2.getBody()),
 			slug,
 			USER1.getId().getValue());
