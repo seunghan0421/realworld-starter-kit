@@ -56,9 +56,9 @@ public class ArticleQueryController {
 	ResponseEntity<MultipleArticleResponse> getArticleList(
 		@RequestParam(defaultValue = "0") int offset,
 		@RequestParam(defaultValue = "20") int limit,
-		@RequestParam String tag,
-		@RequestParam String author,
-		@RequestParam String favorited,
+		@RequestParam(required = false) String tag,
+		@RequestParam(required = false) String author,
+		@RequestParam(required = false) String favorited,
 		@OptionalUser LoginToken loginToken) {
 
 		GetListArticleCommand command = new GetListArticleCommand(

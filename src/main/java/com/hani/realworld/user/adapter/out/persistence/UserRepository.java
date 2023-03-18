@@ -8,6 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<UserJpaEntity, Long> {
 
 	@Query("select u from UserJpaEntity u "
+		+ "where u.username = :username")
+	Optional<UserJpaEntity> findUserJpaEntityByUsername(String username);
+
+	@Query("select u from UserJpaEntity u "
 		+ "where u.email = :email")
 	Optional<UserJpaEntity> findUserJpaEntityByEmail(String email);
 }

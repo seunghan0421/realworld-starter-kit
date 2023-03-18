@@ -4,12 +4,14 @@ import static com.hani.realworld.user.domain.Profile.*;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.hani.realworld.article.adapter.out.persistence.ArticleRepository;
 import com.hani.realworld.common.annotation.PersistenceAdapter;
 import com.hani.realworld.user.application.port.out.LoadProfileWithProfileIdPort;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
 import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
+import com.hani.realworld.user.application.port.out.LoadUserWithUsernamePort;
 import com.hani.realworld.user.application.port.out.RegisterProfileStatePort;
 import com.hani.realworld.user.application.port.out.RegisterUserStatePort;
 import com.hani.realworld.user.application.port.out.UpdateProfileStatePort;
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class UserPersistenceAdapter implements
 	LoadUserWithEmailPort,
 	LoadUserWithIdPort,
+	LoadUserWithUsernamePort,
 	RegisterUserStatePort,
 	RegisterProfileStatePort,
 	UpdateUserStatePort,
@@ -35,6 +38,7 @@ public class UserPersistenceAdapter implements
 	private final UserRepository userRepository;
 	private final ProfileRepository profileRepository;
 	private final UserMapper userMapper;
+	private final ArticleRepository articleRepository;
 
 	@Override
 	public User loadUserWithEmail(String email) {
@@ -104,5 +108,13 @@ public class UserPersistenceAdapter implements
 			.orElseThrow(EntityNotFoundException::new);
 
 		return userMapper.mapToProfileEntity(profileJpaEntity);
+	}
+
+	@Override
+	public User loadUserWithUsername(String username) {
+		UserJpaEntity userJpaEntity = userRepository.findUserJpaEntityByUsername(username)
+			.orElseThrow(EntityNotFoundException::new);
+
+		return userMapper.mapToUserEntity(userJpaEntity);
 	}
 }

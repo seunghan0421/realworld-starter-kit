@@ -2,10 +2,13 @@ package com.hani.realworld.article.adapter.out.persistence;
 
 import static com.hani.realworld.article.domain.Article.*;
 import static com.hani.realworld.user.domain.Profile.*;
+import static com.hani.realworld.user.domain.User.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -20,6 +23,9 @@ import com.hani.realworld.article.application.port.out.UpdateArticleStatePort;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.common.annotation.PersistenceAdapter;
 import com.hani.realworld.user.application.port.out.LoadProfileWithProfileIdPort;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
+import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
+import com.hani.realworld.user.application.port.out.LoadUserWithUsernamePort;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
@@ -36,8 +42,13 @@ public class ArticlePersistenceAdapter implements
 	DeleteArticleWithArticleIdPort,
 	GetAllTagsPort {
 
-	private final ArticleRepository articleRepository;
+	private final LoadUserWithUsernamePort loadUserWithUsernamePort;
 	private final LoadProfileWithProfileIdPort loadProfileWithProfileIdPort;
+	private final LoadProfileWithUserIdPort loadProfileWithUserIdPort;
+	private final LoadProfileWithUsernamePort loadProfileWithUsernamePort;
+
+	private final ArticleRepository articleRepository;
+	private final ArticleQueryRepository articleQueryRepository;
 	private final ArticleMapper articleMapper;
 
 	@Override
@@ -76,12 +87,63 @@ public class ArticlePersistenceAdapter implements
 	}
 
 	@Override
-	public List<Article> loadArticleList(PagingParam pagingParam, String tag, String author, String favorited) {
-		return null;
+	public List<Article> loadArticleList(
+		PagingParam pagingParam,
+		String tagName,
+		String authorName,
+		String favoritedName) {
+
+		ProfileId authorId = parseProfileId(authorName);
+		UserId favoritedId = parseUserId(favoritedName);
+
+		return addProfileAndParseToArticle(
+			articleQueryRepository.findAllWithParams(pagingParam, authorId, favoritedId, tagName));
 	}
 
-	@Override
-	public List<Article> loadFeedArticleList(PagingParam pagingParam, User.UserId userId) {
-		return null;
+	private ProfileId parseProfileId(String authorName) {
+		try {
+			return Optional.ofNullable(authorName)
+				.map(loadProfileWithUsernamePort::loadProfileWithUsername)
+				.map(Profile::getId)
+				.orElseGet(null);
+		}catch (Exception e) {
+			return null;
+		}
 	}
+
+	private UserId parseUserId(String favoritedName) {
+		try {
+			return Optional.ofNullable(favoritedName)
+				.map(loadUserWithUsernamePort::loadUserWithUsername)
+				.map(User::getId)
+				.orElseGet(null);
+		}catch (Exception e) {
+			return null;
+		}
+	}
+
+
+	@Override
+	public List<Article> loadFeedArticleList(PagingParam pagingParam, UserId userId) {
+		Profile profile = loadProfileWithUserIdPort.loadProfileWithUserId(userId);
+
+		List<Long> authorIds = profile.getFollowees().getFollowees().stream()
+			.map(UserId::getValue)
+			.collect(Collectors.toList());
+
+		return addProfileAndParseToArticle(articleQueryRepository.findFeedArticles(pagingParam, authorIds));
+	}
+
+	private List<Article> addProfileAndParseToArticle(List<ArticleJpaEntity> articleJpaEntities) {
+		return articleJpaEntities.stream()
+			.map(jpaEntity -> {
+				Profile author = loadProfileWithProfileIdPort.
+					loadProfileWithProfileId(new ProfileId(jpaEntity.getAuthorId()));
+
+				return articleMapper.mapToArticleEntity(jpaEntity, author);
+			})
+			.collect(Collectors.toList());
+
+	}
+
 }

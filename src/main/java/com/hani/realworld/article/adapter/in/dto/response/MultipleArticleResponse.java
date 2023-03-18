@@ -18,10 +18,12 @@ import lombok.NoArgsConstructor;
 public class MultipleArticleResponse {
 
 	private List<ArticleInfo> articles;
+	private int articlesCount;
 
 	public static MultipleArticleResponse of(List<ArticleResult> articleResults) {
 		return new MultipleArticleResponse(articleResults.stream()
 			.map(ArticleInfo::of)
-			.collect(Collectors.toList()));
+			.collect(Collectors.toList()),
+			articleResults.size());
 	}
 }
