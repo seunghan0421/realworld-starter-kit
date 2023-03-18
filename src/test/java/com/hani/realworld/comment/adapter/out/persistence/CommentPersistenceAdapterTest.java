@@ -17,8 +17,10 @@ import org.springframework.test.context.jdbc.Sql;
 import com.hani.realworld.article.adapter.out.persistence.ArticleJpaEntity;
 import com.hani.realworld.article.adapter.out.persistence.ArticleMapper;
 import com.hani.realworld.article.adapter.out.persistence.ArticlePersistenceAdapter;
+import com.hani.realworld.article.adapter.out.persistence.ArticleQueryRepository;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.comment.domain.Comment;
+import com.hani.realworld.config.JpaConfig;
 import com.hani.realworld.user.adapter.out.persistence.UserMapper;
 import com.hani.realworld.user.adapter.out.persistence.UserPersistenceAdapter;
 import com.hani.realworld.user.domain.Profile;
@@ -27,6 +29,7 @@ import com.hani.realworld.user.domain.Profile;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({
 	ArticlePersistenceAdapter.class, ArticleMapper.class,
+	ArticleQueryRepository.class, JpaConfig.class,
 	UserPersistenceAdapter.class, UserMapper.class,
 	CommentPersistenceAdapter.class, CommentMapper.class
 })

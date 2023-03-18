@@ -3,14 +3,12 @@ package com.hani.realworld.article.adapter.out.persistence;
 import static com.hani.realworld.article.domain.Article.*;
 import static com.hani.realworld.common.fixture.ArticleFixture.*;
 import static com.hani.realworld.common.fixture.ProfileFixture.*;
+import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -19,12 +17,18 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.hani.realworld.article.domain.Article;
+import com.hani.realworld.config.JpaConfig;
 import com.hani.realworld.user.adapter.out.persistence.UserMapper;
 import com.hani.realworld.user.adapter.out.persistence.UserPersistenceAdapter;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({ArticlePersistenceAdapter.class, UserPersistenceAdapter.class, ArticleMapper.class, UserMapper.class})
+@Import(
+	{
+		ArticlePersistenceAdapter.class, ArticleMapper.class,
+		ArticleQueryRepository.class, JpaConfig.class,
+		UserPersistenceAdapter.class, UserMapper.class
+	})
 class ArticlePersistenceAdapterTest {
 
 	@Autowired
@@ -33,7 +37,11 @@ class ArticlePersistenceAdapterTest {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	@Sql(value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
+	@Autowired
+	private ArticleQueryRepository articleQueryRepository;
+
+	@Sql(
+		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 
 	@Test
@@ -132,6 +140,61 @@ class ArticlePersistenceAdapterTest {
 		List<ArticleJpaEntity> articleJpaEntityList = articleRepository.findAll();
 		assertThat(articleJpaEntityList).size().isEqualTo(1);
 		assertThat(articleJpaEntityList.get(0).getId()).isEqualTo(ARTICLE2.getId().getValue());
+	}
+
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void getArticleList_withTags_succeeds() {
+		// when
+		List<Article> articles =
+			adapter.loadArticleList(PAGING_PARAM, null, null, null);
+
+		// then
+		assertThat(articles.stream().map(Article::getId).map(ArticleId::getValue))
+			.contains(ARTICLE1.getId().getValue(),ARTICLE1.getId().getValue())
+			.size().isEqualTo(2);
+	}
+
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void getArticleList_withAuthorName_succeeds() {
+		// when
+		List<Article> articles =
+			adapter.loadArticleList(PAGING_PARAM, null, USER1.getUsername(), null);
+
+		// then
+		assertThat(articles.stream().map(Article::getId)).contains(ARTICLE1.getId()).size().isEqualTo(1);
+	}
+
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
+	void getArticleList_withFavoritedName_succeeds() {
+		// when
+		List<Article> articles =
+			adapter.loadArticleList(PAGING_PARAM, null, null, USER1.getUsername());
+
+		// then
+		assertThat(articles.stream().map(Article::getId).map(ArticleId::getValue))
+			.contains(ARTICLE1.getId().getValue(),ARTICLE2.getId().getValue())
+			.size().isEqualTo(2);
 	}
 
 	@Sql(

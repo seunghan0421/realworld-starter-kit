@@ -116,7 +116,8 @@ class ArticleQueryControllerTest extends ControllerTest {
 					parameterWithName("favorited").description("즐겨찾기 여부")
 				),
 				responseFields(
-					fieldWithPath("articles").type(JsonFieldType.ARRAY).description("게시물 리스트")
+					fieldWithPath("articles").type(JsonFieldType.ARRAY).description("게시물 리스트"),
+					fieldWithPath("articlesCount").type(JsonFieldType.NUMBER).description("게시물 개수")
 				).andWithPrefix("articles.[].", ArticleFieldDescriptor.article)
 					.andWithPrefix("articles.[].author.", ProfileFieldDescriptor.profile)
 			)
@@ -158,7 +159,8 @@ class ArticleQueryControllerTest extends ControllerTest {
 					parameterWithName("limit").description("게시물 개수")
 				),
 				responseFields(
-					fieldWithPath("articles").type(JsonFieldType.ARRAY).description("게시물 리스트")
+					fieldWithPath("articles").type(JsonFieldType.ARRAY).description("게시물 리스트"),
+					fieldWithPath("articlesCount").type(JsonFieldType.NUMBER).description("게시물 개수")
 				).andWithPrefix("articles.[].", ArticleFieldDescriptor.article)
 					.andWithPrefix("articles.[].author.", ProfileFieldDescriptor.profile)
 			)
