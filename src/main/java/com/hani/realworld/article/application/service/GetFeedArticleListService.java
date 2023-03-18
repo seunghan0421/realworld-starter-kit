@@ -14,7 +14,6 @@ import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.common.annotation.Query;
 import com.hani.realworld.user.application.port.in.GetProfileQuery;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
-import com.hani.realworld.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 

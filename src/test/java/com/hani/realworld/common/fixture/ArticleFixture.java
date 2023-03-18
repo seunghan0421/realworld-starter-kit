@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import com.hani.realworld.article.adapter.in.dto.request.CreateArticleRequest;
 import com.hani.realworld.article.adapter.in.dto.request.UpdateArticleRequest;
+import com.hani.realworld.article.application.port.in.command.PagingParam;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.article.domain.Favorites;
 import com.hani.realworld.article.domain.Slug;
@@ -80,6 +81,7 @@ public class ArticleFixture {
 			ARTICLE2.getDescription(),
 			ARTICLE2.getBody());
 
+	public static final PagingParam PAGING_PARAM = new PagingParam();
 
 	public static class ArticleBuilder {
 		private Article.ArticleId articleId;
