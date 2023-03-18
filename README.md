@@ -24,6 +24,8 @@ $ ./docs/run-api-tests.sh
 
 For more details, see [`run-api-tests.sh`](docs/run-api-tests.sh).
 
+- result
+  ![diagram](docs/images/test-result.png)
 ## SonarQube
 
 ```shell
@@ -81,9 +83,7 @@ For more details, see [`RealWorld - Spring Rest Docs`]( http://htmlpreview.githu
     │       └── ...  
     │   └── test                        # Unit tests, Acceptence tests, etcs
     └──
-# Diagram
 
-![diagram](docs/images/diagram.png)
 
 # License
 
