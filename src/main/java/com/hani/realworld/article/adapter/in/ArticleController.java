@@ -1,11 +1,9 @@
 package com.hani.realworld.article.adapter.in;
 
 import java.net.URI;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,14 +16,12 @@ import com.hani.realworld.article.adapter.in.dto.request.CreateArticleRequest;
 import com.hani.realworld.article.adapter.in.dto.request.UpdateArticleRequest;
 import com.hani.realworld.article.application.port.in.CreateArticleUseCase;
 import com.hani.realworld.article.application.port.in.DeleteArticleUseCase;
-import com.hani.realworld.article.application.port.in.GetArticleQuery;
 import com.hani.realworld.article.application.port.in.UpdateArticleUseCase;
 import com.hani.realworld.article.application.port.in.command.CreateArticleCommand;
 import com.hani.realworld.article.application.port.in.command.UpdateArticleCommand;
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.infra.jwt.LoginUser;
-import com.hani.realworld.infra.jwt.OptionalUser;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,8 +34,6 @@ public class ArticleController {
 	private final UpdateArticleUseCase updateArticleUseCase;
 	private final DeleteArticleUseCase deleteArticleUseCase;
 
-	private final GetArticleQuery getArticleQuery;
-
 	@PostMapping
 	ResponseEntity<ArticleResponse> createArticle(
 		@RequestBody CreateArticleRequest request,
@@ -51,23 +45,10 @@ public class ArticleController {
 			request.getBody(),
 			request.getTagList());
 
-		ArticleResult articleResult = createArticleUseCase.create(command, loginToken.getId());
+		ArticleResult articleResult = createArticleUseCase.createArticle(command, loginToken.getId());
 
 		return ResponseEntity.created(URI.create("/api/articles/" + articleResult.getSlug()))
 			.body(ArticleResponse.of(articleResult));
-	}
-
-	@GetMapping("/{slug}")
-	ResponseEntity<ArticleResponse> getArticle(
-		@PathVariable("slug") String slug,
-		@OptionalUser LoginToken loginToken) {
-
-		Optional<Long> userId = Optional.ofNullable(loginToken)
-			.map(LoginToken::getId);
-
-		ArticleResult articleResult = getArticleQuery.getArticle(slug, userId);
-
-		return ResponseEntity.ok(ArticleResponse.of(articleResult));
 	}
 
 	@PutMapping("/{slug}")
@@ -81,7 +62,7 @@ public class ArticleController {
 			request.getDescription(),
 			request.getBody());
 
-		ArticleResult articleResult = updateArticleUseCase.update(command, slug, loginToken.getId());
+		ArticleResult articleResult = updateArticleUseCase.updateArticle(command, slug, loginToken.getId());
 
 		return ResponseEntity.ok(ArticleResponse.of(articleResult));
 	}
@@ -91,7 +72,7 @@ public class ArticleController {
 		@PathVariable("slug") String slug,
 		@LoginUser LoginToken loginToken) {
 
-		deleteArticleUseCase.delete(slug, loginToken.getId());
+		deleteArticleUseCase.deleteArticle(slug, loginToken.getId());
 
 		return ResponseEntity.noContent().build();
 	}
