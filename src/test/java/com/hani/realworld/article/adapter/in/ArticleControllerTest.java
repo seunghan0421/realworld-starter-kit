@@ -10,8 +10,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +19,6 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.hani.realworld.article.application.port.in.CreateArticleUseCase;
 import com.hani.realworld.article.application.port.in.DeleteArticleUseCase;
-import com.hani.realworld.article.application.port.in.GetArticleQuery;
 import com.hani.realworld.article.application.port.in.UpdateArticleUseCase;
 import com.hani.realworld.article.application.port.in.command.CreateArticleCommand;
 import com.hani.realworld.article.application.port.in.command.UpdateArticleCommand;
@@ -43,15 +40,13 @@ class ArticleControllerTest extends ControllerTest {
 	@MockBean
 	private DeleteArticleUseCase deleteArticleUseCase;
 
-	@MockBean
-	private GetArticleQuery getArticleQuery;
-
 	@Test
 	void createArticle_Succeeds() throws Exception {
 		String request = createJson(CREATE_ARTICLE_REQUEST);
-		final ArticleResult response = ArticleResult.of(ARTICLE1, ProfileResult.of(ARTICLE1.getAuthor(), false), false, 0);
+		final ArticleResult response = ArticleResult.of(ARTICLE1, ProfileResult.of(ARTICLE1.getAuthor(), false), false,
+			0);
 
-		given(createArticleUseCase.create(any(CreateArticleCommand.class), eq(USER1.getId().getValue())))
+		given(createArticleUseCase.createArticle(any(CreateArticleCommand.class), eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
@@ -81,7 +76,7 @@ class ArticleControllerTest extends ControllerTest {
 			);
 
 		then(createArticleUseCase).should()
-			.create(eq(new CreateArticleCommand(
+			.createArticle(eq(new CreateArticleCommand(
 					CREATE_ARTICLE_REQUEST.getTitle(),
 					CREATE_ARTICLE_REQUEST.getDescription(),
 					CREATE_ARTICLE_REQUEST.getBody(),
@@ -101,7 +96,8 @@ class ArticleControllerTest extends ControllerTest {
 			ProfileResult.of(ARTICLE1.getAuthor(), false),
 			false, 2);
 
-		given(updateArticleUseCase.update(any(UpdateArticleCommand.class), eq(ARTICLE1.getSlug().getSlug()), eq(USER1.getId().getValue())))
+		given(updateArticleUseCase.updateArticle(any(UpdateArticleCommand.class), eq(ARTICLE1.getSlug().getSlug()),
+			eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
@@ -133,46 +129,12 @@ class ArticleControllerTest extends ControllerTest {
 			);
 
 		then(updateArticleUseCase).should()
-			.update(eq(new UpdateArticleCommand(
-				UPDATE_ARTICLE_REQUEST.getTitle(),
-				UPDATE_ARTICLE_REQUEST.getDescription(),
-				UPDATE_ARTICLE_REQUEST.getBody())),
+			.updateArticle(eq(new UpdateArticleCommand(
+					UPDATE_ARTICLE_REQUEST.getTitle(),
+					UPDATE_ARTICLE_REQUEST.getDescription(),
+					UPDATE_ARTICLE_REQUEST.getBody())),
 				eq(ARTICLE1.getSlug().getSlug()),
 				eq(USER1.getId().getValue()));
-	}
-
-	@Test
-	void getArticle_Succeeds() throws Exception {
-		ArticleResult response = ArticleResult.of(
-			ARTICLE1,
-			ProfileResult.of(ARTICLE1.getAuthor(), false),
-			false,
-			2);
-
-		Optional<Long> userId= Optional.of(ARTICLE1.getAuthor().getId().getValue());
-		given(getArticleQuery.getArticle(eq(ARTICLE1.getSlug().getSlug()), eq(userId)))
-			.willReturn(response);
-
-		mockMvc.perform(
-				RestDocumentationRequestBuilders.get("/api/articles/{slug}", ARTICLE1.getSlug().getSlug())
-					.contentType(MediaType.APPLICATION_JSON)
-					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-			)
-			.andExpect(status().isOk())
-			.andDo(
-				restDocs.document(
-					pathParameters(
-						parameterWithName("slug").description("게시물 슬러그")
-					),
-					responseFields(
-						fieldWithPath("article").type(JsonFieldType.OBJECT).description("기사 정보")
-					).andWithPrefix("article.", ArticleFieldDescriptor.article)
-						.andWithPrefix("article.author.", ProfileFieldDescriptor.profile)
-				)
-			);
-
-		then(getArticleQuery).should()
-			.getArticle(eq(ARTICLE1.getSlug().getSlug()),eq(userId));
 	}
 
 	@Test
@@ -194,7 +156,7 @@ class ArticleControllerTest extends ControllerTest {
 			));
 
 		then(deleteArticleUseCase).should()
-			.delete(eq(ARTICLE1.getSlug().getSlug()), eq(USER1.getId().getValue()));
+			.deleteArticle(eq(ARTICLE1.getSlug().getSlug()), eq(USER1.getId().getValue()));
 	}
 
 }
