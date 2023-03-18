@@ -1,5 +1,7 @@
 package com.hani.realworld.user.domain;
 
+import static com.hani.realworld.common.fixture.ProfileFixture.*;
+import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.user.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,6 +12,19 @@ import com.hani.realworld.common.fixture.ProfileFixture;
 import com.hani.realworld.common.fixture.UserFixture;
 
 class ProfileTest {
+
+	@Test
+	void profile_withoutId_test() {
+		assertDoesNotThrow(() -> Profile.withoutId(USER1));
+	}
+
+	@Test
+	void profile_withId_test() {
+		assertDoesNotThrow(() -> Profile.withId(
+			PROFILE1.getId(),
+			PROFILE1.getUser(),
+			PROFILE1.getFollowees()));
+	}
 
 	@Test
 	void follow_Succeeds() {

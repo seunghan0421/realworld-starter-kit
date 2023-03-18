@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     // logging query
-    // implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
 
     // querydsl
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
@@ -141,12 +141,15 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                     "**/dto/*",
                     "**/command/*",
+                    "**/result/*",
                     "**/jwt/*",
                     "**/util/*",
-                    "**/result/*"
+                    "**/exception/*",
+                    "**/Q*.class"
             ])
         }))
     }
+    finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacoco {

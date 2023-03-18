@@ -17,6 +17,25 @@ class UserTest {
 		new BCryptPasswordEncoder();
 
 	@Test
+	void user_withoutId_Succeeds() {
+		// when, then
+		assertDoesNotThrow(() ->
+			User.withoutId(USER1.getUsername(), USER1.getEmail(), USER1.getPassword()));
+	}
+
+	@Test
+	void user_withId_Succeeds() {
+		// when, then
+		assertDoesNotThrow(() -> User.withId(
+			USER1.getId(),
+			USER1.getUsername(),
+			USER1.getEmail(),
+			USER1.getPassword(),
+			USER1.getBio(),
+			USER1.getImage()));
+	}
+
+	@Test
 	void encode_and_verify_Password_Succeeds() {
 		// given
 		User user = defaultUser()

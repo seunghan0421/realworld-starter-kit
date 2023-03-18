@@ -205,6 +205,25 @@ class ArticlePersistenceAdapterTest {
 		},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
+	void getFeedArticleList_succeeds() {
+		// when
+		List<Article> articles =
+			adapter.loadFeedArticleList(PAGING_PARAM, USER1.getId());
+
+		// then
+		assertThat(articles.stream().map(Article::getId).map(ArticleId::getValue))
+			.contains(ARTICLE2.getId().getValue())
+			.size().isEqualTo(1);
+	}
+
+	@Sql(
+		value = {
+			"UserPersistenceAdapterTest.sql",
+			"ProfilePersistenceAdapterTest.sql",
+			"ArticlePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Test
 	void getAllTags_succeeds() {
 		// when
 		final Set<String> allTags = adapter.getAllTags();

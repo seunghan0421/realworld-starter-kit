@@ -13,6 +13,31 @@ import com.hani.realworld.user.domain.User;
 class ArticleTest {
 
 	@Test
+	void article_without_test() {
+		assertDoesNotThrow(() -> Article.withoutId(
+			ARTICLE1.getAuthor(),
+			ARTICLE1.getTags(),
+			ARTICLE1.getTitle(),
+			ARTICLE1.getDescription(),
+			ARTICLE1.getBody()));
+	}
+
+	@Test
+	void article_with_test() {
+		assertDoesNotThrow(() -> Article.withId(
+			ARTICLE1.getId(),
+			ARTICLE1.getAuthor(),
+			ARTICLE1.getFavorites(),
+			ARTICLE1.getTags(),
+			ARTICLE1.getSlug(),
+			ARTICLE1.getTitle(),
+			ARTICLE1.getDescription(),
+			ARTICLE1.getBody(),
+			ARTICLE1.getCreatedAt(),
+			ARTICLE1.getUpdatedAt()));
+	}
+
+	@Test
 	void update_Succeeds() {
 		final String updatedSlug = "update-title";
 		final String updatedTitle = "update title";
