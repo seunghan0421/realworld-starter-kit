@@ -1,4 +1,4 @@
-package com.hani.realworld.user.adapter.in.web.dto;
+package com.hani.realworld.user.adapter.in.web.dto.request;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.*;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.*;
@@ -17,10 +17,7 @@ import lombok.Value;
 @AllArgsConstructor
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
 @JsonTypeName("user")
-public class UpdateUserRequest {
+public class LoginUserRequest {
 	private String email;
-	private String username;
 	private String password;
-	private String image;
-	private String bio;
 }

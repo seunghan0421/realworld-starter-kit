@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.infra.jwt.LoginUser;
-import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
-import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
-import com.hani.realworld.user.adapter.in.web.dto.UserResponse;
+import com.hani.realworld.user.adapter.in.web.dto.response.RegisterUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.request.UpdateUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.response.UserResponse;
 import com.hani.realworld.user.application.port.in.GetUserQuery;
 import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
 import com.hani.realworld.user.application.port.in.command.RegisterUserCommand;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
-import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 
 import lombok.RequiredArgsConstructor;

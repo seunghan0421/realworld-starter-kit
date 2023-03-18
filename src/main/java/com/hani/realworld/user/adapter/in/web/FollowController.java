@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.infra.jwt.LoginUser;
-import com.hani.realworld.user.adapter.in.web.dto.ProfileResponse;
+import com.hani.realworld.user.adapter.in.web.dto.response.ProfileResponse;
 import com.hani.realworld.user.application.port.in.FollowProfileUseCase;
 import com.hani.realworld.user.application.port.in.UnFollowProfileUseCase;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;

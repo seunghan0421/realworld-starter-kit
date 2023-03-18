@@ -1,4 +1,4 @@
-package com.hani.realworld.comment.adapter.in.dto;
+package com.hani.realworld.article.adapter.in.dto.request;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.*;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.*;
@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-@JsonTypeName("comment")
-public class AddCommentRequest {
+@JsonTypeName("article")
+public class UpdateArticleRequest {
+	private String title;
+	private String description;
 	private String body;
 }

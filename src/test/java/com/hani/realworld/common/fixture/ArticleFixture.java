@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import org.mockito.Mockito;
 
-import com.hani.realworld.article.adapter.in.dto.CreateArticleRequest;
-import com.hani.realworld.article.adapter.in.dto.UpdateArticleRequest;
+import com.hani.realworld.article.adapter.in.dto.request.CreateArticleRequest;
+import com.hani.realworld.article.adapter.in.dto.request.UpdateArticleRequest;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.article.domain.Favorites;
 import com.hani.realworld.article.domain.Slug;

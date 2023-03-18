@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hani.realworld.comment.adapter.in.dto.AddCommentRequest;
-import com.hani.realworld.comment.adapter.in.dto.CommentResponse;
-import com.hani.realworld.comment.adapter.in.dto.MultipleCommentResponse;
+import com.hani.realworld.comment.adapter.in.dto.request.AddCommentRequest;
+import com.hani.realworld.comment.adapter.in.dto.response.CommentResponse;
+import com.hani.realworld.comment.adapter.in.dto.response.MultipleCommentResponse;
 import com.hani.realworld.comment.application.port.in.AddCommentUseCase;
 import com.hani.realworld.comment.application.port.in.DeleteCommentUseCase;
 import com.hani.realworld.comment.application.port.in.GetCommentsQuery;

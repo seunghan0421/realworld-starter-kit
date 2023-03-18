@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hani.realworld.article.adapter.in.dto.TagResponse;
+import com.hani.realworld.article.adapter.in.dto.response.TagResponse;
 import com.hani.realworld.article.application.port.in.GetAllTagsUseCase;
 
 import lombok.RequiredArgsConstructor;

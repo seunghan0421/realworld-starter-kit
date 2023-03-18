@@ -7,11 +7,9 @@ import org.mockito.Mockito;
 
 import com.hani.realworld.common.util.PasswordEncoderUtil;
 import com.hani.realworld.infra.jwt.LoginToken;
-import com.hani.realworld.user.adapter.in.web.dto.LoginUserRequest;
-import com.hani.realworld.user.adapter.in.web.dto.RegisterUserRequest;
-import com.hani.realworld.user.adapter.in.web.dto.UpdateUserRequest;
-import com.hani.realworld.user.adapter.in.web.dto.UserResponse;
-import com.hani.realworld.user.application.port.in.result.UserResult;
+import com.hani.realworld.user.adapter.in.web.dto.request.LoginUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.response.RegisterUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.request.UpdateUserRequest;
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 

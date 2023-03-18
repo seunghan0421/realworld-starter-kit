@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.hani.realworld.comment.adapter.in.dto.AddCommentRequest;
+import com.hani.realworld.comment.adapter.in.dto.request.AddCommentRequest;
 import com.hani.realworld.comment.application.port.in.AddCommentUseCase;
 import com.hani.realworld.comment.application.port.in.DeleteCommentUseCase;
 import com.hani.realworld.comment.application.port.in.GetCommentsQuery;

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hani.realworld.article.adapter.in.dto.ArticleResponse;
-import com.hani.realworld.article.adapter.in.dto.CreateArticleRequest;
-import com.hani.realworld.article.adapter.in.dto.UpdateArticleRequest;
+import com.hani.realworld.article.adapter.in.dto.response.ArticleResponse;
+import com.hani.realworld.article.adapter.in.dto.request.CreateArticleRequest;
+import com.hani.realworld.article.adapter.in.dto.request.UpdateArticleRequest;
 import com.hani.realworld.article.application.port.in.CreateArticleUseCase;
 import com.hani.realworld.article.application.port.in.DeleteArticleUseCase;
 import com.hani.realworld.article.application.port.in.GetArticleQuery;

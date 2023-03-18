@@ -1,4 +1,4 @@
-package com.hani.realworld.article.adapter.in.dto;
+package com.hani.realworld.article.adapter.in.dto.response;
 
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.*;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
-import com.hani.realworld.user.adapter.in.web.dto.ProfileResponse.ProfileInfo;
+import com.hani.realworld.user.adapter.in.web.dto.response.ProfileResponse.ProfileInfo;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

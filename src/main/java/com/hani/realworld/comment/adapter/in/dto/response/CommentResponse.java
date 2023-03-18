@@ -1,7 +1,7 @@
-package com.hani.realworld.comment.adapter.in.dto;
+package com.hani.realworld.comment.adapter.in.dto.response;
 
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.*;
-import static com.hani.realworld.user.adapter.in.web.dto.ProfileResponse.*;
+import static com.hani.realworld.user.adapter.in.web.dto.response.ProfileResponse.*;
 
 import java.time.LocalDateTime;
 

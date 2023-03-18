@@ -1,6 +1,6 @@
-package com.hani.realworld.comment.adapter.in.dto;
+package com.hani.realworld.comment.adapter.in.dto.response;
 
-import static com.hani.realworld.comment.adapter.in.dto.CommentResponse.*;
+import static com.hani.realworld.comment.adapter.in.dto.response.CommentResponse.*;
 
 import java.util.List;
 import java.util.stream.Collectors;

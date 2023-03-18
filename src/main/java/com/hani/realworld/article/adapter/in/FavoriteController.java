@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hani.realworld.article.adapter.in.dto.ArticleResponse;
+import com.hani.realworld.article.adapter.in.dto.response.ArticleResponse;
 import com.hani.realworld.article.application.port.in.FavoriteArticleUseCase;
 import com.hani.realworld.article.application.port.in.UnFavoriteArticleUseCase;
 import com.hani.realworld.article.application.port.in.result.ArticleResult;

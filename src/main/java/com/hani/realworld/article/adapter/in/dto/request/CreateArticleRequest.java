@@ -1,4 +1,4 @@
-package com.hani.realworld.article.adapter.in.dto;
+package com.hani.realworld.article.adapter.in.dto.request;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.*;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.*;

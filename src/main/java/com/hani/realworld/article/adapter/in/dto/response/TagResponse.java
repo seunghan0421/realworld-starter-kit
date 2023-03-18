@@ -1,4 +1,4 @@
-package com.hani.realworld.article.adapter.in.dto;
+package com.hani.realworld.article.adapter.in.dto.response;
 
 import java.util.Set;
 
