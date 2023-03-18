@@ -474,6 +474,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#article-update">게시글 수정</a></li>
 <li><a href="#article-delete">게시글 삭제</a></li>
 <li><a href="#article-find-one-by-slug">게시글 단일 조회</a></li>
+<li><a href="#article-find-all">게시글 전체 조회</a></li>
+<li><a href="#article-feed">게시글 피드 조회</a></li>
 <li><a href="#article-favorite">게시글 즐겨찾기하기</a></li>
 <li><a href="#article-unfavorite">게시글 즐겨찾기 취소</a></li>
 </ul>
@@ -1637,8 +1639,8 @@ Content-Length: 468
     "description" : "user1 description",
     "body" : "user1 body",
     "tagList" : [ "user1" ],
-    "createdAt" : "2023-03-17T13:26:21.634Z",
-    "updatedAt" : "2023-03-17T13:26:21.634Z",
+    "createdAt" : "2023-03-18T13:54:10.515Z",
+    "updatedAt" : "2023-03-18T13:54:10.515Z",
     "favorited" : false,
     "favoritesCount" : 0,
     "author" : {
@@ -1868,8 +1870,8 @@ Content-Length: 478
     "description" : "user2 description",
     "body" : "user2 body",
     "tagList" : [ "Spring", "React" ],
-    "createdAt" : "2023-03-17T13:26:23.274Z",
-    "updatedAt" : "2023-03-17T13:26:23.274Z",
+    "createdAt" : "2023-03-18T13:54:11.676Z",
+    "updatedAt" : "2023-03-18T13:54:11.676Z",
     "favorited" : false,
     "favoritesCount" : 2,
     "author" : {
@@ -2088,6 +2090,39 @@ Host: localhost:8080</code></pre>
 </table>
 </div>
 <div class="sect3">
+<h4 id="article-find-one-by-slug_http_response"><a class="link" href="#article-find-one-by-slug_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 468
+
+{
+  "article" : {
+    "slug" : "user1-article",
+    "title" : "user1 article",
+    "description" : "user1 description",
+    "body" : "user1 body",
+    "tagList" : [ "user1" ],
+    "createdAt" : "2023-03-18T13:54:10.515Z",
+    "updatedAt" : "2023-03-18T13:54:10.515Z",
+    "favorited" : false,
+    "favoritesCount" : 2,
+    "author" : {
+      "username" : "username1",
+      "bio" : "im user1",
+      "image" : "http://image1.png",
+      "following" : false
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="article-find-one-by-slug_response_fields"><a class="link" href="#article-find-one-by-slug_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2181,8 +2216,61 @@ Host: localhost:8080</code></pre>
 </tbody>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="article-find-all"><a class="link" href="#article-find-all">게시글 전체 조회</a></h3>
+<div class="paragraph">
+<p>요청 파라미터에 해당하는 모든 게시글을 최신순으로 조회한다.</p>
+</div>
 <div class="sect3">
-<h4 id="article-find-one-by-slug_http_response"><a class="link" href="#article-find-one-by-slug_http_response">HTTP response</a></h4>
+<h4 id="article-find-all_http_request"><a class="link" href="#article-find-all_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/articles?offset=0&amp;limit=20&amp;tag=tag1&amp;author=author1&amp;favorited=favorited1 HTTP/1.1
+Authorization: Token abc.def.ghi
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="article-find-all_request_parameters"><a class="link" href="#article-find-all_request_parameters">Request parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 오프셋</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 개수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>author</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>favorited</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">즐겨찾기 여부</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="article-find-all_http_response"><a class="link" href="#article-find-all_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
@@ -2190,29 +2278,324 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 468
+Content-Length: 923
 
 {
-  "article" : {
+  "articles" : [ {
     "slug" : "user1-article",
     "title" : "user1 article",
     "description" : "user1 description",
     "body" : "user1 body",
     "tagList" : [ "user1" ],
-    "createdAt" : "2023-03-17T13:26:21.634Z",
-    "updatedAt" : "2023-03-17T13:26:21.634Z",
-    "favorited" : false,
-    "favoritesCount" : 2,
+    "createdAt" : "2023-03-18T13:54:10.515Z",
+    "updatedAt" : "2023-03-18T13:54:10.515Z",
+    "favorited" : true,
+    "favoritesCount" : 1,
     "author" : {
       "username" : "username1",
       "bio" : "im user1",
       "image" : "http://image1.png",
       "following" : false
     }
-  }
+  }, {
+    "slug" : "user2-article",
+    "title" : "user2 article",
+    "description" : "user2 description",
+    "body" : "user2 body",
+    "tagList" : [ "user2" ],
+    "createdAt" : "2023-03-18T13:54:10.516Z",
+    "updatedAt" : "2023-03-18T13:54:10.516Z",
+    "favorited" : false,
+    "favoritesCount" : 0,
+    "author" : {
+      "username" : "username2",
+      "bio" : "im user2",
+      "image" : "http://image2.png",
+      "following" : true
+    }
+  } ]
 }</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="article-find-all_response_fields"><a class="link" href="#article-find-all_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].slug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">슬러그</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].body</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">본문</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].tagList</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].updatedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].favorited</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">즐겨찾기 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].favoritesCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">즐겨찾기 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 프로필</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.bio</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">자기소개</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이미지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.following</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팔로잉 여부</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="article-feed"><a class="link" href="#article-feed">게시글 피드 조회</a></h3>
+<div class="paragraph">
+<p>팔로우한 유저의 게시글을 최신순으로 조회한다.</p>
+</div>
+<div class="sect3">
+<h4 id="article-feed_http_request"><a class="link" href="#article-feed_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/articles/feed?offset=0&amp;limit=20 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Token abc.def.ghi
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="article-feed_request_parameters"><a class="link" href="#article-feed_request_parameters">Request parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 오프셋</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 개수</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="article-feed_http_response"><a class="link" href="#article-feed_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 923
+
+{
+  "articles" : [ {
+    "slug" : "user1-article",
+    "title" : "user1 article",
+    "description" : "user1 description",
+    "body" : "user1 body",
+    "tagList" : [ "user1" ],
+    "createdAt" : "2023-03-18T13:54:10.515Z",
+    "updatedAt" : "2023-03-18T13:54:10.515Z",
+    "favorited" : true,
+    "favoritesCount" : 1,
+    "author" : {
+      "username" : "username1",
+      "bio" : "im user1",
+      "image" : "http://image1.png",
+      "following" : false
+    }
+  }, {
+    "slug" : "user2-article",
+    "title" : "user2 article",
+    "description" : "user2 description",
+    "body" : "user2 body",
+    "tagList" : [ "user2" ],
+    "createdAt" : "2023-03-18T13:54:10.516Z",
+    "updatedAt" : "2023-03-18T13:54:10.516Z",
+    "favorited" : false,
+    "favoritesCount" : 0,
+    "author" : {
+      "username" : "username2",
+      "bio" : "im user2",
+      "image" : "http://image2.png",
+      "following" : true
+    }
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="article-feed_response_fields"><a class="link" href="#article-feed_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시물 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].slug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">슬러그</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].body</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">본문</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].tagList</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].updatedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].favorited</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">즐겨찾기 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].favoritesCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">즐겨찾기 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 프로필</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.bio</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">자기소개</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이미지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>articles.[].author.following</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팔로잉 여부</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -2273,6 +2656,39 @@ Host: localhost:8080</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect3">
+<h4 id="article-favorite_http_response"><a class="link" href="#article-favorite_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 467
+
+{
+  "article" : {
+    "slug" : "user2-article",
+    "title" : "user2 article",
+    "description" : "user2 description",
+    "body" : "user2 body",
+    "tagList" : [ "user2" ],
+    "createdAt" : "2023-03-18T13:54:10.516Z",
+    "updatedAt" : "2023-03-18T13:54:10.516Z",
+    "favorited" : true,
+    "favoritesCount" : 1,
+    "author" : {
+      "username" : "username2",
+      "bio" : "im user2",
+      "image" : "http://image2.png",
+      "following" : false
+    }
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="article-favorite_response_fields"><a class="link" href="#article-favorite_response_fields">Response fields</a></h4>
@@ -2368,39 +2784,6 @@ Host: localhost:8080</code></pre>
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="article-favorite_http_response"><a class="link" href="#article-favorite_http_response">HTTP response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-Content-Length: 467
-
-{
-  "article" : {
-    "slug" : "user2-article",
-    "title" : "user2 article",
-    "description" : "user2 description",
-    "body" : "user2 body",
-    "tagList" : [ "user2" ],
-    "createdAt" : "2023-03-17T13:26:21.635Z",
-    "updatedAt" : "2023-03-17T13:26:21.635Z",
-    "favorited" : true,
-    "favoritesCount" : 1,
-    "author" : {
-      "username" : "username2",
-      "bio" : "im user2",
-      "image" : "http://image2.png",
-      "following" : false
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="article-unfavorite"><a class="link" href="#article-unfavorite">게시글 즐겨찾기 취소</a></h3>
@@ -2460,6 +2843,39 @@ Host: localhost:8080</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect3">
+<h4 id="article-unfavorite_http_response"><a class="link" href="#article-unfavorite_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 468
+
+{
+  "article" : {
+    "slug" : "user2-article",
+    "title" : "user2 article",
+    "description" : "user2 description",
+    "body" : "user2 body",
+    "tagList" : [ "user2" ],
+    "createdAt" : "2023-03-18T13:54:10.516Z",
+    "updatedAt" : "2023-03-18T13:54:10.516Z",
+    "favorited" : false,
+    "favoritesCount" : 0,
+    "author" : {
+      "username" : "username2",
+      "bio" : "im user2",
+      "image" : "http://image2.png",
+      "following" : false
+    }
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="article-unfavorite_response_fields"><a class="link" href="#article-unfavorite_response_fields">Response fields</a></h4>
@@ -2555,39 +2971,6 @@ Host: localhost:8080</code></pre>
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="article-unfavorite_http_response"><a class="link" href="#article-unfavorite_http_response">HTTP response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-Content-Length: 468
-
-{
-  "article" : {
-    "slug" : "user2-article",
-    "title" : "user2 article",
-    "description" : "user2 description",
-    "body" : "user2 body",
-    "tagList" : [ "user2" ],
-    "createdAt" : "2023-03-17T13:26:21.635Z",
-    "updatedAt" : "2023-03-17T13:26:21.635Z",
-    "favorited" : false,
-    "favoritesCount" : 0,
-    "author" : {
-      "username" : "username2",
-      "bio" : "im user2",
-      "image" : "http://image2.png",
-      "following" : false
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -2665,6 +3048,35 @@ Host: localhost:8080
 </table>
 </div>
 <div class="sect3">
+<h4 id="comment-create_http_response"><a class="link" href="#comment-create_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: /api/articles/user1-article/comments/1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 304
+
+{
+  "comment" : {
+    "id" : 1,
+    "createdAt" : "2023-03-18T13:54:21.793Z",
+    "updatedAt" : "2023-03-18T13:54:21.793Z",
+    "body" : "user1 comment1",
+    "author" : {
+      "username" : "username1",
+      "bio" : "im user1",
+      "image" : "http://image1.png",
+      "following" : false
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="comment-create_response_fields"><a class="link" href="#comment-create_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2732,35 +3144,6 @@ Host: localhost:8080
 </tr>
 </tbody>
 </table>
-</div>
-<div class="sect3">
-<h4 id="comment-create_http_response"><a class="link" href="#comment-create_http_response">HTTP response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Location: /api/articles/user1-article/comments/1
-Content-Type: application/json;charset=UTF-8
-Content-Length: 304
-
-{
-  "comment" : {
-    "id" : 1,
-    "createdAt" : "2023-03-17T13:26:30.280Z",
-    "updatedAt" : "2023-03-17T13:26:30.280Z",
-    "body" : "user1 comment1",
-    "author" : {
-      "username" : "username1",
-      "bio" : "im user1",
-      "image" : "http://image1.png",
-      "following" : false
-    }
-  }
-}</code></pre>
-</div>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -2877,6 +3260,45 @@ Host: localhost:8080</code></pre>
 </table>
 </div>
 <div class="sect3">
+<h4 id="comment-find-all_http_response"><a class="link" href="#comment-find-all_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 596
+
+{
+  "comments" : [ {
+    "id" : 1,
+    "createdAt" : "2023-03-18T13:54:21.793Z",
+    "updatedAt" : "2023-03-18T13:54:21.793Z",
+    "body" : "user1 comment1",
+    "author" : {
+      "username" : "username1",
+      "bio" : "im user1",
+      "image" : "http://image1.png",
+      "following" : false
+    }
+  }, {
+    "id" : 2,
+    "createdAt" : "2023-03-18T13:54:21.794Z",
+    "updatedAt" : "2023-03-18T13:54:21.794Z",
+    "body" : "user2 comment2",
+    "author" : {
+      "username" : "username2",
+      "bio" : "im user2",
+      "image" : "http://image2.png",
+      "following" : true
+    }
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="comment-find-all_response_fields"><a class="link" href="#comment-find-all_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2945,45 +3367,6 @@ Host: localhost:8080</code></pre>
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="comment-find-all_http_response"><a class="link" href="#comment-find-all_http_response">HTTP response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-Content-Length: 596
-
-{
-  "comments" : [ {
-    "id" : 1,
-    "createdAt" : "2023-03-17T13:26:30.280Z",
-    "updatedAt" : "2023-03-17T13:26:30.280Z",
-    "body" : "user1 comment1",
-    "author" : {
-      "username" : "username1",
-      "bio" : "im user1",
-      "image" : "http://image1.png",
-      "following" : false
-    }
-  }, {
-    "id" : 2,
-    "createdAt" : "2023-03-17T13:26:30.280Z",
-    "updatedAt" : "2023-03-17T13:26:30.280Z",
-    "body" : "user2 comment2",
-    "author" : {
-      "username" : "username2",
-      "bio" : "im user2",
-      "image" : "http://image2.png",
-      "following" : true
-    }
-  } ]
-}</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -3021,7 +3404,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 35
 
 {
-  "tags" : [ "user2", "user1" ]
+  "tags" : [ "user1", "user2" ]
 }</code></pre>
 </div>
 </div>
