@@ -1,11 +1,10 @@
 package com.hani.realworld.comment.domain;
 
-import static com.hani.realworld.user.domain.User.*;
 import static lombok.AccessLevel.*;
 
 import java.time.LocalDateTime;
 
-import com.hani.realworld.common.exception.NotMyCommentException;
+import com.hani.realworld.common.exception.comment.NotMyCommentException;
 import com.hani.realworld.user.domain.Profile;
 
 import lombok.AllArgsConstructor;

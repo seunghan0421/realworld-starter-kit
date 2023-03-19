@@ -2,6 +2,7 @@ package com.hani.realworld.common.exception;
 
 import lombok.Getter;
 
+// TODO: Exceptoion Status에 대해서 좀 더 공부하기
 @Getter
 public enum ErrorCode {
 
@@ -10,10 +11,27 @@ public enum ErrorCode {
 	METHOD_NOT_ALLOWED(405, "C002", " Invalid Input Value"),
 	HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
 	INTERNAL_SERVER_ERROR(500, "C007" , "Internal Server Error" ),
+	BUSINESS_EXCEPTION(500, "C999", "Business Excption"),
 
-	// Member
-	EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
-	LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid");
+	// infra
+	TOKEN_EXPIRED(400, "I001", "your token is expired"),
+	UNAUTORIZED(400, "I002", "you are not authorized"),
+
+	// User
+	USER_ENTITY_NOT_FOUND(500, "U001", "user entity is not found"),
+	PROFILE_ENTITY_NOT_FOUND(500, "U002", "profile entity is not found"),
+	ALREADY_FOLLOW_PROFILE(500, "U003", "you already follow the profile"),
+	NOT_FOLLOWED_PROFILE(500, "U004", "you did not follow the profile"),
+
+	// Article
+	ARTICLE_ENTITY_NOT_FOUND(500, "A001", "article entity is not found"),
+	ALREADY_FAVORITED_ARTICLE(500, "A002", "you already favorited the article"),
+	NOT_FAVORITED_ARTICLE(500, "A003", "you did not favorited the article"),
+	UNAUTHORIZED_ARTICLE(500, "A004", "you are not owner of article"),
+
+	// Comment
+	COMMENT_ENTITY_NOT_FOUND(500, "CM001", "comment entity is not found"),
+	UNAUTHORIZED_COMMENT(500, "CM002", "you are not owner of comment");
 
 
 	private final String code;

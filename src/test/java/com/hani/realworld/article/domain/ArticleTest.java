@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.hani.realworld.common.exception.NotMyArticleException;
+import com.hani.realworld.common.exception.article.AlreadyFavortiedArticleException;
+import com.hani.realworld.common.exception.article.NotFavoritedArticleException;
+import com.hani.realworld.common.exception.article.NotMyArticleException;
 import com.hani.realworld.user.domain.User;
 
 class ArticleTest {
@@ -110,7 +112,7 @@ class ArticleTest {
 			.build();
 
 		// when
-		assertThrows(IllegalStateException.class, () -> article.favorite(USER2.getId()));
+		assertThrows(AlreadyFavortiedArticleException.class, () -> article.favorite(USER2.getId()));
 	}
 
 	@DisplayName("게시물 즐겨찾기 취소 도메인 테스트 - 성공, article.unfavorite()")
@@ -128,14 +130,14 @@ class ArticleTest {
 		assertThat(article.getFavorites().getFavorites()).hasSize(0);
 	}
 
-	@DisplayName("게시물 즐겨찾기 취소 도메인 테스트 - 실패, 이미 팔로우, article.unfavorite(), throw IllegalStateException")
+	@DisplayName("게시물 즐겨찾기 취소 도메인 테스트 - 실패, 즐겨찾기 되어있지 않음, article.unfavorite(), throw IllegalStateException")
 	@Test
 	void unFavorite_Failure() {
 		// given
 		Article article = defaultArticle().build();
 
 		// when
-		assertThrows(IllegalStateException.class, () -> article.unfavorite(USER2.getId()));
+		assertThrows(NotFavoritedArticleException.class, () -> article.unfavorite(USER2.getId()));
 	}
 
 	@DisplayName("게시물 즐겨찾기 여부 확인 도메인 테스트 - 성공, article.isFavorited()")

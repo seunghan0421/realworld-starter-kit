@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.hani.realworld.common.exception.user.AlreadyFollowProfileException;
+import com.hani.realworld.common.exception.user.NotFollowedProfileException;
 import com.hani.realworld.common.fixture.ProfileFixture;
 import com.hani.realworld.common.fixture.UserFixture;
 
@@ -59,7 +61,7 @@ class ProfileTest {
 			.withUserId(new UserId(33L)).build();
 
 		// when
-		assertThrows(IllegalStateException.class, () -> profile.follow(alreadyFollowedUser));
+		assertThrows(AlreadyFollowProfileException.class, () -> profile.follow(alreadyFollowedUser));
 	}
 
 	@DisplayName("프로필 언팔로우 도메인 테스트 - 성공, profile.unfollow()")
@@ -90,7 +92,7 @@ class ProfileTest {
 			.withUserId(new UserId(133L)).build();
 
 		// when
-		assertThrows(IllegalStateException.class, () -> profile.unfollow(notFollowedUser));
+		assertThrows(NotFollowedProfileException.class, () -> profile.unfollow(notFollowedUser));
 	}
 
 	@DisplayName("프로필 팔로우 여부 확인 도메인 테스트 - 성공, profile.isFollowing()")

@@ -15,6 +15,7 @@ import com.hani.realworld.comment.application.port.out.GetCommentWithIdPort;
 import com.hani.realworld.comment.application.port.out.LoadMultipleCommentWithArticleIdPort;
 import com.hani.realworld.comment.domain.Comment;
 import com.hani.realworld.common.annotation.PersistenceAdapter;
+import com.hani.realworld.common.exception.comment.CommentNotFoundException;
 import com.hani.realworld.user.application.port.out.LoadProfileWithProfileIdPort;
 import com.hani.realworld.user.domain.Profile;
 
@@ -50,7 +51,7 @@ public class CommentPersistenceAdapter implements
 	@Override
 	public Comment getComment(CommentId commentId) {
 		CommentJpaEntity commentJpaEntity = commentRepository.findById(commentId.getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(CommentNotFoundException::new);
 		Profile author = loadProfileWithProfileIdPort
 			.loadProfileWithProfileId(new ProfileId(commentJpaEntity.getAuthorId()));
 

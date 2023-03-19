@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import com.hani.realworld.article.application.port.in.command.PagingParam;
 import com.hani.realworld.article.application.port.out.CreateArticleStatePort;
 import com.hani.realworld.article.application.port.out.DeleteArticleWithArticleIdPort;
@@ -22,6 +20,7 @@ import com.hani.realworld.article.application.port.out.LoadFeedArticleListPort;
 import com.hani.realworld.article.application.port.out.UpdateArticleStatePort;
 import com.hani.realworld.article.domain.Article;
 import com.hani.realworld.common.annotation.PersistenceAdapter;
+import com.hani.realworld.common.exception.article.ArticleNotFoundException;
 import com.hani.realworld.user.application.port.out.LoadProfileWithProfileIdPort;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
@@ -61,7 +60,7 @@ public class ArticlePersistenceAdapter implements
 	@Override
 	public Article load(String slug) {
 		ArticleJpaEntity articleJpaEntity = articleRepository.getArticleWithSlug(slug)
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(ArticleNotFoundException::new);
 		Profile author = loadProfileWithProfileIdPort.
 			loadProfileWithProfileId(new ProfileId(articleJpaEntity.getAuthorId()));
 
@@ -71,7 +70,7 @@ public class ArticlePersistenceAdapter implements
 	@Override
 	public void update(Article article) {
 		ArticleJpaEntity articleJpaEntity = articleRepository.findById(article.getId().getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(ArticleNotFoundException::new);
 
 		articleJpaEntity.update(article);
 	}

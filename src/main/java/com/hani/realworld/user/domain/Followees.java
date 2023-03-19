@@ -1,12 +1,14 @@
 package com.hani.realworld.user.domain;
 
-import static com.hani.realworld.common.util.PreConditions.*;
 import static com.hani.realworld.user.domain.User.*;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.hani.realworld.common.exception.user.AlreadyFollowProfileException;
+import com.hani.realworld.common.exception.user.NotFollowedProfileException;
 
 import lombok.NonNull;
 
@@ -40,7 +42,8 @@ public class Followees {
 	 * @throws IllegalStateException if user already follow the profile
 	 */
 	public void follow(User user) {
-		checkState(!isFollow(user), "이미 팔로우한 프로필입니다.");
+		if (isFollow(user))
+			throw new AlreadyFollowProfileException();
 
 		this.users.add(user.getId());
 	}
@@ -49,10 +52,11 @@ public class Followees {
 	 * The method to unfollow the profile.
 	 * Remove the user id in the followee list.
 	 *
-	 * @throws IllegalStateException if user already follow the profile
+	 * @throws IllegalStateException if user did not follow the profile
 	 */
 	public void unfollow(User user) {
-		checkState(isFollow(user), "팔로우하지 않은 프로필입니다.");
+		if (!isFollow(user))
+			throw new NotFollowedProfileException();
 
 		this.users.remove(user.getId());
 	}

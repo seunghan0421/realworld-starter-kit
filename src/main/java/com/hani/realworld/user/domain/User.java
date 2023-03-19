@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.hani.realworld.common.exception.UnAuthorizationException;
+import com.hani.realworld.common.exception.infra.UnAuthorizationException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -72,20 +72,14 @@ public class User {
 	 */
 	public void verifyPassword(Predicate<Password> passwordVerifier) {
 		if (passwordVerifier.negate().test(this.password)) {
-			throw new UnAuthorizationException("비밀번호가 틀립니다.");
+			throw new UnAuthorizationException();
 		}
 	}
 
 	/**
-	 * TODO: 조금 수정할 가치가 있어 보임
 	 * Creates an {@link User} entity with an ID. Use to update the persisted entity.
 	 */
-	public User update(
-		String email,
-		String username,
-		String password,
-		String image,
-		String bio,
+	public User update(String email, String username, String password, String image, String bio,
 		Function<String, String> passwordEncoder) {
 		String updatedEmail = Optional.ofNullable(email).isPresent() ? email : this.email;
 		String updatedUsername = Optional.ofNullable(username).isPresent() ? username : this.username;

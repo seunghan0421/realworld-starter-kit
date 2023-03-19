@@ -4,14 +4,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 
-import com.hani.realworld.common.exception.TokenExpiredException;
-import com.hani.realworld.common.exception.UnAuthorizationException;
+import com.hani.realworld.common.exception.infra.TokenExpiredException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -66,7 +64,7 @@ public class JwtProvider {
 		} catch (UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
 			throw new BadCredentialsException("Invalid Json Web Token");
 		} catch (ExpiredJwtException e) {
-			throw new TokenExpiredException("Expired Json Web Token");
+			throw new TokenExpiredException();
 		}
 	}
 

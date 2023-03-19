@@ -2,10 +2,10 @@ package com.hani.realworld.user.adapter.out.persistence;
 
 import static com.hani.realworld.user.domain.Profile.*;
 
-import javax.persistence.EntityNotFoundException;
-
 import com.hani.realworld.article.adapter.out.persistence.ArticleRepository;
 import com.hani.realworld.common.annotation.PersistenceAdapter;
+import com.hani.realworld.common.exception.user.ProfileNotFoundException;
+import com.hani.realworld.common.exception.user.UserNotFoundException;
 import com.hani.realworld.user.application.port.out.LoadProfileWithProfileIdPort;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUserIdPort;
 import com.hani.realworld.user.application.port.out.LoadProfileWithUsernamePort;
@@ -32,7 +32,7 @@ public class UserPersistenceAdapter implements
 	UpdateUserStatePort,
 	UpdateProfileStatePort,
 	LoadProfileWithUsernamePort,
-	LoadProfileWithUserIdPort ,
+	LoadProfileWithUserIdPort,
 	LoadProfileWithProfileIdPort {
 
 	private final UserRepository userRepository;
@@ -43,7 +43,7 @@ public class UserPersistenceAdapter implements
 	@Override
 	public User loadUserWithEmail(String email) {
 		UserJpaEntity userJpaEntity = userRepository.findUserJpaEntityByEmail(email)
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(UserNotFoundException::new);
 
 		return userMapper.mapToUserEntity(userJpaEntity);
 	}
@@ -51,7 +51,15 @@ public class UserPersistenceAdapter implements
 	@Override
 	public User loadUserWithId(User.UserId userId) {
 		UserJpaEntity userJpaEntity = userRepository.findById(userId.getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(UserNotFoundException::new);
+
+		return userMapper.mapToUserEntity(userJpaEntity);
+	}
+
+	@Override
+	public User loadUserWithUsername(String username) {
+		UserJpaEntity userJpaEntity = userRepository.findUserJpaEntityByUsername(username)
+			.orElseThrow(UserNotFoundException::new);
 
 		return userMapper.mapToUserEntity(userJpaEntity);
 	}
@@ -73,7 +81,7 @@ public class UserPersistenceAdapter implements
 	@Override
 	public void updateUserState(User user) {
 		UserJpaEntity userJpaEntity = userRepository.findById(user.getId().getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(UserNotFoundException::new);
 
 		userJpaEntity.update(user);
 	}
@@ -81,7 +89,7 @@ public class UserPersistenceAdapter implements
 	@Override
 	public void updateProfile(Profile profile) {
 		ProfileJpaEntity profileJpaEntity = profileRepository.findById(profile.getId().getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(ProfileNotFoundException::new);
 
 		profileJpaEntity.update(profile);
 	}
@@ -89,7 +97,7 @@ public class UserPersistenceAdapter implements
 	@Override
 	public Profile loadProfileWithUserId(User.UserId userId) {
 		ProfileJpaEntity profileJpaEntity = profileRepository.getProfileJpaEntityByUser(userId.getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(ProfileNotFoundException::new);
 
 		return userMapper.mapToProfileEntity(profileJpaEntity);
 	}
@@ -97,7 +105,7 @@ public class UserPersistenceAdapter implements
 	@Override
 	public Profile loadProfileWithUsername(String username) {
 		ProfileJpaEntity profileJpaEntity = profileRepository.getProfileJpaEntityByUsername(username)
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(ProfileNotFoundException::new);
 
 		return userMapper.mapToProfileEntity(profileJpaEntity);
 	}
@@ -105,16 +113,9 @@ public class UserPersistenceAdapter implements
 	@Override
 	public Profile loadProfileWithProfileId(ProfileId profileId) {
 		ProfileJpaEntity profileJpaEntity = profileRepository.findById(profileId.getValue())
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(ProfileNotFoundException::new);
 
 		return userMapper.mapToProfileEntity(profileJpaEntity);
 	}
 
-	@Override
-	public User loadUserWithUsername(String username) {
-		UserJpaEntity userJpaEntity = userRepository.findUserJpaEntityByUsername(username)
-			.orElseThrow(EntityNotFoundException::new);
-
-		return userMapper.mapToUserEntity(userJpaEntity);
-	}
 }

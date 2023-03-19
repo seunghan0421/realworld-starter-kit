@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.hani.realworld.common.exception.NotMyArticleException;
+import com.hani.realworld.common.exception.article.NotMyArticleException;
 import com.hani.realworld.user.domain.Profile;
-import com.hani.realworld.user.domain.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

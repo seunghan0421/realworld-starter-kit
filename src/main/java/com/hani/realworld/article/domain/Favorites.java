@@ -1,12 +1,14 @@
 package com.hani.realworld.article.domain;
 
-import static com.hani.realworld.common.util.PreConditions.*;
 import static com.hani.realworld.user.domain.User.*;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.hani.realworld.common.exception.article.AlreadyFavortiedArticleException;
+import com.hani.realworld.common.exception.article.NotFavoritedArticleException;
 
 import lombok.NonNull;
 
@@ -40,7 +42,8 @@ public class Favorites {
 	 * @throws IllegalStateException if user already favorite the article
 	 */
 	public void favorite(UserId userId) {
-		checkState(!isFavorited(userId), "이미 즐겨찾기한 기사입니다.");
+		if(isFavorited(userId))
+			throw new AlreadyFavortiedArticleException();
 
 		this.users.add(userId);
 	}
@@ -52,7 +55,8 @@ public class Favorites {
 	 * @throws IllegalStateException if user not favorited the article yet
 	 */
 	public void unfavorite(UserId userId) {
-		checkState(isFavorited(userId), "즐겨찾기 하지 않은 기사입니다.");
+		if(!isFavorited(userId))
+			throw new NotFavoritedArticleException();
 
 		this.users.remove(userId);
 	}

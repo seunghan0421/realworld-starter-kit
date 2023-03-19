@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.hani.realworld.common.exception.NotMyCommentException;
+import com.hani.realworld.common.exception.comment.NotMyCommentException;
 
 class CommentTest {
 

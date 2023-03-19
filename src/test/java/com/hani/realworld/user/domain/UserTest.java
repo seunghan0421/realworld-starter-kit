@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hani.realworld.common.exception.UnAuthorizationException;
+import com.hani.realworld.common.exception.infra.UnAuthorizationException;
 
 class UserTest {
 
