@@ -10,12 +10,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.hani.realworld.common.descriptor.UserFieldDescriptor;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.LoginUserUseCase;
 import com.hani.realworld.user.application.port.in.command.LoginUserCommand;
 import com.hani.realworld.user.application.port.in.result.LoginUserResult;

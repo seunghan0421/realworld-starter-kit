@@ -30,7 +30,7 @@ import com.hani.realworld.comment.application.port.in.command.AddCommentCommand;
 import com.hani.realworld.comment.application.port.in.result.CommentResult;
 import com.hani.realworld.common.descriptor.CommentFieldDescriptor;
 import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
 @WebMvcTest(CommentController.class)

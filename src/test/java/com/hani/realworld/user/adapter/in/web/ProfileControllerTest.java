@@ -19,7 +19,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.GetProfileQuery;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 

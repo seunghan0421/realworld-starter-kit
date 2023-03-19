@@ -21,7 +21,6 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.hani.realworld.article.application.port.in.command.PagingParam;
 import com.hani.realworld.article.application.port.in.GetArticleListQuery;
 import com.hani.realworld.article.application.port.in.GetArticleQuery;
 import com.hani.realworld.article.application.port.in.GetFeedArticleListQuery;
@@ -29,7 +28,7 @@ import com.hani.realworld.article.application.port.in.command.GetListArticleComm
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.common.descriptor.ArticleFieldDescriptor;
 import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
 @WebMvcTest(ArticleQueryController.class)

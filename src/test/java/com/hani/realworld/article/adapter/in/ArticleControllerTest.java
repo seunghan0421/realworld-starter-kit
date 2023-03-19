@@ -25,7 +25,7 @@ import com.hani.realworld.article.application.port.in.command.UpdateArticleComma
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.common.descriptor.ArticleFieldDescriptor;
 import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
 @WebMvcTest(ArticleController.class)

@@ -1,4 +1,4 @@
-package com.hani.realworld.common.restdocs;
+package com.hani.realworld;
 
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.infra.jwt.JwtAuthenticationFilter.*;
@@ -23,6 +23,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hani.realworld.common.restdocs.RestDocsConfig;
 import com.hani.realworld.infra.jwt.JwtAuthenticationFilter;
 import com.hani.realworld.infra.jwt.JwtProvider;
 import com.hani.realworld.infra.jwt.LoginUserMethodArgumentResolver;

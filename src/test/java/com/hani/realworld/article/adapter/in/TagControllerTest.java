@@ -14,7 +14,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.hani.realworld.article.application.port.in.GetAllTagsUseCase;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 
 @WebMvcTest(TagController.class)
 class TagControllerTest extends ControllerTest {

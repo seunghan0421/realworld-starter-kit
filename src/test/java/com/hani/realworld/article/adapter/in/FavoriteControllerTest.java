@@ -2,37 +2,26 @@ package com.hani.realworld.article.adapter.in;
 
 import static com.hani.realworld.common.fixture.ArticleFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.*;
-import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.hani.realworld.article.application.port.in.CreateArticleUseCase;
-import com.hani.realworld.article.application.port.in.DeleteArticleUseCase;
 import com.hani.realworld.article.application.port.in.FavoriteArticleUseCase;
-import com.hani.realworld.article.application.port.in.GetArticleQuery;
 import com.hani.realworld.article.application.port.in.UnFavoriteArticleUseCase;
-import com.hani.realworld.article.application.port.in.UpdateArticleUseCase;
-import com.hani.realworld.article.application.port.in.command.CreateArticleCommand;
-import com.hani.realworld.article.application.port.in.command.UpdateArticleCommand;
 import com.hani.realworld.article.application.port.in.result.ArticleResult;
 import com.hani.realworld.common.descriptor.ArticleFieldDescriptor;
 import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
-import com.hani.realworld.common.restdocs.ControllerTest;
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
 @WebMvcTest(FavoriteController.class)
