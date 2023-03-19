@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.DynamicTest.*;
 import java.util.stream.Stream;
 
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.test.annotation.DirtiesContext;
@@ -19,6 +20,7 @@ import com.hani.realworld.user.adapter.in.web.dto.response.UserResponse;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class UserAcceptanceTest extends AcceptanceTest {
 
+	@DisplayName("유저 기능 Acceptance Test")
 	@TestFactory
 	Stream<DynamicTest> manageUser() {
 		RegisterUserRequest registerRequest = new RegisterUserRequest(

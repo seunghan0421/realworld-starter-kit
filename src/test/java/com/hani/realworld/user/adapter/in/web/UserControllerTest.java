@@ -7,6 +7,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,8 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.hani.realworld.common.descriptor.UserFieldDescriptor;
 import com.hani.realworld.ControllerTest;
+import com.hani.realworld.common.descriptor.UserFieldDescriptor;
 import com.hani.realworld.user.application.port.in.GetUserQuery;
 import com.hani.realworld.user.application.port.in.RegisterUserUseCase;
 import com.hani.realworld.user.application.port.in.UpdateUserUseCase;
@@ -36,6 +37,7 @@ class UserControllerTest extends ControllerTest {
 	@MockBean
 	private GetUserQuery getUserQuery;
 
+	@DisplayName("유저 생성 Controller Test")
 	@Test
 	void registerUser_Succeeds() throws Exception {
 		String request = createJson(REGISTER_USER_REQUEST);
@@ -71,6 +73,7 @@ class UserControllerTest extends ControllerTest {
 				REGISTER_USER_REQUEST.getPassword())));
 	}
 
+	@DisplayName("유저 정보 수정 Controller Test")
 	@Test
 	void updateUser_Succeeds() throws Exception {
 		String request = createJson(UPDATE_USER_REQUEST);
@@ -107,14 +110,15 @@ class UserControllerTest extends ControllerTest {
 
 		then(updateUserUseCase).should()
 			.updateUser(eq(new UpdateUserCommand(
-				USER2.getEmail(),
-				USER2.getUsername(),
-				"password2",
-				USER2.getImage(),
-				USER2.getBio())),
+					USER2.getEmail(),
+					USER2.getUsername(),
+					"password2",
+					USER2.getImage(),
+					USER2.getBio())),
 				eq(USER1.getId().getValue()));
 	}
 
+	@DisplayName("유저 정보 조회 Controller Test")
 	@Test
 	void getUser_Succeeds() throws Exception {
 		UserResult response = UserResult.of(USER1);

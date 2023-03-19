@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.apache.http.HttpStatus;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.test.annotation.DirtiesContext;
@@ -20,6 +21,7 @@ import com.hani.realworld.article.adapter.in.dto.response.TagResponse;
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class TagAcceptanceTest extends AcceptanceTest {
 
+	@DisplayName("태그 기능 Acceptance Test")
 	@TestFactory
 	Stream<DynamicTest> manageTag() throws JsonProcessingException {
 

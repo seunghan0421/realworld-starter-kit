@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -27,6 +28,7 @@ class GetArticleServiceTest {
 	private final GetArticleService getArticleService =
 		new GetArticleService(loadArticleWithSlugPort, getProfileQuery);
 
+	@DisplayName("게시물 단건 조회 서비스 테스트 - 성공")
 	@Test
 	void getArticle_Succeeds() {
 		// given

@@ -10,6 +10,7 @@ import static org.mockito.BDDMockito.*;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -31,8 +32,9 @@ class GetArticleListServiceTest {
 	private final GetArticleListService getArticleListService =
 		new GetArticleListService(loadArticleListWithParamsPort, getProfileQuery);
 
+	@DisplayName("게시물 리스트 조회 서비스 테스트 - 성공")
 	@Test
-	void getFeedArticleList_Succeeds() {
+	void getArticleList_Succeeds() {
 		// given
 		List<Article> articles = List.of(ARTICLE1, ARTICLE2);
 		ProfileResult profileResult = ProfileResult.of(PROFILE1, false);

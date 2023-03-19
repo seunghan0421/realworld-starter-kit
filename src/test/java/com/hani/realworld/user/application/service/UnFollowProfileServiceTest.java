@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -31,6 +32,7 @@ class UnFollowProfileServiceTest {
 		new UnFollowProfileService(loadProfileWithUsernamePort, loadProfileWithUserIdPort, updateProfileStatePort);
 
 	// USER1가 USER2 unfollow - 성공
+	@DisplayName("언팔로우 서비스 테스트 - 성공")
 	@Test
 	void unfollowProfile_Succeeds() {
 		// given
@@ -63,7 +65,8 @@ class UnFollowProfileServiceTest {
 		then(base).should().isFollowing(eq(USER2));
 	}
 
-	// USER1가 USER2 unfollow - 실패 : 이미 팔로우 되어 않음
+	// USER1가 USER2 unfollow - 실패 : 이미 팔로우 되어 있지 않음
+	@DisplayName("언팔로우 서비스 테스트 - 실패, 팔로우 되어 있지 않음")
 	@Test
 	void unfollowProfile_Failure() {
 		// given

@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,6 +44,7 @@ class ArticleQueryControllerTest extends ControllerTest {
 	@MockBean
 	private GetFeedArticleListQuery getFeedArticleListQuery;
 
+	@DisplayName("게시물 단건 조회 Controller Test")
 	@Test
 	void getArticle_Succeeds() throws Exception {
 		// given
@@ -78,6 +80,7 @@ class ArticleQueryControllerTest extends ControllerTest {
 			.getArticle(eq(ARTICLE1.getSlug().getSlug()), eq(userId));
 	}
 
+	@DisplayName("게시물 리스트 조회 Controller Test - 태그, 작성자, 즐겨찾기 여부로 조회 가능")
 	@Test
 	void getMultipleArticleList_Succeeds() throws Exception {
 		// given
@@ -126,6 +129,7 @@ class ArticleQueryControllerTest extends ControllerTest {
 			.getArticleList(eq(command), eq(userId));
 	}
 
+	@DisplayName("게시물 피드 리스트 조회 Controller Test - 팔로우한 유저의 게시물 리스트 조회")
 	@Test
 	void getFeedArticleList_Succeeds() throws Exception {
 		// given

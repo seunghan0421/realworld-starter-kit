@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -41,6 +42,7 @@ class CommentPersistenceAdapterTest {
 	@Autowired
 	private CommentRepository commentRepository;
 
+	@DisplayName("댓글 생성 영속성 테스트 - 성공, adpater.createComment(comment)")
 	@Test
 	void addComment_succeeds() {
 		// given
@@ -66,6 +68,7 @@ class CommentPersistenceAdapterTest {
 		assertThat(savedEntity.getCreatedAt()).isNotNull();
 	}
 
+	@DisplayName("댓글 삭제 영속성 테스트 - 성공, adpater.deleteComment(commentId)")
 	@Sql(
 		value = {"CommentPersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -80,10 +83,13 @@ class CommentPersistenceAdapterTest {
 		assertThat(commentJpaEntityList.get(0).getId()).isEqualTo(2L);
 	}
 
+	@DisplayName("댓글 조회 영속성 테스트 - 성공, adpater.getComment(commentId)")
 	@Sql(
-		value = {"CommentPersistenceAdapterTest.sql", "UserPersistenceAdapterTest.sql",
-			"ProfilePersistenceAdapterTest.sql"},
-		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+		value = {
+			"CommentPersistenceAdapterTest.sql", "UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"
+		},
+		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
+	)
 	@Test
 	void getComment_succeeds() {
 		// when
@@ -95,9 +101,11 @@ class CommentPersistenceAdapterTest {
 		assertThat(comment.getBody()).isEqualTo(COMMENT1.getBody());
 	}
 
+	@DisplayName("댓글 게시물 ID로 조회 영속성 테스트 - 성공, adpater.getCommentsWithArticleId(articleId)")
 	@Sql(
-		value = {"CommentPersistenceAdapterTest.sql", "UserPersistenceAdapterTest.sql",
-			"ProfilePersistenceAdapterTest.sql"},
+		value = {
+			"CommentPersistenceAdapterTest.sql", "UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"
+		},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void getCommentWithArticleId_succeeds() {

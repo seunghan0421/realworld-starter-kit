@@ -4,6 +4,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,6 +37,7 @@ class UpdateUserServiceTest {
 			new BCryptPasswordEncoder(),
 			jwtProvider);
 
+	@DisplayName("유저 정보 수정 서비스 테스트 - 성공")
 	@Test
 	void updateUserState_Succeeds(){
 		// given

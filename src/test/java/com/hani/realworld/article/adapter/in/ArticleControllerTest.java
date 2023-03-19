@@ -10,6 +10,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -40,6 +41,7 @@ class ArticleControllerTest extends ControllerTest {
 	@MockBean
 	private DeleteArticleUseCase deleteArticleUseCase;
 
+	@DisplayName("게시물 생성 Controller Test")
 	@Test
 	void createArticle_Succeeds() throws Exception {
 		String request = createJson(CREATE_ARTICLE_REQUEST);
@@ -84,6 +86,7 @@ class ArticleControllerTest extends ControllerTest {
 				eq(USER1.getId().getValue()));
 	}
 
+	@DisplayName("게시물 수정 Controller Test")
 	@Test
 	void updateArticle_Succeeds() throws Exception {
 		String request = createJson(UPDATE_ARTICLE_REQUEST);
@@ -137,6 +140,7 @@ class ArticleControllerTest extends ControllerTest {
 				eq(USER1.getId().getValue()));
 	}
 
+	@DisplayName("게시물 삭제 Controller Test")
 	@Test
 	void deleteArticle_Succeeds() throws Exception {
 

@@ -7,14 +7,15 @@ import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.hani.realworld.common.descriptor.UserFieldDescriptor;
 import com.hani.realworld.ControllerTest;
+import com.hani.realworld.common.descriptor.UserFieldDescriptor;
 import com.hani.realworld.user.application.port.in.LoginUserUseCase;
 import com.hani.realworld.user.application.port.in.command.LoginUserCommand;
 import com.hani.realworld.user.application.port.in.result.LoginUserResult;
@@ -25,6 +26,7 @@ class LoginUserControllerTest extends ControllerTest {
 	@MockBean
 	private LoginUserUseCase loginUserUseCase;
 
+	@DisplayName("로그인 Controller Test")
 	@Test
 	void loginUser_Succeeds() throws Exception {
 		String request = createJson(LOGIN_USER_REQUEST);

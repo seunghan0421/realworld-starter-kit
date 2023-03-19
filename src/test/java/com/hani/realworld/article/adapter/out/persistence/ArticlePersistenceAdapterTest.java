@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -37,9 +38,7 @@ class ArticlePersistenceAdapterTest {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	@Autowired
-	private ArticleQueryRepository articleQueryRepository;
-
+	@DisplayName("게시물 생성 영속성 테스트 - 성공, adapter.create(article)")
 	@Sql(
 		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -72,6 +71,7 @@ class ArticlePersistenceAdapterTest {
 		assertThat(savedEntity.getTags()).contains("user1").size().isEqualTo(1);
 	}
 
+	@DisplayName("게시물 슬러지로 조회 영속성 테스트 - 성공, adapter.load(slug)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -96,6 +96,7 @@ class ArticlePersistenceAdapterTest {
 		assertThat(article.getUpdatedAt()).isNotNull();
 	}
 
+	@DisplayName("게시물 정보 수정 영속성 테스트 - 성공, adapter.update(articleJ)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -124,6 +125,7 @@ class ArticlePersistenceAdapterTest {
 		assertThat(savedEntity.getBody()).isEqualTo(ARTICLE2.getBody());
 	}
 
+	@DisplayName("게시물 삭제 영속성 테스트 - 성공, adapter.delete(articleId)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -142,6 +144,7 @@ class ArticlePersistenceAdapterTest {
 		assertThat(articleJpaEntityList.get(0).getId()).isEqualTo(ARTICLE2.getId().getValue());
 	}
 
+	@DisplayName("게시물 리스트 태그로 조회 영속성 테스트 - 성공, adapter.loadArticleList(.. ,tag ,...)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -161,6 +164,7 @@ class ArticlePersistenceAdapterTest {
 			.size().isEqualTo(2);
 	}
 
+	@DisplayName("게시물 리스트 작성자 이름으로 조회 영속성 테스트 - 성공, adapter.loadArticleList(.. ,author  ,...)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -178,6 +182,8 @@ class ArticlePersistenceAdapterTest {
 		assertThat(articles.stream().map(Article::getId)).contains(ARTICLE1.getId()).size().isEqualTo(1);
 	}
 
+
+	@DisplayName("게시물 리스트 즐겨찾기 이름으로 조회 영속성 테스트 - 성공, adapter.loadArticleList(.. ,favorited ,...)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -197,6 +203,7 @@ class ArticlePersistenceAdapterTest {
 			.size().isEqualTo(2);
 	}
 
+	@DisplayName("게시물 피드 리스트 조회 영속성 테스트 - 성공, adapter.loadFeedArticleList(paging_param, userId)")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",
@@ -216,6 +223,7 @@ class ArticlePersistenceAdapterTest {
 			.size().isEqualTo(1);
 	}
 
+	@DisplayName("태그리스트 조회 영속성 테스트 - 성공, adapter.getAllTags()")
 	@Sql(
 		value = {
 			"UserPersistenceAdapterTest.sql",

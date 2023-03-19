@@ -10,6 +10,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,8 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
 import com.hani.realworld.ControllerTest;
+import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
 import com.hani.realworld.user.application.port.in.FollowProfileUseCase;
 import com.hani.realworld.user.application.port.in.UnFollowProfileUseCase;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
@@ -32,6 +33,7 @@ class FollowControllerTest extends ControllerTest {
 	@MockBean
 	UnFollowProfileUseCase unFollowProfileUseCase;
 
+	@DisplayName("프로필 팔로우 Controller Test")
 	@Test
 	void followProfile_Succeeds() throws Exception {
 		ProfileResult response = ProfileResult.of(PROFILE1, true);
@@ -65,6 +67,7 @@ class FollowControllerTest extends ControllerTest {
 			.followProfile(eq(USER1.getUsername()), eq(USER2.getId().getValue()));
 	}
 
+	@DisplayName("프로필 언팔로우 Controller Test")
 	@Test
 	void unFollowProfile_Succeeds() throws Exception {
 		ProfileResult response = ProfileResult.of(PROFILE1, false);

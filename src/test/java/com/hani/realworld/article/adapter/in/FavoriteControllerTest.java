@@ -10,6 +10,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,6 +34,7 @@ class FavoriteControllerTest extends ControllerTest {
 	@MockBean
 	private UnFavoriteArticleUseCase unFavoriteArticleUseCase;
 
+	@DisplayName("게시물 즐겨찾기 Controller Test")
 	@Test
 	void favoriteArticle_Succeeds() throws Exception {
 		final ArticleResult response = ArticleResult.of(
@@ -68,6 +70,7 @@ class FavoriteControllerTest extends ControllerTest {
 			.favoriteArticle(eq(ARTICLE2.getSlug().getSlug()), eq(USER1.getId().getValue()));
 	}
 
+	@DisplayName("게시물 즐겨찾기 취소 Controller Test")
 	@Test
 	void unFavoriteArticle_Succeeds() throws Exception {
 		final ArticleResult response = ArticleResult.of(

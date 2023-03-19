@@ -5,6 +5,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.hani.realworld.common.exception.NotMyArticleException;
@@ -12,6 +13,7 @@ import com.hani.realworld.user.domain.User;
 
 class ArticleTest {
 
+	@DisplayName("게시물 팩토리 도메인 테스트 - 성공, Article.without()")
 	@Test
 	void article_without_test() {
 		assertDoesNotThrow(() -> Article.withoutId(
@@ -22,6 +24,7 @@ class ArticleTest {
 			ARTICLE1.getBody()));
 	}
 
+	@DisplayName("게시물 팩토리 메서드 도메인 테스트 - 성공, Article.with()")
 	@Test
 	void article_with_test() {
 		assertDoesNotThrow(() -> Article.withId(
@@ -37,6 +40,7 @@ class ArticleTest {
 			ARTICLE1.getUpdatedAt()));
 	}
 
+	@DisplayName("게시물 수정 도메인 테스트 - 성공, article.update()")
 	@Test
 	void update_Succeeds() {
 		final String updatedSlug = "update-title";
@@ -60,6 +64,7 @@ class ArticleTest {
 		assertThat(updatedArticle.getBody()).isEqualTo(updatedBody);
 	}
 
+	@DisplayName("본인 게시물 확인 도메인 테스트 - 성공, article.checkIsMyArticle()")
 	@Test
 	void checkIsMyArticle_notThrow_Succeeds() {
 		// given
@@ -70,6 +75,7 @@ class ArticleTest {
 		assertDoesNotThrow(() -> article.checkisMyArticle(user.getId()));
 	}
 
+	@DisplayName("본인 게시물 확인 도메인 테스트 - 실패, article.checkIsMyArticle(), throw NotMyArticleException")
 	@Test
 	void checkIsMyArticle_throw_Succeeds() {
 		// given
@@ -80,6 +86,7 @@ class ArticleTest {
 		assertThrows(NotMyArticleException.class, () -> article.checkisMyArticle(user.getId()));
 	}
 
+	@DisplayName("게시물 즐겨찾기 도메인 테스트 - 성공, article.favorite()")
 	@Test
 	void favorite_Succeeds() {
 		// given
@@ -94,6 +101,7 @@ class ArticleTest {
 			.contains(USER2.getId());
 	}
 
+	@DisplayName("게시물 즐겨찾기 도메인 테스트 - 실패, 이미 팔로우, article.favorite(), throw NotMyArticleException")
 	@Test
 	void favorite_Failure_alreadyFollowed() {
 		// given
@@ -105,6 +113,7 @@ class ArticleTest {
 		assertThrows(IllegalStateException.class, () -> article.favorite(USER2.getId()));
 	}
 
+	@DisplayName("게시물 즐겨찾기 취소 도메인 테스트 - 성공, article.unfavorite()")
 	@Test
 	void unFavorite_Succeeds() {
 		// given
@@ -119,6 +128,7 @@ class ArticleTest {
 		assertThat(article.getFavorites().getFavorites()).hasSize(0);
 	}
 
+	@DisplayName("게시물 즐겨찾기 취소 도메인 테스트 - 실패, 이미 팔로우, article.unfavorite(), throw IllegalStateException")
 	@Test
 	void unFavorite_Failure() {
 		// given
@@ -128,6 +138,7 @@ class ArticleTest {
 		assertThrows(IllegalStateException.class, () -> article.unfavorite(USER2.getId()));
 	}
 
+	@DisplayName("게시물 즐겨찾기 여부 확인 도메인 테스트 - 성공, article.isFavorited()")
 	@Test
 	void isFavorited_Succeeds() {
 		// given

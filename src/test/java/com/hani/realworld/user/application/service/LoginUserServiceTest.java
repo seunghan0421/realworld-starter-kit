@@ -4,6 +4,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +27,7 @@ class LoginUserServiceTest {
 	private final LoginUserService loginUserService =
 		new LoginUserService(loadUserWithEmailPort, jwtProvider, new BCryptPasswordEncoder());
 
+	@DisplayName("로그인 서비스 테스트 - 성공")
 	@Test
 	void loginUser_Succeeds() {
 		// given

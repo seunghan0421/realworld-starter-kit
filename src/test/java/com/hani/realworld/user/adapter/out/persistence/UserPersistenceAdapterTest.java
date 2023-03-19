@@ -6,6 +6,7 @@ import static com.hani.realworld.common.util.PasswordEncoderUtil.*;
 import static com.hani.realworld.user.domain.User.*;
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,9 +17,7 @@ import org.springframework.test.context.jdbc.Sql;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
-// @Transactional
 @DataJpaTest
-// @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({UserPersistenceAdapter.class, UserMapper.class})
 class UserPersistenceAdapterTest {
@@ -32,6 +31,7 @@ class UserPersistenceAdapterTest {
 	@Autowired
 	private ProfileRepository profileRepository;
 
+	@DisplayName("유저 ID로 조회 영속성 테스트 - 성공, adpater.loadUserWithId(userId)")
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void load_user_with_id_succeeds() {
@@ -43,6 +43,7 @@ class UserPersistenceAdapterTest {
 		assertThat(user.getEmail()).isEqualTo("user2@naver.com");
 	}
 
+	@DisplayName("유저 이메일로 조회 영속성 테스트 - 성공, adpater.loadUserWithEmail(userId)")
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void load_user_with_email_succeeds() {
@@ -54,6 +55,7 @@ class UserPersistenceAdapterTest {
 		assertThat(user.getEmail()).isEqualTo("user2@naver.com");
 	}
 
+	@DisplayName("유저 생성 영속성 테스트 - 성공, adpater.register(user)")
 	@Test
 	void register_User_succeeds() {
 		// given
@@ -81,6 +83,7 @@ class UserPersistenceAdapterTest {
 		verifyPassword(savedEntity, "password");
 	}
 
+	@DisplayName("프로필 생성 영속성 테스트 - 성공, adpater.register(profile)")
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void register_Profile_succeeds() {
@@ -102,6 +105,7 @@ class UserPersistenceAdapterTest {
 		assertThat(savedEntity.getFollowees()).contains(USER2.getId().getValue()).size().isEqualTo(1);
 	}
 
+	@DisplayName("유저 정보 수정 영속성 테스트 - 성공, adpater.updateUserState(user)")
 	@Sql(value = "UserPersistenceAdapterTest.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Test
 	void update_User_succeeds() {
@@ -130,6 +134,7 @@ class UserPersistenceAdapterTest {
 		verifyPassword(savedEntity, updatePassword);
 	}
 
+	@DisplayName("유저 ID로 프로필 조회 영속성 테스트 - 성공, adpater.loadProfileWithUserId(userId)")
 	@Sql(
 		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
@@ -144,6 +149,7 @@ class UserPersistenceAdapterTest {
 		assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
 	}
 
+	@DisplayName("유저 이름으로 프로필 조회 영속성 테스트 - 성공, adpater.loadProfileWithUsername(userId)")
 	@Sql(
 		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
@@ -158,6 +164,7 @@ class UserPersistenceAdapterTest {
 		assertThat(profile.getUser().getId()).isEqualTo(USER1.getId());
 	}
 
+	@DisplayName("프로필 팔로위 수정 영속성 테스트 - 성공, adpater.updateProfile(userId)")
 	@Sql(
 		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
@@ -176,6 +183,7 @@ class UserPersistenceAdapterTest {
 		assertThat(result.getFollowees()).contains(USER2.getId().getValue());
 	}
 
+	@DisplayName("프로필 ID로 프로필 조회 영속성 테스트 - 성공, adpater.loadProfileWithProfileId(profileId)")
 	@Sql(
 		value = {"UserPersistenceAdapterTest.sql", "ProfilePersistenceAdapterTest.sql"},
 		executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD

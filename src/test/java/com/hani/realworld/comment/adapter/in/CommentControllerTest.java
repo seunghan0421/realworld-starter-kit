@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import com.hani.realworld.ControllerTest;
 import com.hani.realworld.comment.adapter.in.dto.request.AddCommentRequest;
 import com.hani.realworld.comment.application.port.in.AddCommentUseCase;
 import com.hani.realworld.comment.application.port.in.DeleteCommentUseCase;
@@ -30,7 +32,6 @@ import com.hani.realworld.comment.application.port.in.command.AddCommentCommand;
 import com.hani.realworld.comment.application.port.in.result.CommentResult;
 import com.hani.realworld.common.descriptor.CommentFieldDescriptor;
 import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
-import com.hani.realworld.ControllerTest;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
 @WebMvcTest(CommentController.class)
@@ -45,6 +46,7 @@ class CommentControllerTest extends ControllerTest {
 	@MockBean
 	private GetCommentsQuery getCommentsQuery;
 
+	@DisplayName("댓글 생성 Controller Test")
 	@Test
 	void AddCommentToArticle_Succeeds() throws Exception {
 		String request = createJson(new AddCommentRequest(COMMENT1.getBody()));
@@ -89,6 +91,7 @@ class CommentControllerTest extends ControllerTest {
 				eq(USER1.getId().getValue()));
 	}
 
+	@DisplayName("댓글 리스트 조회 Controller Test")
 	@Test
 	void getMultipleCommentOfArticle_Succeeds() throws Exception {
 		List<CommentResult> response = List.of(
@@ -122,6 +125,7 @@ class CommentControllerTest extends ControllerTest {
 			.getComments(eq(ARTICLE1.getSlug().getSlug()), eq(userId));
 	}
 
+	@DisplayName("댓글 삭제 Controller Test")
 	@Test
 	void deleteCommentFromArticle_Succeeds() throws Exception {
 

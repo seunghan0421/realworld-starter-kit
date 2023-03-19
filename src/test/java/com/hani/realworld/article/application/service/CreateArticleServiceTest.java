@@ -9,6 +9,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -30,6 +31,7 @@ class CreateArticleServiceTest {
 	private final CreateArticleService createArticleService =
 		new CreateArticleService(createArticleStatePort, loadProfileWithUserIdPort);
 
+	@DisplayName("게시물 생성 서비스 테스트 - 성공")
 	@Test
 	void createArticle_Succeeds() {
 		// given

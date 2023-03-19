@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Set;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,6 +23,7 @@ class TagControllerTest extends ControllerTest {
 	@MockBean
 	private GetAllTagsUseCase getAllTagsUseCase;
 
+	@DisplayName("태그 리스트 조회 Controller Test")
 	@Test
 	void getAllTags_Succeeds() throws Exception {
 		Set<String> tagResponse = Set.of("user1", "user2");

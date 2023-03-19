@@ -5,12 +5,14 @@ import static com.hani.realworld.common.fixture.ProfileFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.hani.realworld.common.exception.NotMyCommentException;
 
 class CommentTest {
 
+	@DisplayName("댓글 팩토리 도메인 테스트 - 성공, Comment.without()")
 	@Test
 	void comment_withoutId_test_Succeeds() {
 		// when, then
@@ -20,6 +22,7 @@ class CommentTest {
 			COMMENT1.getBody()));
 	}
 
+	@DisplayName("댓글 팩토리 도메인 테스트 - 성공, Comment.with()")
 	@Test
 	void comment_withId_Succeeds() {
 		// when, then
@@ -32,6 +35,7 @@ class CommentTest {
 			COMMENT1.getUpdatedAt()));
 	}
 
+	@DisplayName("자기 댓글 확인 도메인 테스트 - 성공, comment.checkIsMyComment()")
 	@Test
 	void checkIsMyComment_Succeeds() {
 		// given
@@ -41,6 +45,7 @@ class CommentTest {
 		assertDoesNotThrow(() -> comment.checkIsMyComment(USER1.getId().getValue()));
 	}
 
+	@DisplayName("자기 댓글 확인 도메인 테스트 - 실패,  comment.checkIsMyComment(), throw NotMyCommentException")
 	@Test
 	void checkIsMyComment_Failure() {
 		// given

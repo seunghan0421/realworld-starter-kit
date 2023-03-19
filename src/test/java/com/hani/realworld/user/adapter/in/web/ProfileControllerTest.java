@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,8 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
 import com.hani.realworld.ControllerTest;
+import com.hani.realworld.common.descriptor.ProfileFieldDescriptor;
 import com.hani.realworld.user.application.port.in.GetProfileQuery;
 import com.hani.realworld.user.application.port.in.result.ProfileResult;
 
@@ -29,6 +30,7 @@ class ProfileControllerTest extends ControllerTest {
 	@MockBean
 	private GetProfileQuery getProfileQuery;
 
+	@DisplayName("프로필 조회 Controller Test")
 	@Test
 	void getProfile_Succeeds() throws Exception {
 		ProfileResult response = ProfileResult.of(PROFILE1, true);

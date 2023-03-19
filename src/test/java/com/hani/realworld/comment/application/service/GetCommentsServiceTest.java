@@ -11,6 +11,7 @@ import static org.mockito.BDDMockito.*;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -35,6 +36,7 @@ class GetCommentsServiceTest {
 	private final GetCommentsService getCommentsService =
 		new GetCommentsService(loadArticleWithSlugPort, loadMultipleCommentWithArticleIdPort, getProfileQuery);
 
+	@DisplayName("댓글 리스트 조회 서비스 테스트 - 성공")
 	@Test
 	void getComments_Succeeds() {
 		// given

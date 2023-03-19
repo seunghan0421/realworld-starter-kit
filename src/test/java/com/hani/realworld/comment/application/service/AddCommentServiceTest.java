@@ -10,6 +10,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -44,6 +45,7 @@ class AddCommentServiceTest {
 			createCommentStatePort,
 			getProfileQuery);
 
+	@DisplayName("댓글 생성 서비스 테스트 - 성공")
 	@Test
 	void createArticle_Succeeds() {
 		// given

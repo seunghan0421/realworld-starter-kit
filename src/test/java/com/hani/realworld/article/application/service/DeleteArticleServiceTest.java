@@ -5,6 +5,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,6 +24,7 @@ class DeleteArticleServiceTest {
 	private final DeleteArticleService deleteArticleService =
 		new DeleteArticleService(loadArticleWithSlugPort, deleteArticleWithArticleIdPort);
 
+	@DisplayName("게시물 삭제 서비스 테스트 - 성공")
 	@Test
 	void deleteArticle_Succeeds() {
 		// given

@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Set;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -18,6 +19,7 @@ class GetAllTagsServiceTest {
 	private final GetAllTagsService getAllTagsService =
 		new GetAllTagsService(getAllTagsPort);
 
+	@DisplayName("태그 리스트 조회 서비스 테스트 - 성공, 로그인 되어있는 상태")
 	@Test
 	void getProfile_withLogin_Succeeds() {
 		// given

@@ -9,6 +9,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -30,6 +31,7 @@ class GetProfileServiceTest {
 
 	// USER1이 USER2를 조회하는 상황
 	// 로그인 O, follow X
+	@DisplayName("프로필 조회 서비스 테스트 - 성공, 로그인 되어있는 상태")
 	@Test
 	void getProfile_withLogin_Succeeds() {
 		// given
@@ -60,6 +62,7 @@ class GetProfileServiceTest {
 
 	// USER1이 USER2를 조회하는 상황
 	// 로그인 X, follow X
+	@DisplayName("프로필 조회 서비스 테스트 - 성공, 로그인 되어있지 않은 상태")
 	@Test
 	void getProfile_withOutLogin_Succeeds() {
 		// given

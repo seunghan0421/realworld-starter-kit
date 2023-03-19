@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -32,6 +33,7 @@ class FavoriteArticleServiceTest {
 	private final FavoriteArticleService favoriteArticleService =
 		new FavoriteArticleService(updateArticleStatePort, loadArticleWithSlugPort, getArticleQuery);
 
+	@DisplayName("게시물 즐겨찾기 서비스 테스트 - 성공")
 	@Test
 	void favoriteArticle_Succeeds() {
 		// given

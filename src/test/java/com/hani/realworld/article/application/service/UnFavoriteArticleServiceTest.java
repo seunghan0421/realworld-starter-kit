@@ -10,6 +10,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -34,8 +35,9 @@ class UnFavoriteArticleServiceTest {
 	private final UnFavoriteArticleService unFavoriteArticleService =
 		new UnFavoriteArticleService(updateArticleStatePort, loadArticleWithSlugPort, getArticleQuery);
 
+	@DisplayName("게시물 즐겨찾기 취소 서비스 테스트 - 성공")
 	@Test
-	void favoriteArticle_Succeeds() {
+	void unfavoriteArticle_Succeeds() {
 		// given
 		Article article = getMockARTICLE1();
 		ArticleResult response = ArticleResult.of(

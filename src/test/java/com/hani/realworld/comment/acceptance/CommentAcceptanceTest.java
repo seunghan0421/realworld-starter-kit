@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.test.annotation.DirtiesContext;
@@ -26,6 +27,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
 
 	private final String uri = "/api/articles/" + ARTICLE1.getSlug().getSlug() + "/comments";
 
+	@DisplayName("댓글 기능 Acceptance Test")
 	@TestFactory
 	Stream<DynamicTest> manageComment() throws JsonProcessingException {
 

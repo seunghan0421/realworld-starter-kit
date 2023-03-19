@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -31,6 +32,7 @@ class FollowProfileServiceTest {
 		new FollowProfileService(loadProfileWithUsernamePort, loadProfileWithUserIdPort, updateProfileStatePort);
 
 	// USER1가 USER2 follow - 성공
+	@DisplayName("팔로우 서비스 테스트 - 성공")
 	@Test
 	void followProfile_Succeeds() {
 		// given
@@ -64,6 +66,7 @@ class FollowProfileServiceTest {
 	}
 
 	// USER1가 USER2 follow - 실패 : 이미 팔로우 되어 있음
+	@DisplayName("팔로우 서비스 - 실패 , 이미 팔로우 되어 있음")
 	@Test
 	void followProfile_Failure() {
 		// given

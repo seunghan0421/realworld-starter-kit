@@ -4,6 +4,7 @@ import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -19,6 +20,7 @@ class GetUserServiceTest {
 	private final GetUserService getUserService =
 		new GetUserService(loadUserWithIdPort);
 
+	@DisplayName("유저 조회 서비스 테스트 - 성공")
 	@Test
 	void getUser_Succeeds() {
 		// given

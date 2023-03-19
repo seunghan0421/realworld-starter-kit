@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.test.annotation.DirtiesContext;
@@ -24,6 +25,7 @@ import com.hani.realworld.user.adapter.in.web.dto.response.ProfileResponse;
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class ArticleAcceptanceTest extends AcceptanceTest {
 
+	@DisplayName("게시물 기능 Acceptance Test")
 	@TestFactory
 	Stream<DynamicTest> manageArticle() {
 		return Stream.of(
