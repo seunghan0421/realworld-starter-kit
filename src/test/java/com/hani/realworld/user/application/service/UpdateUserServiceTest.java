@@ -9,7 +9,10 @@ import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.hani.realworld.infra.jwt.JwtProvider;
+import com.hani.realworld.infra.jwt.LoginUser;
 import com.hani.realworld.user.application.port.in.command.UpdateUserCommand;
+import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 import com.hani.realworld.user.application.port.out.LoadUserWithIdPort;
 import com.hani.realworld.user.application.port.out.UpdateUserStatePort;
@@ -23,11 +26,15 @@ class UpdateUserServiceTest {
 	private final UpdateUserStatePort updateUserStatePort =
 		Mockito.mock(UpdateUserStatePort.class);
 
+	private final JwtProvider jwtProvider =
+		Mockito.mock(JwtProvider.class);
+
 	private final UpdateUserService updateUserService =
 		new UpdateUserService(
 			loadUserWithIdPort,
 			updateUserStatePort,
-			new BCryptPasswordEncoder());
+			new BCryptPasswordEncoder(),
+			jwtProvider);
 
 	@Test
 	void updateUserState_Succeeds(){
@@ -50,6 +57,8 @@ class UpdateUserServiceTest {
 
 		given(loadUserWithIdPort.loadUserWithId(eq(USER1.getId())))
 			.willReturn(user1);
+		given(jwtProvider.generate(eq(USER2.getEmail())))
+			.willReturn("new jwt token");
 		given(user1.update(
 			eq(USER2.getEmail()),
 			eq(USER2.getUsername()),
@@ -59,7 +68,7 @@ class UpdateUserServiceTest {
 			.willReturn(updatedUser);
 
 		// when
-		UserResult result = updateUserService.updateUser(command, USER1.getId().getValue());
+		LoginUserResult result = updateUserService.updateUser(command, USER1.getId().getValue());
 
 		// then
 		assertThat(result.getUsername()).isEqualTo(USER2.getUsername());
@@ -74,6 +83,7 @@ class UpdateUserServiceTest {
 			any(),
 			eq(USER2.getImage()),
 			eq(USER2.getBio()), any());
+		then(jwtProvider).should().generate(eq(USER2.getEmail()));
 		then(updateUserStatePort).should().updateUserState(any());
 	}
 

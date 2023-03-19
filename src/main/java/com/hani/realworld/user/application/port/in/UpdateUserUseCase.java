@@ -5,5 +5,5 @@ import com.hani.realworld.user.application.port.in.result.LoginUserResult;
 import com.hani.realworld.user.application.port.in.result.UserResult;
 
 public interface UpdateUserUseCase {
-	UserResult updateUser(UpdateUserCommand command, Long userId);
+	LoginUserResult updateUser(UpdateUserCommand command, Long userId);
 }

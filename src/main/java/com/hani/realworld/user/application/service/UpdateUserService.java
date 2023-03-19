@@ -26,9 +26,10 @@ public class UpdateUserService implements UpdateUserUseCase {
 	private final LoadUserWithIdPort loadUserWithIdPort;
 	private final UpdateUserStatePort updateUserStatePort;
 	private final PasswordEncoder passwordEncoder;
+	private final JwtProvider jwtProvider;
 
 	@Override
-	public UserResult updateUser(UpdateUserCommand command, Long userId) {
+	public LoginUserResult updateUser(UpdateUserCommand command, Long userId) {
 		User user = loadUserWithIdPort.loadUserWithId(new UserId(userId));
 
 		User updatedUser = user.update(
@@ -41,6 +42,6 @@ public class UpdateUserService implements UpdateUserUseCase {
 
 		updateUserStatePort.updateUserState(updatedUser);
 
-		return UserResult.of(updatedUser);
+		return LoginUserResult.of(updatedUser, jwtProvider.generate(updatedUser.getEmail()));
 	}
 }

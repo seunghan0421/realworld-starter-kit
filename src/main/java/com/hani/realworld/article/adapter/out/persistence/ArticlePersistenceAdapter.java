@@ -104,9 +104,8 @@ public class ArticlePersistenceAdapter implements
 		try {
 			return Optional.ofNullable(authorName)
 				.map(loadProfileWithUsernamePort::loadProfileWithUsername)
-				.map(Profile::getId)
-				.orElseGet(null);
-		}catch (Exception e) {
+				.map(Profile::getId).get();
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -115,13 +114,11 @@ public class ArticlePersistenceAdapter implements
 		try {
 			return Optional.ofNullable(favoritedName)
 				.map(loadUserWithUsernamePort::loadUserWithUsername)
-				.map(User::getId)
-				.orElseGet(null);
-		}catch (Exception e) {
+				.map(User::getId).get();
+		} catch (Exception e) {
 			return null;
 		}
 	}
-
 
 	@Override
 	public List<Article> loadFeedArticleList(PagingParam pagingParam, UserId userId) {
