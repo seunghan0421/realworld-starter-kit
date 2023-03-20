@@ -60,7 +60,7 @@ class ArticleTest {
 		Article updatedArticle = article.update(updatedTitle, updatedDescription, updatedBody);
 
 		// then
-		assertThat(updatedArticle.getSlug().getSlug()).isEqualTo(updatedSlug);
+		assertThat(updatedArticle.getSlug().getValue()).isEqualTo(updatedSlug);
 		assertThat(updatedArticle.getTitle()).isEqualTo(updatedTitle);
 		assertThat(updatedArticle.getDescription()).isEqualTo(updatedDescription);
 		assertThat(updatedArticle.getBody()).isEqualTo(updatedBody);

@@ -69,6 +69,6 @@ public class ArticleQueryRepository {
 	}
 
 	private BooleanExpression inAuthorIds(List<Long> authorIds) {
-		return authorIds.size() == 0 ? null : articleJpaEntity.authorId.in(authorIds);
+		return authorIds.isEmpty() ? null : articleJpaEntity.authorId.in(authorIds);
 	}
 }

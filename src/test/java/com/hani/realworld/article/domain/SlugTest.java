@@ -18,6 +18,6 @@ class SlugTest {
 		slug.toSlug();
 
 		// then
-		assertThat(slug.getSlug()).isEqualTo("user1-title");
+		assertThat(slug.getValue()).isEqualTo("user1-title");
 	}
 }

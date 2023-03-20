@@ -134,7 +134,7 @@ bootJar {
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
     reports {
-        xml.required = false
+        xml.required = true
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
@@ -151,7 +151,6 @@ jacocoTestReport {
             ])
         }))
     }
-    finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacoco {
@@ -169,7 +168,8 @@ sonarqube {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.profile", "Sonar way"
         property "sonar.test.inclusions", "**/*Test.java"
-        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+        property "sonar.exclusions", "**/index.html"
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/customJacocoReportDir/test/jacocoTestReport.xml"
     }
 }
 

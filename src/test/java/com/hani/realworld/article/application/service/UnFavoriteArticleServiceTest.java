@@ -3,7 +3,6 @@ package com.hani.realworld.article.application.service;
 import static com.hani.realworld.common.fixture.ArticleFixture.*;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.*;
@@ -46,7 +45,7 @@ class UnFavoriteArticleServiceTest {
 			false,
 			1);
 
-		final String article1Slug = ARTICLE1.getSlug().getSlug();
+		final String article1Slug = ARTICLE1.getSlug().getValue();
 		final Long user2Id = USER2.getId().getValue();
 
 		given(loadArticleWithSlugPort.load(eq(article1Slug)))

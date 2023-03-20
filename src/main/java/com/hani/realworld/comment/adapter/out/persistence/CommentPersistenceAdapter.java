@@ -7,8 +7,6 @@ import static com.hani.realworld.user.domain.Profile.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import com.hani.realworld.comment.application.port.out.CreateCommentStatePort;
 import com.hani.realworld.comment.application.port.out.DeleteCommentWithCommentIdPort;
 import com.hani.realworld.comment.application.port.out.GetCommentWithIdPort;

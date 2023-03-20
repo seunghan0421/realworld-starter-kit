@@ -54,7 +54,7 @@ class CreateArticleServiceTest {
 		ArticleResult result = createArticleService.createArticle(command, USER1.getId().getValue());
 
 		// then
-		assertThat(result.getSlug()).isEqualTo(ARTICLE1.getSlug().getSlug());
+		assertThat(result.getSlug()).isEqualTo(ARTICLE1.getSlug().getValue());
 		assertThat(result.getTitle()).isEqualTo(ARTICLE1.getTitle());
 		assertThat(result.getDescription()).isEqualTo(ARTICLE1.getDescription());
 		assertThat(result.getBody()).isEqualTo(ARTICLE1.getBody());

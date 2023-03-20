@@ -99,12 +99,12 @@ class ArticleControllerTest extends ControllerTest {
 			ProfileResult.of(ARTICLE1.getAuthor(), false),
 			false, 2);
 
-		given(updateArticleUseCase.updateArticle(any(UpdateArticleCommand.class), eq(ARTICLE1.getSlug().getSlug()),
+		given(updateArticleUseCase.updateArticle(any(UpdateArticleCommand.class), eq(ARTICLE1.getSlug().getValue()),
 			eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.put("/api/articles/{slug}", ARTICLE1.getSlug().getSlug())
+				RestDocumentationRequestBuilders.put("/api/articles/{slug}", ARTICLE1.getSlug().getValue())
 					.accept(APPLICATION_JSON_VALUE)
 					.contentType(MediaType.APPLICATION_JSON)
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -136,7 +136,7 @@ class ArticleControllerTest extends ControllerTest {
 					UPDATE_ARTICLE_REQUEST.getTitle(),
 					UPDATE_ARTICLE_REQUEST.getDescription(),
 					UPDATE_ARTICLE_REQUEST.getBody())),
-				eq(ARTICLE1.getSlug().getSlug()),
+				eq(ARTICLE1.getSlug().getValue()),
 				eq(USER1.getId().getValue()));
 	}
 
@@ -145,7 +145,7 @@ class ArticleControllerTest extends ControllerTest {
 	void deleteArticle_Succeeds() throws Exception {
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.delete("/api/articles/{slug}", ARTICLE1.getSlug().getSlug())
+				RestDocumentationRequestBuilders.delete("/api/articles/{slug}", ARTICLE1.getSlug().getValue())
 					.contentType(MediaType.APPLICATION_JSON)
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
@@ -160,7 +160,7 @@ class ArticleControllerTest extends ControllerTest {
 			));
 
 		then(deleteArticleUseCase).should()
-			.deleteArticle(eq(ARTICLE1.getSlug().getSlug()), eq(USER1.getId().getValue()));
+			.deleteArticle(eq(ARTICLE1.getSlug().getValue()), eq(USER1.getId().getValue()));
 	}
 
 }

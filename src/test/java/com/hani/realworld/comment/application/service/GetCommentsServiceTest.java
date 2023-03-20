@@ -43,7 +43,7 @@ class GetCommentsServiceTest {
 		List<Comment> comments = List.of(COMMENT1, COMMENT2);
 		ProfileResult profileResult = ProfileResult.of(PROFILE1, false);
 
-		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getSlug())))
+		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getValue())))
 			.willReturn(ARTICLE1);
 		given(loadMultipleCommentWithArticleIdPort.getCommentsWithArticleId(eq(ARTICLE1.getId())))
 			.willReturn(comments);
@@ -51,7 +51,7 @@ class GetCommentsServiceTest {
 
 		// when
 		List<CommentResult> result = getCommentsService.getComments(
-			ARTICLE1.getSlug().getSlug(),
+			ARTICLE1.getSlug().getValue(),
 			Optional.of(USER1.getId().getValue()));
 
 		// then
@@ -61,7 +61,7 @@ class GetCommentsServiceTest {
 		assertThat(result.stream().map(CommentResult::getAuthor).map(ProfileResult::getUsername))
 			.containsOnly(PROFILE1.getUser().getUsername());
 
-		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getSlug()));
+		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getValue()));
 		then(loadMultipleCommentWithArticleIdPort).should().getCommentsWithArticleId(eq(ARTICLE1.getId()));
 		then(getProfileQuery).should()
 			.getProfile(eq(PROFILE1.getUser().getUsername()), eq(Optional.of(USER1.getId().getValue())));

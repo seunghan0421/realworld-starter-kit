@@ -75,7 +75,7 @@ public class AcceptanceTest {
 			article.getTitle(),
 			article.getBody(),
 			article.getBody(),
-			new ArrayList<>(article.getTags().getTags()));
+			new ArrayList<>(article.getTags().getTagSet()));
 		String body = objectMapper.writeValueAsString(request);
 		post("/api/articles", body, token, HttpStatus.SC_CREATED, ArticleResponse.class);
 	}

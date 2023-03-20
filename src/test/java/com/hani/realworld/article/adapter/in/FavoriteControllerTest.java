@@ -43,11 +43,11 @@ class FavoriteControllerTest extends ControllerTest {
 			true,
 			1);
 
-		given(favoriteArticleUseCase.favoriteArticle(eq(ARTICLE2.getSlug().getSlug()), eq(USER1.getId().getValue())))
+		given(favoriteArticleUseCase.favoriteArticle(eq(ARTICLE2.getSlug().getValue()), eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.post("/api/articles/{slug}/favorite", ARTICLE2.getSlug().getSlug())
+				RestDocumentationRequestBuilders.post("/api/articles/{slug}/favorite", ARTICLE2.getSlug().getValue())
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
 			.andExpect(status().isOk())
@@ -67,7 +67,7 @@ class FavoriteControllerTest extends ControllerTest {
 			);
 
 		then(favoriteArticleUseCase).should()
-			.favoriteArticle(eq(ARTICLE2.getSlug().getSlug()), eq(USER1.getId().getValue()));
+			.favoriteArticle(eq(ARTICLE2.getSlug().getValue()), eq(USER1.getId().getValue()));
 	}
 
 	@DisplayName("게시물 즐겨찾기 취소 Controller Test")
@@ -79,11 +79,11 @@ class FavoriteControllerTest extends ControllerTest {
 			false,
 			0);
 
-		given(unFavoriteArticleUseCase.unFavoriteArticle(eq(ARTICLE2.getSlug().getSlug()), eq(USER1.getId().getValue())))
+		given(unFavoriteArticleUseCase.unFavoriteArticle(eq(ARTICLE2.getSlug().getValue()), eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.delete("/api/articles/{slug}/favorite", ARTICLE2.getSlug().getSlug())
+				RestDocumentationRequestBuilders.delete("/api/articles/{slug}/favorite", ARTICLE2.getSlug().getValue())
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
 			.andExpect(status().isOk())
@@ -103,7 +103,7 @@ class FavoriteControllerTest extends ControllerTest {
 			);
 
 		then(unFavoriteArticleUseCase).should()
-			.unFavoriteArticle(eq(ARTICLE2.getSlug().getSlug()), eq(USER1.getId().getValue()));
+			.unFavoriteArticle(eq(ARTICLE2.getSlug().getValue()), eq(USER1.getId().getValue()));
 	}
 
 }

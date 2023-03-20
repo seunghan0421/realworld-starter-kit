@@ -18,7 +18,7 @@ import com.hani.realworld.user.adapter.in.web.dto.response.RegisterUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.response.UserResponse;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-public class UserAcceptanceTest extends AcceptanceTest {
+class UserAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("유저 기능 Acceptance Test")
 	@TestFactory

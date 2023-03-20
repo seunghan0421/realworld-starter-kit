@@ -5,7 +5,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-public class ArticleFieldDescriptor {
+public final class ArticleFieldDescriptor {
 
 	public static final FieldDescriptor[] article = new FieldDescriptor[] {
 		fieldWithPath("slug").type(JsonFieldType.STRING).description("슬러그"),

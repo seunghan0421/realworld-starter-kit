@@ -64,7 +64,7 @@ class ArticlePersistenceAdapterTest {
 		ArticleJpaEntity savedEntity = articleRepository.findAll().get(0);
 
 		assertThat(savedEntity.getAuthorId()).isEqualTo(PROFILE1.getId().getValue());
-		assertThat(savedEntity.getSlug()).isEqualTo(ARTICLE1.getSlug().getSlug());
+		assertThat(savedEntity.getSlug()).isEqualTo(ARTICLE1.getSlug().getValue());
 		assertThat(savedEntity.getTitle()).isEqualTo(ARTICLE1.getTitle());
 		assertThat(savedEntity.getDescription()).isEqualTo(ARTICLE1.getDescription());
 		assertThat(savedEntity.getBody()).isEqualTo(ARTICLE1.getBody());
@@ -83,11 +83,11 @@ class ArticlePersistenceAdapterTest {
 	@Test
 	void load_Article_with_slug_succeeds() {
 		// when
-		Article article = adapter.load(ARTICLE1.getSlug().getSlug());
+		Article article = adapter.load(ARTICLE1.getSlug().getValue());
 
 		// then
 		assertThat(article.getAuthor().getId()).isEqualTo(PROFILE1.getId());
-		assertThat(article.getTags().getTags()).contains("user1").size().isEqualTo(1);
+		assertThat(article.getTags().getTagSet()).contains("user1").size().isEqualTo(1);
 		assertThat(article.getSlug()).isEqualTo(ARTICLE1.getSlug());
 		assertThat(article.getTitle()).isEqualTo(ARTICLE1.getTitle());
 		assertThat(article.getDescription()).isEqualTo(ARTICLE1.getDescription());
@@ -119,7 +119,7 @@ class ArticlePersistenceAdapterTest {
 
 		// then
 		ArticleJpaEntity savedEntity = articleRepository.findById(1L).get();
-		assertThat(savedEntity.getSlug()).isEqualTo(ARTICLE2.getSlug().getSlug());
+		assertThat(savedEntity.getSlug()).isEqualTo(ARTICLE2.getSlug().getValue());
 		assertThat(savedEntity.getTitle()).isEqualTo(ARTICLE2.getTitle());
 		assertThat(savedEntity.getDescription()).isEqualTo(ARTICLE2.getDescription());
 		assertThat(savedEntity.getBody()).isEqualTo(ARTICLE2.getBody());

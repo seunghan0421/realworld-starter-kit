@@ -29,11 +29,11 @@ public class ArticleResult {
 		boolean favorited,
 		int favoritesCount) {
 		return new ArticleResult(
-			article.getSlug().getSlug(),
+			article.getSlug().getValue(),
 			article.getTitle(),
 			article.getDescription(),
 			article.getBody(),
-			article.getTags().getTags(),
+			article.getTags().getTagSet(),
 			article.getCreatedAt(),
 			article.getUpdatedAt(),
 			favorited,

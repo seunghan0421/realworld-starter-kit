@@ -5,7 +5,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-public class CommentFieldDescriptor {
+public final class CommentFieldDescriptor {
 
 	public static final FieldDescriptor[] comment = new FieldDescriptor[] {
 		fieldWithPath("id").type(JsonFieldType.NUMBER).description("댓글 식별번호"),

@@ -21,11 +21,11 @@ public class ArticleMapper {
 		return new ArticleJpaEntity(
 			article.getId() == null ? null : article.getId().getValue(),
 			article.getAuthor().getId().getValue(),
-			article.getTags().getTags(),
+			article.getTags().getTagSet(),
 			article.getFavorites().getFavorites().stream()
 					.map(UserId::getValue)
 						.collect(Collectors.toSet()),
-			article.getSlug().getSlug(),
+			article.getSlug().getValue(),
 			article.getTitle(),
 			article.getDescription(),
 			article.getBody(),

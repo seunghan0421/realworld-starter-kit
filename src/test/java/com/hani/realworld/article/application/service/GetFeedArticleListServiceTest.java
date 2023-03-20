@@ -49,7 +49,7 @@ class GetFeedArticleListServiceTest {
 		// then
 		assertThat(result).size().isEqualTo(2);
 		assertThat(result.stream().map(ArticleResult::getSlug))
-			.contains(ARTICLE1.getSlug().getSlug(), ARTICLE2.getSlug().getSlug());
+			.contains(ARTICLE1.getSlug().getValue(), ARTICLE2.getSlug().getValue());
 		assertThat(result.stream().map(ArticleResult::getProfileResult).map(ProfileResult::getUsername))
 			.containsOnly(PROFILE1.getUser().getUsername());
 

@@ -52,7 +52,7 @@ public class Comment {
 		return new Comment(commentId, articleId, author, body, createdAt, updatedAt);
 	}
 
-	public void checkIsMyComment(Long userId) {
+	public void checkIsMyComment(long userId) {
 		if (this.author.getUser().getId().getValue() != userId) {
 			throw new NotMyCommentException();
 		}

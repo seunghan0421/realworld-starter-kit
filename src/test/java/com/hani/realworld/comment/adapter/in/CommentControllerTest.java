@@ -54,12 +54,12 @@ class CommentControllerTest extends ControllerTest {
 
 		given(addCommentUseCase.addComment(
 			any(AddCommentCommand.class),
-			eq(ARTICLE1.getSlug().getSlug()),
+			eq(ARTICLE1.getSlug().getValue()),
 			eq(USER1.getId().getValue())))
 			.willReturn(response);
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.post("/api/articles/{slug}/comments", ARTICLE1.getSlug().getSlug())
+				RestDocumentationRequestBuilders.post("/api/articles/{slug}/comments", ARTICLE1.getSlug().getValue())
 					.accept(APPLICATION_JSON_VALUE)
 					.contentType(MediaType.APPLICATION_JSON)
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -87,7 +87,7 @@ class CommentControllerTest extends ControllerTest {
 		then(addCommentUseCase).should()
 			.addComment(
 				eq(new AddCommentCommand(COMMENT1.getBody())),
-				eq(ARTICLE1.getSlug().getSlug()),
+				eq(ARTICLE1.getSlug().getValue()),
 				eq(USER1.getId().getValue()));
 	}
 
@@ -100,11 +100,11 @@ class CommentControllerTest extends ControllerTest {
 		);
 
 		Optional<Long> userId = Optional.of(USER1.getId().getValue());
-		given(getCommentsQuery.getComments(eq(ARTICLE1.getSlug().getSlug()), eq(userId)))
+		given(getCommentsQuery.getComments(eq(ARTICLE1.getSlug().getValue()), eq(userId)))
 			.willReturn(response);
 
 		mockMvc.perform(
-				RestDocumentationRequestBuilders.get("/api/articles/{slug}/comments", ARTICLE1.getSlug().getSlug())
+				RestDocumentationRequestBuilders.get("/api/articles/{slug}/comments", ARTICLE1.getSlug().getValue())
 					.contentType(MediaType.APPLICATION_JSON)
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
@@ -122,7 +122,7 @@ class CommentControllerTest extends ControllerTest {
 			);
 
 		then(getCommentsQuery).should()
-			.getComments(eq(ARTICLE1.getSlug().getSlug()), eq(userId));
+			.getComments(eq(ARTICLE1.getSlug().getValue()), eq(userId));
 	}
 
 	@DisplayName("댓글 삭제 Controller Test")
@@ -131,7 +131,7 @@ class CommentControllerTest extends ControllerTest {
 
 		mockMvc.perform(
 				RestDocumentationRequestBuilders.
-					delete("/api/articles/{slug}/comments/{id}", ARTICLE1.getSlug().getSlug(), COMMENT1.getId().getValue())
+					delete("/api/articles/{slug}/comments/{id}", ARTICLE1.getSlug().getValue(), COMMENT1.getId().getValue())
 					.contentType(MediaType.APPLICATION_JSON)
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)

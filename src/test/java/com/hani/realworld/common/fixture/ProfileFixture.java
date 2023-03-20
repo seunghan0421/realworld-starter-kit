@@ -3,7 +3,7 @@ package com.hani.realworld.common.fixture;
 import static com.hani.realworld.common.fixture.UserFixture.*;
 import static com.hani.realworld.user.domain.Profile.*;
 import static com.hani.realworld.user.domain.User.*;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
 import org.mockito.Mockito;
@@ -12,7 +12,7 @@ import com.hani.realworld.user.domain.Followees;
 import com.hani.realworld.user.domain.Profile;
 import com.hani.realworld.user.domain.User;
 
-public class ProfileFixture {
+public final class ProfileFixture {
 
 	public static ProfileBuilder defaultProfile() {
 		return new ProfileBuilder()

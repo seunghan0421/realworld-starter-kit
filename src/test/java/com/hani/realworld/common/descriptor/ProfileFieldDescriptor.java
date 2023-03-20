@@ -5,7 +5,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-public class ProfileFieldDescriptor {
+public final class ProfileFieldDescriptor {
 
 	public static final FieldDescriptor[] profile = new FieldDescriptor[] {
 		fieldWithPath("username").type(JsonFieldType.STRING).description("유저명"),

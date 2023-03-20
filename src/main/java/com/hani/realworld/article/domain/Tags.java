@@ -17,26 +17,26 @@ public class Tags {
 	/**
 	 * tags of Article
 	 */
-	private Set<String> tags;
+	private Set<String> tagSet;
 
 	public Tags() {
-		this.tags = new HashSet<>();
+		this.tagSet = new HashSet<>();
 	}
 
-	public Tags(@NonNull List<String> tags) {
-		this.tags = new HashSet<>(tags);
+	public Tags(@NonNull List<String> tagSet) {
+		this.tagSet = new HashSet<>(tagSet);
 	}
 
-	public Tags(@NonNull Set<String> tags) {
-		this.tags = new HashSet<>(tags);
+	public Tags(@NonNull Set<String> tagSet) {
+		this.tagSet = new HashSet<>(tagSet);
 	}
 
-	public Tags(@NonNull String... tags) {
-		this.tags = new HashSet<>(Arrays.asList(tags));
+	public Tags(@NonNull String... tagSet) {
+		this.tagSet = new HashSet<>(Arrays.asList(tagSet));
 	}
 
-	public Set<String> getTags() {
-		return Collections.unmodifiableSet(this.tags);
+	public Set<String> getTagSet() {
+		return Collections.unmodifiableSet(this.tagSet);
 	}
 
 }

@@ -30,7 +30,7 @@ public class ErrorResponse {
 	public static ErrorResponse of(Exception e) {
 		ErrorCode code = METHOD_NOT_ALLOWED;
 
-		return new ErrorResponse(code.getMessage(), code.getStatus(), null, code.getCode());
+		return new ErrorResponse(e.getMessage(), code.getStatus(), null, code.getCode());
 	}
 
 	public static ErrorResponse of(ErrorCode code, Set<ConstraintViolation<?>> constraintViolations) {

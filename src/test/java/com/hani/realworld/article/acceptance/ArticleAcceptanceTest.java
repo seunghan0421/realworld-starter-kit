@@ -23,7 +23,7 @@ import com.hani.realworld.article.adapter.in.dto.response.MultipleArticleRespons
 import com.hani.realworld.user.adapter.in.web.dto.response.ProfileResponse;
 
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
-public class ArticleAcceptanceTest extends AcceptanceTest {
+class ArticleAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("게시물 기능 Acceptance Test")
 	@TestFactory
@@ -34,11 +34,11 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 				createArticle(ARTICLE2);
 			}),
 			dynamicTest("게시글 단일 조회", () -> {
-				String uri = "/api/articles/" + ARTICLE1.getSlug().getSlug();
+				String uri = "/api/articles/" + ARTICLE1.getSlug().getValue();
 				ArticleResponse response = get(uri, HttpStatus.SC_OK,
 					ArticleResponse.class);
 				ArticleInfo article = response.getArticle();
-				assertThat(article.getSlug()).isEqualTo(ARTICLE1.getSlug().getSlug());
+				assertThat(article.getSlug()).isEqualTo(ARTICLE1.getSlug().getValue());
 			}),
 			dynamicTest("게시글 전체 조회", () -> {
 				MultipleArticleResponse response = get("/api/articles", HttpStatus.SC_OK,
@@ -66,7 +66,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 				assertCreatedAtDesc(articles);
 			}),
 			dynamicTest("게시글 찜하기", () -> {
-				String uri = "/api/articles/" + ARTICLE1.getSlug().getSlug() + "/favorite";
+				String uri = "/api/articles/" + ARTICLE1.getSlug().getValue() + "/favorite";
 				ArticleResponse response = post(uri, "", token, HttpStatus.SC_OK,
 					ArticleResponse.class);
 				ArticleInfo article = response.getArticle();
@@ -81,7 +81,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 				assertCreatedAtDesc(response.getArticles());
 			}),
 			dynamicTest("게시글 찜하기 취소", () -> {
-				String uri = "/api/articles/" + ARTICLE1.getSlug().getSlug() + "/favorite";
+				String uri = "/api/articles/" + ARTICLE1.getSlug().getValue() + "/favorite";
 				ArticleResponse response = delete(uri, token, HttpStatus.SC_OK,
 					ArticleResponse.class);
 				ArticleInfo article = response.getArticle();
@@ -89,7 +89,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 				assertThat(article.isFavorited()).isFalse();
 			}),
 			dynamicTest("게시글 수정", () -> {
-				String uri = "/api/articles/" + ARTICLE2.getSlug().getSlug();
+				String uri = "/api/articles/" + ARTICLE2.getSlug().getValue();
 				UpdateArticleRequest request = new UpdateArticleRequest("How to train your dragoon", null, null);
 				String body = objectMapper.writeValueAsString(request);
 				ArticleResponse response = put(uri, body, token, HttpStatus.SC_OK,
@@ -97,7 +97,7 @@ public class ArticleAcceptanceTest extends AcceptanceTest {
 				assertThat(response.getArticle().getTitle()).isEqualTo(request.getTitle());
 			}),
 			dynamicTest("게시글 삭제", () -> {
-				delete("/api/articles/" + ARTICLE1.getSlug().getSlug(), token);
+				delete("/api/articles/" + ARTICLE1.getSlug().getValue(), token);
 			}),
 			dynamicTest("피드 조회", () -> {
 				String user2Token = registerAndLogin(USER2, "password2");

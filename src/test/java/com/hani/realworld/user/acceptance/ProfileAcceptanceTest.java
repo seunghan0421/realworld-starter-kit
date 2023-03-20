@@ -18,7 +18,7 @@ import com.hani.realworld.AcceptanceTest;
 import com.hani.realworld.user.adapter.in.web.dto.response.ProfileResponse;
 
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
-public class ProfileAcceptanceTest extends AcceptanceTest {
+class ProfileAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("프로필 기능 Acceptance Test")
 	@TestFactory

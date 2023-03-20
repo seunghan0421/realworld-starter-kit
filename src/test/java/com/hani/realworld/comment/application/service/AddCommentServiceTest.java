@@ -56,7 +56,7 @@ class AddCommentServiceTest {
 		mockCommentClass.when(() -> Comment.withoutId(any(), any(), any()))
 			.thenReturn(comment);
 
-		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getSlug())))
+		given(loadArticleWithSlugPort.load(eq(ARTICLE1.getSlug().getValue())))
 			.willReturn(ARTICLE1);
 		given(loadProfileWithUserIdPort.loadProfileWithUserId(eq(USER1.getId())))
 			.willReturn(PROFILE1);
@@ -66,7 +66,7 @@ class AddCommentServiceTest {
 			.willReturn(ProfileResult.of(PROFILE1, false));
 
 		// when
-		CommentResult result = addCommentService.addComment(command, ARTICLE1.getSlug().getSlug(), USER1.getId().getValue());
+		CommentResult result = addCommentService.addComment(command, ARTICLE1.getSlug().getValue(), USER1.getId().getValue());
 
 		// then
 		assertThat(result.getId()).isEqualTo(COMMENT1.getId().getValue());
@@ -75,7 +75,7 @@ class AddCommentServiceTest {
 		assertThat(result.getCreatedAt()).isNotNull();
 		assertThat(result.getUpdatedAt()).isNotNull();
 
-		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getSlug()));
+		then(loadArticleWithSlugPort).should().load(eq(ARTICLE1.getSlug().getValue()));
 		then(loadProfileWithUserIdPort).should().loadProfileWithUserId(eq(USER1.getId()));
 		then(createCommentStatePort).should().createComment(eq(comment));
 		then(getProfileQuery).should().getProfile(eq(USER1.getUsername()), eq(Optional.of(USER1.getId().getValue())));

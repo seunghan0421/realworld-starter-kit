@@ -17,7 +17,7 @@ import com.hani.realworld.article.domain.Slug;
 import com.hani.realworld.article.domain.Tags;
 import com.hani.realworld.user.domain.Profile;
 
-public class ArticleFixture {
+public final class ArticleFixture {
 
 	public static ArticleBuilder defaultArticle() {
 		return new ArticleBuilder().
@@ -73,7 +73,7 @@ public class ArticleFixture {
 			ARTICLE1.getTitle(),
 			ARTICLE1.getDescription(),
 			ARTICLE1.getBody(),
-			new ArrayList<>(ARTICLE1.getTags().getTags()));
+			new ArrayList<>(ARTICLE1.getTags().getTagSet()));
 
 	public static final UpdateArticleRequest UPDATE_ARTICLE_REQUEST =
 		new UpdateArticleRequest(

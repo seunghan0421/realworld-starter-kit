@@ -8,7 +8,6 @@ import static org.springframework.test.annotation.DirtiesContext.*;
 import java.util.stream.Stream;
 
 import org.apache.http.HttpStatus;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -19,7 +18,7 @@ import com.hani.realworld.AcceptanceTest;
 import com.hani.realworld.article.adapter.in.dto.response.TagResponse;
 
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
-public class TagAcceptanceTest extends AcceptanceTest {
+class TagAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("태그 기능 Acceptance Test")
 	@TestFactory
@@ -31,7 +30,7 @@ public class TagAcceptanceTest extends AcceptanceTest {
 			dynamicTest("태그 조회", () -> {
 				TagResponse response = get("/api/tags", HttpStatus.SC_OK,
 					TagResponse.class);
-				assertThat(response.getTags()).hasSize(ARTICLE1.getTags().getTags().size());
+				assertThat(response.getTags()).hasSize(ARTICLE1.getTags().getTagSet().size());
 			})
 		);
 	}

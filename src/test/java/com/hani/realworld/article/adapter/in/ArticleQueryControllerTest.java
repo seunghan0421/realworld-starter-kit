@@ -52,12 +52,12 @@ class ArticleQueryControllerTest extends ControllerTest {
 			ArticleResult.of(ARTICLE1, ProfileResult.of(ARTICLE1.getAuthor(), false), false, 2);
 
 		Optional<Long> userId = Optional.of(ARTICLE1.getAuthor().getId().getValue());
-		given(getArticleQuery.getArticle(eq(ARTICLE1.getSlug().getSlug()), eq(userId)))
+		given(getArticleQuery.getArticle(eq(ARTICLE1.getSlug().getValue()), eq(userId)))
 			.willReturn(response);
 
 		// when
 		ResultActions result = mockMvc.perform(
-				RestDocumentationRequestBuilders.get("/api/articles/{slug}", ARTICLE1.getSlug().getSlug())
+				RestDocumentationRequestBuilders.get("/api/articles/{slug}", ARTICLE1.getSlug().getValue())
 					.contentType(MediaType.APPLICATION_JSON)
 					.header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
 			)
@@ -77,7 +77,7 @@ class ArticleQueryControllerTest extends ControllerTest {
 			);
 
 		then(getArticleQuery).should()
-			.getArticle(eq(ARTICLE1.getSlug().getSlug()), eq(userId));
+			.getArticle(eq(ARTICLE1.getSlug().getValue()), eq(userId));
 	}
 
 	@DisplayName("게시물 리스트 조회 Controller Test - 태그, 작성자, 즐겨찾기 여부로 조회 가능")

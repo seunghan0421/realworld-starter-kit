@@ -12,7 +12,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import com.hani.realworld.ControllerTest;
 
 @WebMvcTest(CommonDocController.class)
-public class CommonDocControllerTest extends ControllerTest {
+class CommonDocControllerTest extends ControllerTest {
 
 	@Test
 	void errorSample() throws Exception {

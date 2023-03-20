@@ -1,10 +1,11 @@
 package com.hani.realworld.infra.jwt;
 
+import static org.apache.commons.lang3.StringUtils.*;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -34,7 +35,7 @@ public class OptionalUserMethodArgumentResolver implements HandlerMethodArgument
 		String token = (String)authentication.getCredentials();
 		String email = (String)authentication.getPrincipal();
 
-		if (StringUtils.isEmpty(token)) {
+		if (isBlank(token)) {
 			return null;
 		}
 

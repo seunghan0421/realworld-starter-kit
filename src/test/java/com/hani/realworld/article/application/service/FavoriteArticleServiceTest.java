@@ -44,7 +44,7 @@ class FavoriteArticleServiceTest {
 			true,
 			1);
 
-		final String article1Slug = ARTICLE1.getSlug().getSlug();
+		final String article1Slug = ARTICLE1.getSlug().getValue();
 		final Long user2Id = USER2.getId().getValue();
 
 		given(loadArticleWithSlugPort.load(eq(article1Slug)))

@@ -8,12 +8,12 @@ import org.mockito.Mockito;
 import com.hani.realworld.common.util.PasswordEncoderUtil;
 import com.hani.realworld.infra.jwt.LoginToken;
 import com.hani.realworld.user.adapter.in.web.dto.request.LoginUserRequest;
-import com.hani.realworld.user.adapter.in.web.dto.response.RegisterUserRequest;
 import com.hani.realworld.user.adapter.in.web.dto.request.UpdateUserRequest;
+import com.hani.realworld.user.adapter.in.web.dto.response.RegisterUserRequest;
 import com.hani.realworld.user.domain.Password;
 import com.hani.realworld.user.domain.User;
 
-public class UserFixture {
+public final class UserFixture {
 
 	public static UserBuilder defaultUser() {
 		return new UserBuilder()

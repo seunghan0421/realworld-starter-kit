@@ -23,9 +23,9 @@ import com.hani.realworld.comment.adapter.in.dto.response.CommentResponse;
 import com.hani.realworld.comment.adapter.in.dto.response.MultipleCommentResponse;
 
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
-public class CommentAcceptanceTest extends AcceptanceTest {
+class CommentAcceptanceTest extends AcceptanceTest {
 
-	private final String uri = "/api/articles/" + ARTICLE1.getSlug().getSlug() + "/comments";
+	private final String uri = "/api/articles/" + ARTICLE1.getSlug().getValue() + "/comments";
 
 	@DisplayName("댓글 기능 Acceptance Test")
 	@TestFactory

@@ -14,8 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.hani.realworld.user.application.port.out.LoadUserWithEmailPort;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

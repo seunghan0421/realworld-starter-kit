@@ -41,7 +41,7 @@ class UpdateArticleServiceTest {
 		Article article = getMockARTICLE1();
 		ProfileResult response = ProfileResult.of(ARTICLE1.getAuthor(), false);
 
-		final String slug = ARTICLE1.getSlug().getSlug();
+		final String slug = ARTICLE1.getSlug().getValue();
 		final String authorName = ARTICLE1.getAuthor().getUser().getUsername();
 
 		given(loadArticleWithSlugPort.load(eq(slug)))
@@ -62,7 +62,7 @@ class UpdateArticleServiceTest {
 			USER1.getId().getValue());
 
 		// then
-		assertThat(result.getSlug()).isEqualTo(ARTICLE2.getSlug().getSlug());
+		assertThat(result.getSlug()).isEqualTo(ARTICLE2.getSlug().getValue());
 		assertThat(result.getTitle()).isEqualTo(ARTICLE2.getTitle());
 		assertThat(result.getDescription()).isEqualTo(ARTICLE2.getDescription());
 		assertThat(result.getBody()).isEqualTo(ARTICLE2.getBody());

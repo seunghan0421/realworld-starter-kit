@@ -18,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import com.hani.realworld.article.domain.Article;
-import com.hani.realworld.user.domain.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -63,7 +62,7 @@ public class ArticleJpaEntity {
 	private LocalDateTime updatedAt;
 
 	void update(Article article) {
-		this.slug = article.getSlug().getSlug();
+		this.slug = article.getSlug().getValue();
 		this.title = article.getTitle();
 		this.description = article.getDescription();
 		this.body = article.getBody();

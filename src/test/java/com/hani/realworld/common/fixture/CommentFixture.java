@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import com.hani.realworld.comment.domain.Comment;
 import com.hani.realworld.user.domain.Profile;
 
-public class CommentFixture {
+public final class CommentFixture {
 
 	public static CommentBuilder defaultComment() {
 		return new CommentBuilder()

@@ -2,7 +2,6 @@ package com.hani.realworld.common.exception;
 
 import lombok.Getter;
 
-// TODO: Exceptoion Status에 대해서 좀 더 공부하기
 @Getter
 public enum ErrorCode {
 
