@@ -32,13 +32,11 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * TODO: Bean Validation command validation error가 전부 담기게끔 리팩터가
-	 * enum type 일치하지 않아 binding 못할 경우 발생
-	 * 주로 @RequestParam enum으로 binding 못했을 경우 발생
+	 * 주로 @RequestParam enum으로 binding 못했을 경우, 파라미터에서 Validation이 실패할 경우 발생
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
 	protected ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException e) {
-		log.error("handleMethodArgumentTypeMismatchException", e);
+		log.error("handleConstraintViolationException", e);
 		final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, e.getConstraintViolations());
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
@@ -55,7 +53,7 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생합니다.
+	 * Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
 	protected ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {

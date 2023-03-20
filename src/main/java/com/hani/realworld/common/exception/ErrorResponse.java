@@ -1,7 +1,10 @@
 package com.hani.realworld.common.exception;
 
+import static com.hani.realworld.common.exception.ErrorCode.*;
+
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 
@@ -10,9 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * TODO: Exception 커스터마이징 하기
- */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -24,24 +24,26 @@ public class ErrorResponse {
 	private String code;
 
 	public static ErrorResponse of(ErrorCode code) {
-		return new ErrorResponse(code.getMessage(),
-			code.getStatus(),
-			null,
-			code.getCode());
+		return new ErrorResponse(code.getMessage(), code.getStatus(), null, code.getCode());
 	}
 
 	public static ErrorResponse of(Exception e) {
-		return new ErrorResponse(e.getMessage(),
-			0,
-			null,
-			"DDD");
+		ErrorCode code = METHOD_NOT_ALLOWED;
+
+		return new ErrorResponse(code.getMessage(), code.getStatus(), null, code.getCode());
 	}
 
-	// 이것도 커스터마이징
 	public static ErrorResponse of(ErrorCode code, Set<ConstraintViolation<?>> constraintViolations) {
+		List<FieldError> fieldErrors = constraintViolations.stream()
+			.map(cv -> new FieldError(
+				cv.getPropertyPath().toString(),
+				cv.getInvalidValue().toString(),
+				cv.getMessage()))
+			.collect(Collectors.toList());
+
 		return new ErrorResponse(code.getMessage(),
 			code.getStatus(),
-			null,
+			fieldErrors,
 			code.getCode());
 	}
 

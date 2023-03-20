@@ -5,7 +5,6 @@ import com.hani.realworld.user.domain.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-// TODO Getter가 없어도 ParameterBinding이 잘 작동하는지 확인
 @Getter
 @RequiredArgsConstructor
 public class LoginUserResult {
