@@ -43,7 +43,6 @@ public class SecurityConfiguration {
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-		// TODO: 요구사항에 맞게 Security 커스터마이징
 		http.authorizeRequests()
 			.antMatchers(OPTIONS).permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()

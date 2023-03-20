@@ -15,23 +15,23 @@ public enum ErrorCode {
 
 	// infra
 	TOKEN_EXPIRED(400, "I001", "your token is expired"),
-	UNAUTORIZED(400, "I002", "you are not authorized"),
+	UNAUTORIZED(401, "I002", "you are not authorized"),
 
 	// User
-	USER_ENTITY_NOT_FOUND(500, "U001", "user entity is not found"),
-	PROFILE_ENTITY_NOT_FOUND(500, "U002", "profile entity is not found"),
-	ALREADY_FOLLOW_PROFILE(500, "U003", "you already follow the profile"),
-	NOT_FOLLOWED_PROFILE(500, "U004", "you did not follow the profile"),
+	USER_ENTITY_NOT_FOUND(204, "U001", "user entity is not found"),
+	PROFILE_ENTITY_NOT_FOUND(204, "U002", "profile entity is not found"),
+	ALREADY_FOLLOW_PROFILE(409, "U003", "you already follow the profile"),
+	NOT_FOLLOWED_PROFILE(409, "U004", "you did not follow the profile"),
 
 	// Article
-	ARTICLE_ENTITY_NOT_FOUND(500, "A001", "article entity is not found"),
-	ALREADY_FAVORITED_ARTICLE(500, "A002", "you already favorited the article"),
-	NOT_FAVORITED_ARTICLE(500, "A003", "you did not favorited the article"),
-	UNAUTHORIZED_ARTICLE(500, "A004", "you are not owner of article"),
+	ARTICLE_ENTITY_NOT_FOUND(204, "A001", "article entity is not found"),
+	ALREADY_FAVORITED_ARTICLE(409, "A002", "you already favorited the article"),
+	NOT_FAVORITED_ARTICLE(409, "A003", "you did not favorited the article"),
+	UNAUTHORIZED_ARTICLE(403, "A004", "you are not owner of article"),
 
 	// Comment
-	COMMENT_ENTITY_NOT_FOUND(500, "CM001", "comment entity is not found"),
-	UNAUTHORIZED_COMMENT(500, "CM002", "you are not owner of comment");
+	COMMENT_ENTITY_NOT_FOUND(204, "CM001", "comment entity is not found"),
+	UNAUTHORIZED_COMMENT(403, "CM002", "you are not owner of comment");
 
 
 	private final String code;

@@ -1,4 +1,4 @@
-= REST Docs 문서 만들기 - 진행중
+= Realworld - Spring Rest Docs 문서
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs

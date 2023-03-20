@@ -35,6 +35,11 @@ RESTful notes tries to adhere as closely as possible to standard HTTP and REST c
 The resource's URI is available from the response's
 `Location` header
 
+| `204 No Content`
+| a request has succeeded, but that the client doesn't need to navigate away from its current page.
+
+
+
 | `400 Bad Request`
 | The request was malformed.
 The response body will include an error providing further information
@@ -47,7 +52,15 @@ The response body will include an error providing further information
 
 | `404 Not Found`
 | The requested resource did not exist
+
+| `409 Conflict`
+| a request conflict with the current state of the target resource.
+
+| `500 Internal Server Error`
+| the server encountered an unexpected condition that prevented it from fulfilling the request.
 |===
+
+
 
 [[overview-error-response]]
 === HTTP Error Response
